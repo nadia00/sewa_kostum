@@ -15,10 +15,15 @@ class CreateJasaTable extends Migration
     {
         Schema::create('jasa', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_user')->unsigned();
-            $table->foreign('id_user')->references('id')->on('user');
-            $table->string('nama_jasa', 100);
-            $table->string('nama_pemilik', 100);
+            $table->integer('id_alamat')->unsigned();
+            $table->foreign('id_alamat')->references('id')->on('alamat');
+            $table->string('email', 50)->unique();
+            $table->string('username', 50)->unique();
+            $table->string('password', 200);
+            $table->string('telp', 20);
+            $table->string('nama_jasa', 100)->nullable();
+            $table->string('nama_pemilik', 100)->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -15,10 +15,15 @@ class CreatePenyewaTable extends Migration
     {
         Schema::create('penyewa', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_user')->unsigned();
-            $table->foreign('id_user')->references('id')->on('user');
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
+            $table->integer('id_alamat')->unsigned();
+            $table->foreign('id_alamat')->references('id')->on('alamat');
+            $table->string('email', 50)->unique();
+            $table->string('username', 50)->unique();
+            $table->string('password', 200);
+            $table->string('telp', 20);
+            $table->string('first_name', 50)->nullable();
+            $table->string('last_name', 50)->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
