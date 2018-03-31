@@ -14,16 +14,21 @@ class LoginUserController extends Controller
         return view('auth/login-jasa');
     }
     
-    public function loginJasa(Request $request, $id){
+    public function loginJasa(Request $request){
         $email = $request->post('email');
         $password = $request->post('password');
         
-        $query = DB::table('jasa')->where('email', $email)->first();
-        
-        
+        $query = DB::table('jasa')->where('email', $email)->first();        
         if(Hash::check($password, $query->password)){
-            return redirect('/jasa');
+            session([
+                'id' => $query->id,
+                'email' => $query->email,
+                'userame' => $query->username,
+                'login' => true,
+                'states' => 'jasa',
+            ]);
         }
+        return redirect('/jasa');
     }
     
     public function showPenyewa() {
@@ -36,8 +41,15 @@ class LoginUserController extends Controller
         
         $query = DB::table('penyewa')->where('email', $email)->first();
         if(Hash::check($password, $query->password)){
-            return redirect('/penyewa');
-        }
+            session([
+                'id' => $query->id,
+                'email' => $query->email,
+                'userame' => $query->username,
+                'login' => true,
+                'states' => 'jasa',
+            ]);
+        }   
+        return redirect('/penyewa');
+        
     }
-    
 }

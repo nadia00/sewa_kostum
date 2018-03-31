@@ -15,8 +15,8 @@ class CreatePenyewaTable extends Migration
     {
         Schema::create('penyewa', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_alamat')->unsigned();
-            $table->foreign('id_alamat')->references('id')->on('alamat');
+            // $table->integer('id_alamat')->unsigned();
+            // $table->foreign('id_alamat')->references('id')->on('alamat');
             $table->string('email', 50)->unique();
             $table->string('username', 50)->unique();
             $table->string('password', 200);
