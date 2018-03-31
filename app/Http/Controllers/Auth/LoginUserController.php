@@ -18,17 +18,20 @@ class LoginUserController extends Controller
         $email = $request->post('email');
         $password = $request->post('password');
         
-        $query = DB::table('jasa')->where('email', $email)->first();        
-        if(Hash::check($password, $query->password)){
-            session([
-                'id' => $query->id,
-                'email' => $query->email,
-                'userame' => $query->username,
-                'login' => true,
-                'states' => 'jasa',
-            ]);
+        $query = DB::table('jasa')->where('email', $email);        
+        if($query->count()){
+            $data = $query->first();
+            if(Hash::check($password, $data->password)){
+                session([
+                    'id' => $data->id,
+                    'email' => $data->email,
+                    'userame' => $data->username,
+                    'login' => true,
+                    'states' => 'jasa',
+                ]);
+            }
         }
-        return redirect('/jasa');
+       return redirect('/jasa');
     }
     
     public function showPenyewa() {
