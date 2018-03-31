@@ -14,11 +14,13 @@ class LoginUserController extends Controller
         return view('auth/login-jasa');
     }
     
-    public function loginJasa(Request $request){
+    public function loginJasa(Request $request, $id){
         $email = $request->post('email');
         $password = $request->post('password');
         
         $query = DB::table('jasa')->where('email', $email)->first();
+        
+        
         if(Hash::check($password, $query->password)){
             return redirect('/jasa');
         }

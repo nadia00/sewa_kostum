@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Session;
 
 class ProfilController extends Controller
 {
-    public function showJasa() {
-        
+    public function showJasa(Request $request) {
+        if($request->session()->has('jasa')){
+            return view('jasa.profil');
+        }else{
             return redirect('/jasa/login');
-        
-        
+        }
     }
     
     public function profilJasa(Request $request){
