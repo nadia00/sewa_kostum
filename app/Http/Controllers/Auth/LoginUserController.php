@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class LoginUserController extends Controller
 {
-    public function showLoginJasa() {
+    public function showJasa() {
         return view('auth/login-jasa');
     }
     
@@ -20,10 +20,22 @@ class LoginUserController extends Controller
         
         $query = DB::table('jasa')->where('email', $email)->first();
         if(Hash::check($password, $query->password)){
-            return redirect('/jasa/profil');
+            return redirect('/jasa');
         }
     }
     
+    public function showPenyewa() {
+        return view('auth/login-penyewa');
+    }
     
+    public function loginPenyewa(Request $request){
+        $email = $request->post('email');
+        $password = $request->post('password');
+        
+        $query = DB::table('penyewa')->where('email', $email)->first();
+        if(Hash::check($password, $query->password)){
+            return redirect('/penyewa');
+        }
+    }
     
 }

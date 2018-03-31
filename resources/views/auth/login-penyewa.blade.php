@@ -11,12 +11,10 @@
     <body>
 
         <div class="container">
-            <h2>Login Jasa</h2>
-            <form method="POST" action="{{ route('login.jasa.submit') }}" >
+            <h2>Login Penyewa</h2>
+            <form method="POST" action="{{ route('login.penyewa.submit') }}" >
                 {{ csrf_field() }}
 
-                <span class="label label-success">{{ Session::get('message') }} </span>
-                
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
