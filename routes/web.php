@@ -21,6 +21,7 @@ Route::prefix('/jasa')->group(function(){
     
     Route::get('/login', 'Auth\LoginUserController@showJasa');
     Route::post('/login', 'Auth\LoginUserController@loginJasa')->name('login.jasa.submit');
+    Route::get('/logout', 'Auth\LogoutUserController@logoutJasa');
     
     Route::get('/', 'ProfilController@showJasa');
 });
@@ -38,4 +39,6 @@ Route::prefix('/penyewa')->group(function(){
 
 //Auth::roregisterJasautes();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
+
+Route::get('/', 'WelcomeController@index');

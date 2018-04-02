@@ -13,12 +13,11 @@ class LoginUserController extends Controller
     public function showJasa() {
         return view('auth/login-jasa');
     }
-    
     public function loginJasa(Request $request){
-        $email = $request->post('email');
+        $username = $request->post('username');
         $password = $request->post('password');
         
-        $query = DB::table('jasa')->where('email', $email);        
+        $query = DB::table('jasa')->where('username', $username);        
         if($query->count()){
             $data = $query->first();
             if(Hash::check($password, $data->password)){
@@ -37,22 +36,24 @@ class LoginUserController extends Controller
     public function showPenyewa() {
         return view('auth/login-penyewa');
     }
-    
     public function loginPenyewa(Request $request){
-        $email = $request->post('email');
+        $username = $request->post('username');
         $password = $request->post('password');
         
-        $query = DB::table('penyewa')->where('email', $email)->first();
-        if(Hash::check($password, $query->password)){
-            session([
-                'id' => $query->id,
-                'email' => $query->email,
-                'userame' => $query->username,
-                'login' => true,
-                'states' => 'jasa',
-            ]);
-        }   
-        return redirect('/penyewa');
-        
+        $query = DB::table('penyewa')->where('username', $email);        
+        if($query->count()){
+            $data = $query->first();
+            if(Hash::check($password, $data->password)){
+                session([
+                    'id' => $data->id,
+                    'email' => $data->email,
+                    'userame' => $data->username,
+                    'login' => true,
+                    'states' => 'jasa',
+                ]);
+            }
+        }
+       return redirect('/penyewa');
     }
+    
 }
