@@ -24,7 +24,10 @@ class LoginUserController extends Controller
                 session([
                     'id' => $data->id,
                     'email' => $data->email,
-                    'userame' => $data->username,
+                    'username' => $data->username,
+                    'telp' => $data->telp,
+                    'nama_jasa ' => $data->nama_jasa,
+                    'nama_pemilik' => $data->nama_pemilik,
                     'login' => true,
                     'states' => 'jasa',
                 ]);
@@ -40,20 +43,26 @@ class LoginUserController extends Controller
         $username = $request->post('username');
         $password = $request->post('password');
         
-        $query = DB::table('penyewa')->where('username', $email);        
+        $query = DB::table('penyewa')->where('username', $username);        
         if($query->count()){
             $data = $query->first();
             if(Hash::check($password, $data->password)){
                 session([
                     'id' => $data->id,
                     'email' => $data->email,
-                    'userame' => $data->username,
+                    'username' => $data->username,
                     'login' => true,
-                    'states' => 'jasa',
+                    'states' => 'penyewa',
                 ]);
             }
         }
        return redirect('/penyewa');
     }
     
+
+
+    //nyobak. nanti hapus lagi ya.
+    public function showLogin(){
+        return view('login-baru');
+    }
 }

@@ -28,6 +28,14 @@
                     <input type="text" class="form-control" id="telp" placeholder="Enter telepon" name="telp">
                 </div>
                 <div class="form-group">
+                    <label for="telp">Nama Jasa:</label>
+                    <input type="text" class="form-control" id="telp" placeholder="Enter jasa" name="nama_jasa">
+                </div>
+                <div class="form-group">
+                    <label for="telp">Nama Pemilik:</label>
+                    <input type="text" class="form-control" id="telp" placeholder="Enter pemilik" name="nama_pemilik">
+                </div>
+                <div class="form-group">
                     <label for="pwd">Password:</label>
                     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
                 </div>

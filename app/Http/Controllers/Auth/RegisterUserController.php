@@ -18,12 +18,16 @@ class RegisterUserController extends Controller {
         $username = $request->post('username');
         $password = $request->post('password');
         $telp = $request->post('telp');
+        $nama_jasa = $request->post('nama_jasa');
+        $nama_pemilik = $request->post('nama_pemilik');
 
         $data = DB::table('jasa')->insert([
             'email' => $email,
             'username' => $username,
             'telp' => $telp,
             'password' => Hash::make($password),
+            'nama_jasa' => $nama_jasa,
+            'nama_pemilik' => $nama_pemilik,
         ]);
 
         if ($data) {
@@ -42,12 +46,16 @@ class RegisterUserController extends Controller {
         $username = $request->post('username');
         $password = $request->post('password');
         $telp = $request->post('telp');
+        $first_name = $request->post('first_name');
+        $last_name = $request->post('last_name');
 
         $data = DB::table('penyewa')->insert([
             'email' => $email,
             'username' => $username,
             'telp' => $telp,
             'password' => Hash::make($password),
+            'first_name' => $first_name,
+            'last_name' => $last_name,
         ]);
 
         if ($data) {

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LogoutUserController extends Controller
 {
-    public function logoutJasa(Request $request){
+    public function logout(Request $request){
         
         Session::flush();
         

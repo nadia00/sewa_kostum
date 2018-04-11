@@ -14,11 +14,13 @@ class CreateGambarTable extends Migration
     public function up()
     {
         Schema::create('gambar', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('gambar_kostum');
+            $table->increments('id_gambar');
+            $table->integer('id_kostum')->unsigned();
+            $table->foreign('id_kostum')->references('id')->on('kostum');
+            $table->text('gambar');
+            $table->string('filename');
             $table->float('size');
             $table->string('tipe', 100);
-            $table->string('nama', 100);
             $table->string('view', 100);
             $table->timestamps();
         });

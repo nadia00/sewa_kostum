@@ -19,8 +19,6 @@ class CreateKostumTable extends Migration
             $table->foreign('id_kategori')->references('id')->on('kategori');
             $table->integer('id_jasa')->unsigned();
             $table->foreign('id_jasa')->references('id')->on('jasa');
-            $table->integer('id_gambar')->unsigned();
-            $table->foreign('id_gambar')->references('id')->on('gambar');
             $table->string('nama', 100);
             $table->text('keterangan');
             $table->integer('harga');
