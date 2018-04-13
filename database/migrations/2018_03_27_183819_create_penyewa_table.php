@@ -21,8 +21,8 @@ class CreatePenyewaTable extends Migration
             $table->string('username', 50)->unique();
             $table->string('password', 200);
             $table->string('telp', 20);
-            $table->string('first_name', 50)->nullable();
-            $table->string('last_name', 50)->nullable();
+            $table->string('nama_depan', 50)->nullable();
+            $table->string('nama_belakang', 50)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -59,4 +59,11 @@ Route::get('/homeshop', function(){
 
 
 
+Route::get('/login-baru', function(){
+    return view('auth/login-baru');
+});
+Route::get('/register-baru', function(){
+    return view('auth/register-baru');
+});
+
 

@@ -29,11 +29,11 @@
                 </div>
                 <div class="form-group">
                     <label for="first_name">Nama Depan:</label>
-                    <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name">
+                    <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="nama_depan">
                 </div>
                 <div class="form-group">
                     <label for="last_name">Nama Belakang:</label>
-                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name">
+                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="nama_belakang">
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>

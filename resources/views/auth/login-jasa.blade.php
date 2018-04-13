@@ -15,7 +15,6 @@
             <form method="POST" action="{{ route('login.jasa.submit') }}" >
                 {{ csrf_field() }}
 
-                <span class="label label-success">{{ Session::get('message') }} </span>
                 
                 <div class="form-group">
                     <label for="username">Username:</label>

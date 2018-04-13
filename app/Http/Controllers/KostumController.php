@@ -13,11 +13,17 @@ use App\Gambar;
 class KostumController extends Controller
 {
     public function showKostumJasa(){
-        return view('jasa.kostum');
+        $kostum = $this->tampilKostum();
+        $gambar = $this->tampilGambar($kostum);
+//        print_r($data);
+        return view('jasa.kostum')
+        ->with('kostum', $kostum);
     }
-    
     public function showTambahKostum(){
         return view('jasa.kostum-tambah');
+    }
+    public function showEditKostum(){
+        return view('jasa.kostum-edit');
     }
 
     public function uploadKostum(UploadKostum $request){
@@ -45,12 +51,7 @@ class KostumController extends Controller
         // }
         // return redirect('jasa/kostum');
     }
-
-    public function showEditKostum(){
-        return view('jasa.kostum-edit');
-    }
     public function editKostum(Request $request){
-        
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -67,4 +68,14 @@ class KostumController extends Controller
 
         return back()->with('success','Image Upload successful');
     }
+    public function tampilKostum(){
+        $kostum = DB::table('kostum')->where('id_jasa', session('id'))->get();
+        return $kostum;
+    }
+
+    public function tampilGambar($kostum){
+       $gambar = DB::table('gambar')->where('id_kostum', $kostum[0]->id)->get();
+       return $gambar;
+    }
+
 }

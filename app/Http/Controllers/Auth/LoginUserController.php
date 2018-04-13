@@ -59,6 +59,7 @@ class LoginUserController extends Controller
        return redirect('/penyewa');
     }
     
+    
 
 
     //nyobak. nanti hapus lagi ya.
