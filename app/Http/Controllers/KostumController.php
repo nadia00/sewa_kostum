@@ -15,9 +15,10 @@ class KostumController extends Controller
     public function showKostumJasa(){
         $kostum = $this->tampilKostum();
         $gambar = $this->tampilGambar($kostum);
-//        print_r($data);
+        
         return view('jasa.kostum')
-        ->with('kostum', $kostum);
+        ->with('kostum', $kostum)
+        ->with('gambar', $gambar);
     }
     public function showTambahKostum(){
         return view('jasa.kostum-tambah');
@@ -52,19 +53,7 @@ class KostumController extends Controller
         // return redirect('jasa/kostum');
     }
     public function editKostum(Request $request){
-        $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        $image = $request->file('image');
-        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/image');
-        $image->move($destinationPath, $input['imagename']);
-        $this->postImage->add($input);
         
-
-        $data = DB::table('gambar')->insert([
-            ''
-        ]);
 
         return back()->with('success','Image Upload successful');
     }

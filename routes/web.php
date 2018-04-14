@@ -56,7 +56,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('/homeshop', function(){
     return view('home');
 });
-
+Route::get('/homeshop', 'HomeController@tampilKostum');
 
 
 Route::get('/login-baru', function(){
