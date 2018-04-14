@@ -13,12 +13,10 @@ use App\Gambar;
 class KostumController extends Controller
 {
     public function showKostumJasa(){
-        $kostum = $this->tampilKostum();
-        $gambar = $this->tampilGambar($kostum);
-        
+        $data = $this->tampilKostum();
         return view('jasa.kostum')
-        ->with('kostum', $kostum)
-        ->with('gambar', $gambar);
+        ->with('kostum', $data['kostum'])
+        ->with('gambar', $data['gambar']);
     }
     public function showTambahKostum(){
         return view('jasa.kostum-tambah');
@@ -58,13 +56,9 @@ class KostumController extends Controller
         return back()->with('success','Image Upload successful');
     }
     public function tampilKostum(){
-        $kostum = DB::table('kostum')->where('id_jasa', session('id'))->get();
-        return $kostum;
+        $data = array();
+        $data['kostum'] = DB::table('kostum')->where('id_jasa', session('id'))->get();
+        $data['gambar'] = DB::table('gambar')->where('id_kostum', $data['kostum']->id)->first();
+        return $data;
     }
-
-    public function tampilGambar($kostum){
-       $gambar = DB::table('gambar')->where('id_kostum', $kostum[0]->id)->get();
-       return $gambar;
-    }
-
 }

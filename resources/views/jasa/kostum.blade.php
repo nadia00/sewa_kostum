@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Upload Kostum Anda</title>
@@ -22,12 +22,12 @@
         </div>
 
     </body>
-</html> --}}
+</html>
 
 
 
 
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Kostum</title>
@@ -68,4 +68,4 @@
 </div>
 
 </body>
-</html>
+</html> --}}

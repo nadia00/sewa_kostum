@@ -17,8 +17,8 @@ class CreateGambarTable extends Migration
             $table->increments('id_gambar');
             $table->integer('id_kostum')->unsigned();
             $table->foreign('id_kostum')->references('id')->on('kostum');
-            $table->text('gambar');
             $table->string('filename');
+            $table->string('filepath');
             $table->float('size');
             $table->string('tipe', 100);
             $table->string('view', 100);
