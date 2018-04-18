@@ -11,8 +11,8 @@
     <body>
 
         <div class="container">
-            <h2>Register Jasa</h2>
-            <form method="POST" action="{{ route('register.jasa.submit') }}" >
+            <h2>Register Admin</h2>
+            <form method="POST" action="{{ route('register.admin.submit') }}" >
                 {{ csrf_field() }}
 
                 <div class="form-group">
@@ -40,7 +40,6 @@
                     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
                 </div>
                 <button type="submit" class="btn btn-default">Register</button>
-                <span><a href=" {{ url('/jasa/login') }} "> Sudah punya akun?</a></span>
             </form>
         </div>
 

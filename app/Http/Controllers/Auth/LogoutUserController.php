@@ -13,6 +13,6 @@ class LogoutUserController extends Controller
         
         Session::flush();
         
-        return redirect('/');
+        return redirect('/homeshop');
     }
 }

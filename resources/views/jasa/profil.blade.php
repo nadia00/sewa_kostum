@@ -40,29 +40,32 @@
 </head>
 <body>
 
+  
+
 <div class="container">
+    <button><a href=" {{ url('/logout') }} ">Logout</a></button>
   <h2>Profil Jasa</h2>
-  <form action="/action_page.php">
+  <form>
     <div class="form-group">
       <label>Nama Jasa:</label>
-      <input type="text" class="form-control" name="email" value="{{session('nama_jasa')}}" disabled>
+      <input type="text" class="form-control" name="nama_jasa" value="{{session('nama_jasa')}}" disabled>
     </div>
     <div class="form-group">
       <label>Email:</label>
-      <input type="email" class="form-control" name="email" value="{{session('email')}}" disabled>
+      <input type="text" class="form-control" name="email" value="{{session('email')}}" disabled>
     </div>
     <div class="form-group">
             <label>Username:</label>
-            <input type="text" class="form-control" name="email" value="{{session('username')}}" disabled>
+            <input type="text" class="form-control" name="username" value="{{session('username')}}" disabled>
           </div>
     <div class="form-group">
         <label>No Telepon:</label>
-        <input type="text" class="form-control" name="email" value="{{session('telp')}}" disabled>
+        <input type="text" class="form-control" name="telp" value="{{session('telp')}}" disabled>
     </div>
     <hr>
     <div class="form-group">
       <label>Nama Pemilik:</label>
-      <input type="text" class="form-control" name="password" value="{{session('nama_pemilik')}}"disabled>
+      <input type="text" class="form-control" name="nama_pemilik" value="{{session('nama_pemilik')}}"disabled>
     </div>
     <button type="submit" class="btn btn-default">Edit Data</button>
   </form>

@@ -11,6 +11,7 @@
     <body>
 
         <div class="container">
+                <button><a href=" {{ url('/logout') }} ">Logout</a></button>
             <h2>Upload Kostum</h2>
             @if (count($errors) > 0)
         <ul>
@@ -51,10 +52,6 @@
                 <div class="form-group">
                     <label for="username">Gambar:</label>
                     <input type="file" class="form-control" id="stok" placeholder="Pilih Gambar" name="gambar[]" multiple>
-                </div>
-                <div class="form-group">
-                    <label for="stok">View:</label>
-                    <input type="text" class="form-control" id="stok" placeholder="Enter view" name="view">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>

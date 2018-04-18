@@ -28,18 +28,15 @@
                     <input type="text" class="form-control" id="telp" placeholder="Enter telepon" name="telp">
                 </div>
                 <div class="form-group">
-                    <label for="first_name">Nama Depan:</label>
-                    <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="nama_depan">
-                </div>
-                <div class="form-group">
-                    <label for="last_name">Nama Belakang:</label>
-                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="nama_belakang">
+                    <label for="first_name">Nama:</label>
+                    <input type="text" class="form-control" id="nama" placeholder="Enter nama" name="nama">
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
                     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
                 </div>
                 <button type="submit" class="btn btn-default">Register</button>
+                <span><a href=" {{ url('/penyewa/login') }} "> Sudah punya akun? </a></span>
             </form>
         </div>
 

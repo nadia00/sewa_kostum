@@ -30,12 +30,6 @@ class HomeController extends Controller
 
     //
 
-    public function showHome(){
-        $kostum = $this->tampilKostum();
-        return view('home')
-        ->with('kostum',  $kostum);
-    }
-
     public function tampilKostum(){
         $data = DB::table('KOSTUM AS KM')
             ->join('JASA AS JS', 'KM.ID_JASA','=','JS.ID')
@@ -68,7 +62,15 @@ class HomeController extends Controller
         return json_decode(json_encode($result), FALSE);
     }
 
+    public function detail(){
+        $data = DB::table('KOSTUM AS KM')
+            ->join('JASA AS JS', 'KM.ID_JASA','=','JS.ID')
+            ->join('KATEGORI AS KI', 'KM.ID_KATEGORI','=','KI.ID')
+            ->select('KM.ID AS id_kostum', 'JS.ID AS id_jasa', 'KM.NAMA AS nama_kostum',
+                'KI.NAMA AS kategori','KM.HARGA AS harga', 'KM.STOK AS stok', 'JS.NAMA_JASA AS nama_jasa', 'JS.NAMA_PEMILIK AS nama_pemilik')
+            ->where('KM.ID', '=', '?');
 
+    }
 
 
 }

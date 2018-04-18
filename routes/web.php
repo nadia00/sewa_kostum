@@ -24,8 +24,6 @@ Route::prefix('/jasa')->group(function(){
     Route::get('/login', 'Auth\LoginUserController@showJasa');
     Route::post('/login', 'Auth\LoginUserController@loginJasa')->name('login.jasa.submit');
     
-    Route::get('/logout', 'Auth\LogoutUserController@logout');
-
     Route::get('/', 'ProfilController@showJasa');
 
     Route::get('/kostum', 'KostumController@showKostumJasa');
@@ -33,37 +31,45 @@ Route::prefix('/jasa')->group(function(){
     Route::get('/tambah-kostum', 'KostumController@showTambahKostum')->name('tambah.kostum');
     Route::post('/tambah-kostum', 'KostumController@uploadKostum')->name('kostum.submit');
 
+    Route::get('/delete/{id}','KostumController@delKostum'); 
+
     Route::get('/edit-kostum', 'KostumController@showEditKostum');
     Route::post('/edit-kostum', 'KostumController@editKostum')->name('edit.kostum.submit');
 });
 
 Route::prefix('/penyewa')->group(function(){
     Route::get('/register', 'Auth\RegisterUserController@showPenyewa');
-    Route::post('/register', 'Auth\RegisterUserController@registerPenyewa')->name('register.penyewa.submit');
+    Route::post('/postregister', 'Auth\RegisterUserController@registerPenyewa')->name('register.penyewa.submit');
     
     Route::get('/login', 'Auth\LoginUserController@showPenyewa');
     Route::post('/login', 'Auth\LoginUserController@loginPenyewa')->name('login.penyewa.submit');
     
-    Route::get('/logout', 'Auth\LogoutUserController@logout');
-    
     Route::get('/', 'ProfilController@showPenyewa');
 });
-
-
-    
-Route::get('/', 'WelcomeController@index');
 
 Route::get('/homeshop', function(){
     return view('home');
 });
 Route::get('/homeshop', 'HomeController@tampilKostum');
+Route::get('/detail', function(){
+    return view('detail');
+});
+Route::get('/detail', 'HomeController@tampilKostum');
 
 
-Route::get('/login-baru', function(){
-    return view('auth/login-baru');
-});
-Route::get('/register-baru', function(){
-    return view('auth/register-baru');
-});
+Route::get('/logout', 'Auth\LogoutUserController@logout');    
+
+
+
+
+
+// Route::get('/', 'WelcomeController@index');
+
+// Route::get('/login-baru', function(){
+//     return view('auth/login-baru');
+// });
+// Route::get('/register-baru', function(){
+//     return view('auth/register-baru');
+// });
 
 

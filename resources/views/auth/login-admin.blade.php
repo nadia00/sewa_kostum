@@ -11,10 +11,11 @@
     <body>
 
         <div class="container">
-            <h2>Login Penyewa</h2>
-            <form method="POST" action="{{ route('login.penyewa.submit') }}" >
+            <h2>Login Admin</h2>
+            <form method="POST" action="{{ route('login.admin.submit') }}" >
                 {{ csrf_field() }}
 
+                
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
@@ -24,9 +25,8 @@
                     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
                 </div>
                 <button type="submit" class="btn btn-default">Login</button>
-                <span><a href=" {{ url('/penyewa/register') }} "> Belum punya akun?</a></span>
+                <span><a href=" {{ url('/jasa/register') }} "> Belum punya akun?</a></span>
             </form>
-            
         </div>
 
     </body>

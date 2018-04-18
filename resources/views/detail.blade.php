@@ -27,12 +27,10 @@
   <div class="row">
 @foreach($result as $kostum)
     <div class="col-sm-3 col-xs-6 ">
-      <div class="panel panel-primary">
-      <div class="panel-heading"></div>
-        <div class="panel-body"><img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar)}}" class="img-responsive center-block" alt="Image"></div>
-        <a href=" {{ url('/detail') }} "><div class="panel-footer"> {{$kostum->nama_kostum}}</div></a>
+        <div class="panel-footer">Rp {{$kostum->nama}}</div>
+        <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar)}}" class="center block">
         <div class="panel-footer">Rp {{$kostum->harga}}</div>
-      </div>
+
     </div>
     
 @endforeach

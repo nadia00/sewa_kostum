@@ -26,7 +26,7 @@ class LoginUserController extends Controller
                     'email' => $data->email,
                     'username' => $data->username,
                     'telp' => $data->telp,
-                    'nama_jasa ' => $data->nama_jasa,
+                    'nama_jasa' => $data->nama_jasa,
                     'nama_pemilik' => $data->nama_pemilik,
                     'login' => true,
                     'states' => 'jasa',
@@ -37,7 +37,7 @@ class LoginUserController extends Controller
     }
     
     public function showPenyewa() {
-        return view('auth/login-penyewa');
+        return view('auth/login-penyewa'); 
     }
     public function loginPenyewa(Request $request){
         $username = $request->post('username');
@@ -49,8 +49,10 @@ class LoginUserController extends Controller
             if(Hash::check($password, $data->password)){
                 session([
                     'id' => $data->id,
+                    'nama' => $data->nama,
                     'email' => $data->email,
                     'username' => $data->username,
+                    'telp' => $data->telp,
                     'login' => true,
                     'states' => 'penyewa',
                 ]);

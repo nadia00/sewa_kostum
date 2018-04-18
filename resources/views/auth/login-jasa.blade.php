@@ -25,6 +25,7 @@
                     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
                 </div>
                 <button type="submit" class="btn btn-default">Login</button>
+                <span><a href=" {{ url('/jasa/register') }} "> Belum punya akun?</a></span>
             </form>
         </div>
 

@@ -46,16 +46,14 @@ class RegisterUserController extends Controller {
         $username = $request->post('username');
         $password = $request->post('password');
         $telp = $request->post('telp');
-        $first_name = $request->post('first_name');
-        $last_name = $request->post('last_name');
+        $nama = $request->post('nama');
 
         $data = DB::table('penyewa')->insert([
             'email' => $email,
             'username' => $username,
             'telp' => $telp,
             'password' => Hash::make($password),
-            'first_name' => $first_name,
-            'last_name' => $last_name,
+            'nama' => $nama,
         ]);
 
         if ($data) {

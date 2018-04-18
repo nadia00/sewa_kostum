@@ -20,7 +20,7 @@ class ProfilController extends Controller
 
     public function showPenyewa(Request $request) {
         if(session('login')){
-            $data = DB::select('select * from penyewa');
+            $data = DB::select('select * from penyewa where username=?', [session('username')]);
             return view('penyewa.profil',['data'=>$data]);
         }else{
             return redirect('/penyewa/login');

@@ -11,6 +11,7 @@
     <body>
 
         <div class="container">
+                <button><a href=" {{ url('/logout') }} ">Logout</a></button>
             <h2>Pesanan Offline</h2>
             @if (count($errors) > 0)
         <ul>
