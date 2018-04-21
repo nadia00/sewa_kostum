@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class LoginUserController extends Controller
 {
+
     public function showJasa() {
         return view('auth/login-jasa');
     }
@@ -39,6 +40,7 @@ class LoginUserController extends Controller
     public function showPenyewa() {
         return view('auth/login-penyewa'); 
     }
+
     public function loginPenyewa(Request $request){
         $username = $request->post('username');
         $password = $request->post('password');
@@ -58,11 +60,18 @@ class LoginUserController extends Controller
                 ]);
             }
         }
-       return redirect('/penyewa');
+       return redirect('/');
     }
     
-    
-
+    public function cekLogin(Request $request){
+        $id_kostum = $request->id;
+        if(session('login')==false){
+            return redirect('/penyewa/login');
+        }else{
+            return view('pesan')
+            ->with('id kostum', $id_kostum);
+        }
+    }
 
     //nyobak. nanti hapus lagi ya.
     public function showLogin(){

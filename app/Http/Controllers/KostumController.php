@@ -12,19 +12,15 @@ use App\Gambar;
 
 class KostumController extends Controller
 {
-    
-    public function showTambahKostum(){
+    public function showTambahJasa(){
         return view('jasa.kostum-tambah');
     }
-    public function showEditKostum(){
-        return view('jasa.kostum-edit');
-    }
-
-    public function uploadKostum(UploadKostum $request){
+    public function tambahJasa(UploadKostum $request){
         $kostum = Kostum::create($request->all());
         // Making counting of uploaded images
         $file_count = count($request->gambar);
-        var_dump($file_count);
+        // var_dump($file_count);
+        
         foreach($request->gambar as $gambar) {
             $filepath = $gambar->store('gambar');
             $filename = $gambar->getClientOriginalName();
@@ -37,28 +33,24 @@ class KostumController extends Controller
                 'filepath' => $filepath,
                 'tipe' => $filetype
             ]);
-
         }
-
-        // foreach ($request->gambar as $gambar) {
-        //     $image = $gambar;
-        // }
-        // return redirect('jasa/kostum');
+        return redirect('jasa/kostum');
     }
-    public function editKostum(Request $request){
+
+    public function showEditJasa(){
+        return view('jasa.kostum-edit');
+    }
+    public function editJasa(Request $request){
         
 
     }
 
-
-    public function showKostumJasa(){
-        $kostum = $this->tampilKostum();
-        // var_dump($data);
+    public function showJasa(){
+        $kostum = $this->getKostumJasa();
         return view('jasa.kostum')
         ->with('kostum', $kostum);
     }
-
-    public function tampilKostum(){
+    public function getKostumJasa(){
         $data = DB::table('KOSTUM AS KM')
             ->join('JASA AS JS', 'KM.ID_JASA','=','JS.ID')
             ->join('KATEGORI AS KI', 'KM.ID_KATEGORI','=','KI.ID')
@@ -66,11 +58,11 @@ class KostumController extends Controller
                 'KI.NAMA AS kategori','KM.HARGA AS harga', 'KM.STOK AS stok', 'JS.NAMA_JASA AS nama_jasa', 'JS.NAMA_PEMILIK AS nama_pemilik')
             ->where('KM.ID_JASA', '=',session('id'))
             ->get();
-        $result = $this->getCostumes($data);
-//        var_dump($result);
+
+        $result = $this->detailKostumJasa($data);
         return $result;
     }
-    public function getCostumes($data){
+    public function detailKostumJasa($data){
         $result = array();
         foreach ($data as $val){
             $image = DB::table('GAMBAR')->where('ID_KOSTUM','=',"$val->id_kostum")->first();
@@ -88,20 +80,63 @@ class KostumController extends Controller
         }
         return json_decode(json_encode($result), FALSE);
     }
-    // public function tampilKostum(){
-    //     $data = array();
-    //     $data['kostum'] = DB::table('kostum')->where('id_jasa', session('id'))->get();
-    //     $data['gambar'] = DB::table('gambar')->where('id_kostum', $data['kostum']->id)->first();
+
+    public function delKostum($id){
+        DB::delete('delete from gambar where id = ?',[$id]);
+    }
 
 
-    //     // $data = DB::table('KOSTUM AS K')
-    //     //     ->join('JASA AS J', 'K.ID_JASA', '=', 'J.ID')
-    //     //     ->join('GAMBAR AS G', function ($join) {
-    //     //         $join->on('G.ID_KOSTUM', '=', 'K.ID'); })
-    //     //     ->select('K.*', 'G.FILENAME')
-    //     //     ->get();
+    public function tampilAll(){
+        $data = DB::table('KOSTUM AS KM')
+            ->join('JASA AS JS', 'KM.ID_JASA','=','JS.ID')
+            ->join('KATEGORI AS KI', 'KM.ID_KATEGORI','=','KI.ID')
+            ->select('KM.ID AS id_kostum', 'JS.ID AS id_jasa', 'KM.NAMA AS nama_kostum',
+                'KI.NAMA AS kategori','KM.HARGA AS harga', 'KM.STOK AS stok', 'JS.NAMA_JASA AS nama_jasa', 'JS.NAMA_PEMILIK AS nama_pemilik')
+            ->get();
+        $result = $this->getAllDetail($data);
+        return view('home')
+            ->with('result', $result);
+    }
 
-    //     //     var_dump($data);
-    //     return $data;
-    // }
+    public function getAllDetail($data){
+        $result = array();
+        foreach ($data as $val){
+            $image = DB::table('GAMBAR')->where('ID_KOSTUM','=',"$val->id_kostum")->first();
+            $final = [
+                "id_kostum" => $val->id_kostum,
+                "id_jasa" => $val->id_jasa,
+                "nama_kostum" => $val->nama_kostum,
+                "gambar" => $image->filepath,
+                "kategori" => $val->kategori,
+                "harga" => $val->harga,
+                "stok" => $val->stok,
+                "nama_jasa" => $val->nama_jasa
+            ];
+            array_push($result, $final);
+        }
+        return json_decode(json_encode($result), FALSE);
+    }
+
+    public function showDetail(Request $request){
+        $id_kostum = $request->id;
+        $data = $this->getDetail($id_kostum);
+        
+        return view('detail')
+        ->with('kostum', json_decode(json_encode($data['kostum']))) 
+        ->with('gambar', json_decode(json_encode($data['gambar'])));
+    }
+    public function getDetail($id_kostum){
+        $result=array();
+        $result['kostum'] = DB::table('KOSTUM AS KM')
+            ->join('JASA AS JS', 'KM.ID_JASA','=','JS.ID')
+            ->join('KATEGORI AS KI', 'KM.ID_KATEGORI','=','KI.ID')
+            ->select('KM.ID AS id_kostum', 'JS.ID AS id_jasa', 'KM.NAMA AS nama_kostum',
+                'KI.NAMA AS kategori','KM.HARGA AS harga', 'KM.STOK AS stok', 'JS.NAMA_JASA AS nama_jasa', 'JS.NAMA_PEMILIK AS nama_pemilik')
+            ->where('KM.ID', '=', $id_kostum)->get();
+        $result['gambar'] = DB::table('GAMBAR')->where('ID_KOSTUM','=',$id_kostum)->get();
+        return $result;
+    }
+
+
+
 }

@@ -47,15 +47,15 @@ Route::prefix('/penyewa')->group(function(){
     Route::get('/', 'ProfilController@showPenyewa');
 });
 
-Route::get('/homeshop', function(){
-    return view('home');
-});
-Route::get('/homeshop', 'HomeController@tampilKostum');
-Route::get('/detail', function(){
-    return view('detail');
-});
-Route::get('/detail', 'HomeController@tampilKostum');
 
+Route::get('/', 'KostumController@tampilAll');
+
+
+Route::get('/detail/{id}', 'KostumController@showDetail');
+
+Route::get('/cekLogin/{id}', 'Auth\LoginUserController@cekLogin');
+Route::get('/pesan', 'TransaksiController@showPesan');
+Route::get('/pesan', 'TransaksiController@pesan')->name('pesan.submit');
 
 Route::get('/logout', 'Auth\LogoutUserController@logout');    
 
@@ -73,3 +73,6 @@ Route::get('/logout', 'Auth\LogoutUserController@logout');
 // });
 
 
+Route::get('/nyobak', function(){
+    return view('nyobak');
+});

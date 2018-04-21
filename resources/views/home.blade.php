@@ -30,8 +30,9 @@
       <div class="panel panel-primary">
       <div class="panel-heading"></div>
         <div class="panel-body"><img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar)}}" class="img-responsive center-block" alt="Image"></div>
-        <a href=" {{ url('/detail') }} "><div class="panel-footer"> {{$kostum->nama_kostum}}</div></a>
+        <a href="{{ url('/detail', [$kostum->id_kostum]) }}"><div class="panel-footer"> {{$kostum->nama_kostum}}</div></a>
         <div class="panel-footer">Rp {{$kostum->harga}}</div>
+        <input value="{{ $kostum->id_kostum }}">
       </div>
     </div>
     
@@ -49,3 +50,6 @@
 
 </body>
 </html>
+
+
+
