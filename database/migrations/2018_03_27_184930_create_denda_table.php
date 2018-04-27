@@ -15,9 +15,8 @@ class CreateDendaTable extends Migration
     {
         Schema::create('denda', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_detail_sewa')->unsigned();
-            $table->foreign('id_detail_sewa')->references('id')->on('detail_sewa');
-            $table->string('jenis_denda', 100);
+            $table->integer('id_sewa')->unsigned();
+            $table->foreign('id_sewa')->references('id')->on('sewa');
             $table->integer('harga_denda');
             $table->integer('total_denda');
             $table->timestamps();

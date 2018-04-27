@@ -1,55 +1,35 @@
 @extends('layouts.master')
-@section('style')
-  <style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-    .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-  </style>
-@endsection
-</head>
-<body>
-
-@section('content')
-<div class="container">
-  <div class="row">
-@foreach($result as $kostum)
-    <div class="col-sm-3 col-xs-6 ">
-      <div class="panel panel-primary">
-      <div class="panel-heading"></div>
-        <div class="panel-body"><img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar)}}" class="img-responsive center-block" alt="Image"></div>
-        <a href="{{ url('/detail', [$kostum->id_kostum]) }}"><div class="panel-footer"> {{$kostum->nama_kostum}}</div></a>
-        <div class="panel-footer">Rp {{$kostum->harga}}</div>
-        <input value="{{ $kostum->id_kostum }}">
-      </div>
-    </div>
-    
-@endforeach
-  </div>
-</div>
-
 <style>
     .img-responsive {
         width: auto !important;
         height: 200px !important;
     }
 </style>
+@section('content')
+    <div class="container">
+        <div class="row">
+            @if(!empty($data))
+                @foreach($data as $kostum)
+                    <div class="col-sm-3 col-xs-6 ">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">{{$kostum->nama_kostum}}</div>
+                            <div class="panel-body">
+                                <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" class="img-responsive center-block" alt="Image">
+                                <table class="table table-responsive">
+                                    <tr><td>Harga</td><td>:</td><td>Rp. {{$kostum->harga}},-</td></tr>
+                                    <tr><td>Stok Tersedia</td><td>:</td><td>{{$kostum->stok}}</td></tr>
+                                </table>
+                            </div>
+                            <a href="{{ url('user/detail', [$kostum->id_kostum]) }}"><div class="panel-footer"><button class="btn btn-success">Detail</button></div></a>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="panel panel-default">
+                    <div class="panel-body center bg-danger">Tidak Ada Data</div>
+                </div>
+            @endif
+        </div>
+    </div>
+
 @endsection
-
-</body>
-</html>
-
-
-

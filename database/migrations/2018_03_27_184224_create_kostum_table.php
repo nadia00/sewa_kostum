@@ -17,14 +17,14 @@ class CreateKostumTable extends Migration
             $table->increments('id');
             $table->integer('id_kategori')->unsigned();
             $table->foreign('id_kategori')->references('id')->on('kategori');
-            $table->integer('id_jasa')->unsigned();
-            $table->foreign('id_jasa')->references('id')->on('jasa');
+            $table->integer('id_toko')->unsigned();
+            $table->foreign('id_toko')->references('id')->on('toko');
             $table->string('nama', 100);
-            $table->text('keterangan');
+            $table->text('deskripsi');
             $table->integer('harga');
-            $table->integer('jumlah');
-            $table->integer('stok');
-            $table->integer('jumlah_rating');
+            $table->integer('jumlah_keseluruhan');
+            $table->integer('jumlah_stok');
+            $table->integer('rating')->nullable();
             $table->timestamps();
         });
     }

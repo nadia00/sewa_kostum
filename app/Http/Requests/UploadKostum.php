@@ -21,13 +21,17 @@ class UploadKostum extends FormRequest
      *
      * @return array
      */
+
+
+
     public function rules()
     {
-        return [
+        $rules = [
             'nama' => 'required',
             'harga' => 'required',
             'jumlah' => 'required',
             'stok' => 'required',
+            'gambar' => 'required',
         ];
         $photos = count($this->input('gambar'));
         foreach(range(0, $photos) as $index) {

@@ -20,7 +20,7 @@ class CreateRatingTable extends Migration
             $table->integer('id_sewa')->unsigned();
             $table->foreign('id_sewa')->references('id')->on('sewa');
             $table->integer('id_detail_bayar')->unsigned();
-            $table->foreign('id_detail_bayar')->references('id')->on('detail_pembayaran');
+            $table->foreign('id_detail_bayar')->references('id')->on('detail_bayar');
             $table->float('nilai_rating');
             $table->date('tgl_rating');
             $table->timestamps();

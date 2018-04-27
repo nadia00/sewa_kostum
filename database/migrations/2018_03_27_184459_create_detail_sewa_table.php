@@ -20,10 +20,11 @@ class CreateDetailSewaTable extends Migration
             $table->integer('id_kostum')->unsigned();
             $table->foreign('id_kostum')->references('id')->on('kostum');
             $table->integer('jumlah_sewa');
-            $table->string('status', 20);
-            $table->date('tgl_pakai');
-            $table->date('tgl_harus_kembali');
-            $table->date('tgl_kembali');
+            $table->string('status', 20)->nullable();
+            $table->date('pemakaian');
+            $table->integer('lama_pemakaian');
+            $table->date('pengembalian');
+            $table->date('tenggang_kembali')->nullable();
             $table->timestamps();
         });
     }

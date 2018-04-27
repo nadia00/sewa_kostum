@@ -15,11 +15,10 @@ class CreateSewaTable extends Migration
     {
         Schema::create('sewa', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_jasa')->unsigned();
-            $table->foreign('id_jasa')->references('id')->on('jasa');
+            $table->integer('id_toko')->unsigned();
+            $table->foreign('id_toko')->references('id')->on('toko');
             $table->integer('id_penyewa')->unsigned();
-            $table->foreign('id_penyewa')->references('id')->on('penyewa');
-            $table->date('tgl_sewa');
+            $table->foreign('id_penyewa')->references('id')->on('users');
             $table->timestamps();
         });
     }

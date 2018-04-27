@@ -1,0 +1,108 @@
+[
+    {
+        "table": "bayar",
+        "name": "Bayar",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "denda",
+        "name": "Denda",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "detail_bayar",
+        "name": "DetailBayar",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "detail_sewa",
+        "name": "DetailSewa",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "histori_sewa",
+        "name": "HistoriSewa",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "kategori",
+        "name": "Kategori",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "kostum",
+        "name": "Kostum",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "kostum_gambar",
+        "name": "KostumGambar",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "migrations",
+        "skip": true
+    },
+    {
+        "table": "password_resets",
+        "skip": true
+    },
+    {
+        "table": "permission_role",
+        "pivot": true
+    },
+    {
+        "table": "permissions",
+        "name": "Permission",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "rating",
+        "name": "Rating",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "role_user",
+        "pivot": true
+    },
+    {
+        "table": "roles",
+        "name": "Role",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "sewa",
+        "name": "Sewa",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "tipe_bayar",
+        "name": "TipeBayar",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "toko",
+        "name": "Toko",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    },
+    {
+        "table": "users",
+        "name": "User",
+        "folder": "app\/Models",
+        "namespace": "App\\Models"
+    }
+]
