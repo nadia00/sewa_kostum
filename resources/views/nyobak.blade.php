@@ -7,47 +7,132 @@
             <div class="span9">
                 <div class="row">
                     <div class="span4">
-                        <a href="themes/images/ladies/1.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="themes/images/ladies/1.jpg"></a>												
-                        <ul class="thumbnails small">								
+                        <a href="{{url('/').Storage::disk('local')->url("app/".$data->gambar)}}" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="{{url('/').Storage::disk('local')->url("app/".$data->gambar)}}"></a>												
+                        <ul class="thumbnails small">
+                            @foreach($data->gambar as $gam)								
                             <li class="span1">
-                                <a href="themes/images/ladies/2.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 2"><img src="themes/images/ladies/2.jpg" alt=""></a>
-                            </li>								
-                            <li class="span1">
-                                <a href="themes/images/ladies/3.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 3"><img src="themes/images/ladies/3.jpg" alt=""></a>
-                            </li>													
-                            <li class="span1">
-                                <a href="themes/images/ladies/4.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 4"><img src="themes/images/ladies/4.jpg" alt=""></a>
+                                <a href="{{url('/').Storage::disk('local')->url("app/".$gam->filepath)}}" class="thumbnail" data-fancybox-group="group1" title="Description 2"><img src="{{url('/').Storage::disk('local')->url("app/".$gam->filepath)}}" alt=""></a>
                             </li>
-                            <li class="span1">
-                                <a href="themes/images/ladies/5.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 5"><img src="themes/images/ladies/5.jpg" alt=""></a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="span5">
                         <address>
+                            <h3><strong>{{$data->nama_kostum}}</strong></h3>
                             <strong>Brand:</strong> <span>Apple</span><br>
                             <strong>Product Code:</strong> <span>Product 14</span><br>
                             <strong>Reward Points:</strong> <span>0</span><br>
                             <strong>Availability:</strong> <span>Out Of Stock</span><br>								
                         </address>									
-                        <h4><strong>Price: $587.50</strong></h4>
+                        <h4><strong>Harga: Rp{{$data->harga}}</strong></h4>
                     </div>
                     <div class="span5">
                         <form class="form-inline">
-                            <label class="checkbox">
-                                <input type="checkbox" value=""> Option one is this and that
-                            </label>
-                            <br/>
-                            <label class="checkbox">
-                              <input type="checkbox" value=""> Be sure to include why it's great
-                            </label>
-                            <p>&nbsp;</p>
-                            <label>Qty:</label>
-                            <input type="text" class="span1" placeholder="1">
-                            <button class="btn btn-inverse" type="submit">Add to cart</button>
+                                <p>&nbsp;</p>
+                                <label>Ready Stock:</label>
+                                <input type="text" disabled class="span1" placeholder="1">
+                            @role('user-seller')
+                            @if($data->id_toko != \App\Models\Toko::all()->firstWhere('id_penjual','=',Auth::user()->id)->id)    
+                                <button class="btn btn-inverse" type="button" data-toggle="modal" data-target="#sewa">Sewa</button>
+                            @else
+                                <button class="btn btn-inverse" type="button" data-toggle="modal" data-target="#edit">Edit</button>
+                            @endif
+                            @endrole
+                            @role('user')
+                                <button class="btn btn-inverse" type="button" data-toggle="modal" data-target="#sewa">Sewa</button>
+                            @endrole
                         </form>
                     </div>							
                 </div>
+
+                <!-- Modal Buy -->
+                <div id="buy" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Beli</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{{ route('user.transaction') }}">
+                                        {{ csrf_field() }}
+                                        <input class="form-control" type="" id="nama" name="id_toko" value="{{$data->id_toko}}">
+                                        <input class="form-control" type="" id="nama" name="id_pembeli" value="{{Auth::user()->id}}">
+                                        <input class="form-control" type="" id="nama" name="id_kostum" value="{{$data->id_kostum}}">
+                                        <div class="form-group">
+                                            <label for="jumlah">Jumlah</label>
+                                            <input type="text" class="form-control" id="jumlah" placeholder="Enter jumlah" name="jumlah_sewa">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pengambilan">Tanggal Ambil</label>
+                                            <input type="date" class="form-control" id="pengambilan" placeholder="Pengambilan" name="pemakaian" value="{{date("Y-m-d H:i:s")}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pengambilan">Tanggal Ambil</label>
+                                            <input type="number" class="form-control" id="pengambilan" placeholder="Lama" name="lama_pemakaian" value="{{date("Y-m-d H:i:s")}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pengambilan">Tanggal Kembali</label>
+                                            <input type="date" class="form-control" id="pengambilan" placeholder="Pengambilan" name="tenggang_pengembalian" value="{{date("Y-m-d H:i:s")}}">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Edit -->
+                    <div id="edit" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Edit</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{{ route('shop.add') }}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_toko" value="{{$data->id_toko}}">
+                                        <div class="form-group">
+                                            <label for="jumlah">Nama</label>
+                                            <input type="text" class="form-control" id="nama" placeholder="Edit Nama Kostum" name="nama" value="{{$data->nama_kostum}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jumlah">Kategori</label>
+                                            <input type="text" class="form-control" id="jumlah" placeholder="Enter username" name="kategori" value="{{$data->kategori}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jumlah">Deskripsi</label>
+                                            <input type="text" class="form-control" id="jumlah" placeholder="Enter username" name="deskripsi" value="{{$data->deskripsi_kostum}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jumlah">Harga</label>
+                                            <input type="text" class="form-control" id="harga" placeholder="Masukan Harga" name="harga" value="{{$data->harga}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jumlah">Stok</label>
+                                            <input type="text" class="form-control" id="harga" placeholder="Masukan Harga" name="harga" value="{{$data->stok}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jumlah">Tambah Gambar</label>
+                                            <input type="file" class="form-control" id="stok" placeholder="Pilih Gambar" name="gambar[]" multiple>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                
                 <div class="row">
                     <div class="span9">
                         <ul class="nav nav-tabs" id="myTab">

@@ -133,8 +133,6 @@ class ShopController extends Controller
 
     
 
-    public function detailKostumJasa($data){
-    }
 
     public function deleteCostume($id){
         Kostum::all()->where('id','=',$id)->delete();
