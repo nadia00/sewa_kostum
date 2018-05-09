@@ -96,16 +96,16 @@ class ShopController extends Controller
                 ];
                 array_push($result, $final);
             }
-            return view('shop/edit')->with('data',json_decode(json_encode($result)));
+            return view('shop/produk')->with('data',json_decode(json_encode($result)));
         }else{
-            return view('shop/edit');
+            return view('shop/produk');
         }
     }
     public function getDetailCostume($id_kostum){
         $data = DB::table('KOSTUM AS KM')
             ->join('TOKO AS TK', 'KM.ID_TOKO','=','TK.ID')
             ->join('KATEGORI AS KI', 'KM.ID_KATEGORI','=','KI.ID')
-            ->select('KM.ID AS id_kostum','TK.ID AS id_toko', 'KM.NAMA AS nama_kostum',
+            ->select('KM.ID AS id_kostum','TK.ID AS id_toko','TK.NAMA AS nama_toko','KM.NAMA AS nama_kostum',
                 'KI.NAMA AS kategori','KM.HARGA AS harga', 'KM.JUMLAH_STOK AS stok','KM.JUMLAH_KESELURUHAN AS total',
                 'TK.NAMA AS nama_toko','TK.MOTTO AS motto_toko','TK.TELEPON AS telepon_toko','TK.LOKASI AS lokasi_toko',
                 'KM.DESKRIPSI AS deskripsi_kostum'
@@ -115,6 +115,7 @@ class ShopController extends Controller
         $final = [
             "id_kostum" => $data[0]->id_kostum,
             "id_toko" => $data[0]->id_toko,
+            "nama_toko" => $data[0]->nama_toko,
             "nama_kostum" => $data[0]->nama_kostum,
             "deskripsi_kostum" => $data[0]->deskripsi_kostum,
             "kategori" => $data[0]->kategori,

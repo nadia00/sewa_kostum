@@ -4,7 +4,7 @@
 <section class="main-content">
     <div class="row">
         <div class="span9">					
-            <h4 class="title"><span class="text"><strong>Your</strong> Cart</span></h4>
+            <h4 class="title"><span class="text"><strong>Your</strong> Order</span></h4>
             @if(!empty($data))
             <table class="table table-striped">
                 <thead>
@@ -19,7 +19,10 @@
                 <tbody>
                     @foreach($data as $order)
                     <tr>
-                        <td><a href="product_detail.html"><img src="{{url('/').Storage::disk('local')->url("app/".$order->gambar_kostum)}}" alt="{{$order->nama_kostum}}"></a></td>
+                        <td><a href="product_detail.html">
+                            <img src="{{url('/').Storage::disk('local')->url("app/".$order->gambar_kostum)}}" 
+                            alt="{{$order->nama_kostum}}" style="width:100px; height:100px">
+                        </a></td>
                         <td>{{$order->nama_kostum}}</td>
                         <td>{{$order->nama_penyewa}}</td>
                         <td>{{$order->tanggal_sewa}}</td>
@@ -37,63 +40,31 @@
             <hr>
             					
         </div>
+        
+        {{-- Side Bar --}}
         <div class="span3 col">
             <div class="block">	
                 <ul class="nav nav-list">
-                    <li class="nav-header">SUB CATEGORIES</li>
-                    <li><a href="products.html">Nullam semper elementum</a></li>
-                    <li class="active"><a href="products.html">Phasellus ultricies</a></li>
-                    <li><a href="products.html">Donec laoreet dui</a></li>
-                    <li><a href="products.html">Nullam semper elementum</a></li>
-                    <li><a href="products.html">Phasellus ultricies</a></li>
-                    <li><a href="products.html">Donec laoreet dui</a></li>
+                    <li class="nav-header">Toko-ku</li>
+                    <li><a href="">Profil</a></li>
+                    <li>Penyewaan</li>
+                    <li><a href="{{ url('/user/myshop-order-list') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Pesanan</a></li>
+                    <li><a href="products.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Transaksi</a></li>
+                    <li><a href="{{ route('user.shop') }}">Kostum</a></li>
+                    {{-- <li><a href="{{ route('user.shop') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>
+                    <li><a href="{{ route('user.shop') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li> --}}
+                    <li><a href="products.html">Setting Toko</a></li>
                 </ul>
                 <br/>
                 <ul class="nav nav-list below">
-                    <li class="nav-header">MANUFACTURES</li>
-                    <li><a href="products.html">Adidas</a></li>
-                    <li><a href="products.html">Nike</a></li>
-                    <li><a href="products.html">Dunlop</a></li>
-                    <li><a href="products.html">Yamaha</a></li>
+                    <li class="nav-header">Akun-ku</li>
+                    <li><a href="products.html">Profil</a></li>
+                    <li><a href="products.html">Request</a></li>
+                    <li><a href="products.html">Daftar Sewa</a></li>
+                    <li><a href="products.html">Review</a></li>
+                    <li><a href="products.html">Setting</a></li>
                 </ul>
-            </div>
-            <div class="block">
-                <h4 class="title">
-                    <span class="pull-left"><span class="text">Randomize</span></span>
-                    <span class="pull-right">
-                        <a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-                    </span>
-                </h4>
-                <div id="myCarousel" class="carousel slide">
-                    <div class="carousel-inner">
-                        <div class="active item">
-                            <ul class="thumbnails listing-products">
-                                <li class="span3">
-                                    <div class="product-box">
-                                        <span class="sale_tag"></span>												
-                                        <a href="product_detail.html"><img alt="" src="themes/images/ladies/2.jpg"></a><br/>
-                                        <a href="product_detail.html" class="title">Fusce id molestie massa</a><br/>
-                                        <a href="#" class="category">Suspendisse aliquet</a>
-                                        <p class="price">$261</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="item">
-                            <ul class="thumbnails listing-products">
-                                <li class="span3">
-                                    <div class="product-box">												
-                                        <a href="product_detail.html"><img alt="" src="themes/images/ladies/4.jpg"></a><br/>
-                                        <a href="product_detail.html" class="title">Tempor sem sodales</a><br/>
-                                        <a href="#" class="category">Urna nec lectus mollis</a>
-                                        <p class="price">$134</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>						
+            </div>			
         </div>
     </div>
 </section>

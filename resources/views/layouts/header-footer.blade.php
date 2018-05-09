@@ -1,3 +1,5 @@
+{{-- header footer --}}
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -34,13 +36,21 @@
 						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
 					</form>
 				</div>
+							
 				<div class="span8">
 					<div class="account pull-right">
-						<ul class="user-menu">				
-							<li><a href="#">My Account</a></li>
-							<li><a href="cart.html">Your Cart</a></li>
-							<li><a href="checkout.html">Checkout</a></li>					
-							<li><a href="register.html">Login</a></li>		
+						<ul class="user-menu">	
+							@guest
+							<li><a href="{{ route('login') }}">Login</a></li>
+							@else
+							<li><a href="#">Notifikasi</a></li>		
+							<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+								Logout
+							</a></li>	
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								@csrf
+							</form>	
+							@endguest
 						</ul>
 					</div>
 				</div>
@@ -49,27 +59,25 @@
 		<div id="wrapper" class="container">
 			<section class="navbar main-menu">
 				<div class="navbar-inner main-menu">				
-					<a href="index.html" class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt=""></a>
+					<a href=" {{url('/home')}} " class="logo pull-left"><img src="themes/images/logo.png" class="site_logo" alt="Logo"></a>
 					<nav id="menu" class="pull-right">
 						<ul>
-							<li><a href="./products.html">Woman</a>					
-								<ul>
-									<li><a href="./products.html">Lacinia nibh</a></li>									
-									<li><a href="./products.html">Eget molestie</a></li>
-									<li><a href="./products.html">Varius purus</a></li>									
-								</ul>
-							</li>															
-							<li><a href="./products.html">Man</a></li>			
-							<li><a href="./products.html">Sport</a>
+										
+							<li><a href="#">Toko-Ku</a>
 								<ul>									
-									<li><a href="./products.html">Gifts and Tech</a></li>
-									<li><a href="./products.html">Ties and Hats</a></li>
-									<li><a href="./products.html">Cold Weather</a></li>
+									<li><a href="./products.html">Profil Toko</a></li>
+									<li><a href="./products.html">Penyewaan</a></li>
+									<li><a href="./products.html">Kostum</a></li>
+								</ul>
+							</li>
+							<li><a href="#">Akun-ku</a>
+								<ul>									
+									<li><a href="./products.html">Profil-ku</a></li>
+									<li><a href="./products.html">Sewa</a></li>
+									<li><a href="./products.html">Review</a></li>
 								</ul>
 							</li>							
-							<li><a href="./products.html">Hangbag</a></li>
-							<li><a href="./products.html">Best Seller</a></li>
-							<li><a href="./products.html">Top Seller</a></li>
+							
 						</ul>
 					</nav>
 				</div>
@@ -144,8 +152,8 @@
 				<span>Copyright 2013 bootstrappage template  All right reserved.</span>
 			</section>
 		</div>
-		<script src="themes/js/common.js"></script>
-		<script src="themes/js/jquery.flexslider-min.js"></script>
+		<script src="{{asset('public/themes/js/common.js')}}"></script>
+		<script src="{{asset('public/themes/js/jquery.flexslider-min.js')}}"></script>
 		<script type="text/javascript">
 			$(function() {
 				$(document).ready(function() {

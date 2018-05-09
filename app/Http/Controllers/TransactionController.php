@@ -21,7 +21,8 @@ class TransactionController extends Controller
             'pemakaian' => $request->post('pemakaian'),
             'lama_pemakaian' => $request->post('lama_pemakaian'),
             'tenggang_kembali' => date('Y-m-d'),
-            ]);
+        ]);
+        return redirect()->back();
     }
 
     public function getOrder(){
@@ -87,5 +88,29 @@ class TransactionController extends Controller
             array_push($final['gambar_kostum'], array('filepath' => $val->filepath));
         }
         return view('shop/order-detail')->with('data',json_decode(json_encode($final)));
+    }
+
+    // status : Terima = 1 ; Tolak = 0
+    public function terimaOrder(Request $request){
+        $status = DB::table('detail_sewa')
+                ->where('id_sewa', $request->id_sewa)
+                ->update(['status' => '1']);
+
+        $data = DB::table('KOSTUM AS K')
+            ->join('DETAIL_SEWA AS DS', 'DS.ID_KOSTUM', '=', 'K.ID')
+            ->select('K.ID AS id_kostum','K.JUMLAH_STOK AS stok', 'DS.JUMLAH_SEWA AS sewa')
+            ->where('id_sewa', $request->id_sewa)
+            ->first();
+        $stok = $data->stok - $data->sewa;
+        DB::table('kostum')
+            ->where('id', $data->id_kostum)
+            ->update(['jumlah_stok' => $stok]);
+        return redirect()->back();
+    }
+    public function tolakOrder(Request $request){
+        $status = DB::table('detail_sewa')
+                ->where('id_sewa', $request->post('id_sewa'))
+                ->update(['status' => '0']);
+        return redirect()->back();
     }
 }

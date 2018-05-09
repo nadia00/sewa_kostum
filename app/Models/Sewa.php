@@ -45,7 +45,7 @@ class Sewa extends Model
      * @var array
      */
     protected $fillable = [
-        'id_toko','id_pembeli',
+        'id_toko','id_penyewa',
     ];
 
 
@@ -144,7 +144,7 @@ class Sewa extends Model
 			// Foreign key
 			'id',
 			// Other key
-			'id_pembeli'
+			'id_penyewa'
 		);
 	}
 
