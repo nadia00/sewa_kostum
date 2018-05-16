@@ -30,7 +30,7 @@ class ShopController extends Controller
         if (!$user){
             return view('shop/create');
         }else{
-            return $this->getMyCostumes();
+            return $this->getMyProfile();
         }
     }
 
@@ -69,7 +69,19 @@ class ShopController extends Controller
         $role = Role::find(3)->id;
         DB::table('role_user')->where('user_id','=',$user_id)->delete();
         DB::table('role_user')->insert(['user_id'=>$user_id, 'role_id'=>$role]);
-        return redirect()->route('user.shop');
+        return $this->getMyProfile();
+    }
+
+    public function getMyProfile(){
+        $user_id = Auth::user()->id;
+        $data = DB::table('TOKO as TK')
+//            ->join('KOSTUM AS K', 'K.ID_TOKO', '=', 'TK.ID')
+//            ->join('HISTORI  AS H', 'H.ID_TOKO', '=', 'TK.ID')
+            ->select('TK.NAMA AS nama_toko', 'TK.MOTTO AS motto_toko', 'TK.LOKASI AS lokasi_toko', 'TK.TELEPON AS telp_toko',
+                    'TK.CREATED_AT AS join')
+            ->where('ID_PENJUAL', '=', $user_id)
+            -> first();
+        return view('shop/profil')->with('data', $data);
     }
 
     public function getMyCostumes(){
@@ -96,9 +108,9 @@ class ShopController extends Controller
                 ];
                 array_push($result, $final);
             }
-            return view('shop/produk')->with('data',json_decode(json_encode($result)));
+            return view('shop.kostum')->with('data',json_decode(json_encode($result)));
         }else{
-            return view('shop/produk');
+            return view('shop.kostum');
         }
     }
     public function getDetailCostume($id_kostum){
@@ -128,18 +140,12 @@ class ShopController extends Controller
         foreach ($image as $val){
             array_push($final['gambar'], array('filepath' => $val->filepath));
         }
-//        var_dump($final);
-        return view('shop/detail')->with('data',json_decode(json_encode($final)));
+        return view('shop/kostum-detail')->with('data',json_decode(json_encode($final)));
     }
 
-    
-
-
-    public function deleteCostume($id){
-        Kostum::all()->where('id','=',$id)->delete();
-        return redirect()->route('user.shop');
+    public function addCostumShow(){
+        return view('shop.kostum-add');
     }
-
     public function addCostume(UploadKostum $request){
         $kostum = Kostum::create([
             'id_kategori'=>$request->post('id_kategori'),
@@ -161,8 +167,17 @@ class ShopController extends Controller
                 'filepath' => $filepath,
             ]);
         }
+        return redirect()->route('user/kostum-manage');
     }
 
+    public function updateCostume($id){
 
+    }
+
+    public function deleteCostume($id){
+        Kostum::all()->where('id','=',$id)->delete();
+        return redirect()->back();
+        //return redirect()->route('user.shop');
+    }
 
 }

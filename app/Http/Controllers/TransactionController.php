@@ -33,7 +33,8 @@ class TransactionController extends Controller
             ->join('USERS AS U', 'S.ID_PENYEWA','=','U.ID')
             ->join('KOSTUM AS K', 'DS.ID_KOSTUM','=','K.ID' )
             ->select('S.ID AS id_sewa','TK.ID AS id_toko', 'U.ID AS id_penyewa', 'K.ID AS id_kostum',
-                'U.FULLNAME AS nama_penyewa','DS.CREATED_AT AS tanggal_sewa','K.NAMA AS nama_kostum')
+                'U.FULLNAME AS nama_penyewa','DS.CREATED_AT AS tanggal_sewa','K.NAMA AS nama_kostum',
+                'DS.JUMLAH_SEWA AS jumlah_sewa', 'DS.PEMAKAIAN AS tanggal_pakai')
             ->where('TK.ID','=',Toko::all()->firstWhere('id_penjual','=',Auth::user()->id)->id)
             ->get();
         // return view('shop/order-list')->with('data',json_decode($data));
@@ -47,14 +48,89 @@ class TransactionController extends Controller
                     "id_kostum" => $val->id_kostum,
                     "nama_penyewa" => $val->nama_penyewa,
                     "tanggal_sewa" => $val->tanggal_sewa,
+                    "jumlah_sewa" => $val->jumlah_sewa,
+                    "pemakaian" => $val->tanggal_pakai,
+                    "nama_kostum" => $val->nama_kostum,
+                    "gambar_kostum" => $image->filepath,
+                ];                array_push($result, $final);
+            }
+            return view('shop/penyewaan')->with('data',json_decode(json_encode($result)));
+        }else{
+            return view('shop/penyewaan');
+        }
+    }
+
+    public function getOrderTerima(){
+        $result = array();
+        $data = DB::table('SEWA AS S')
+            ->join('TOKO AS TK', 'S.ID_TOKO','=','TK.ID')
+            ->join('DETAIL_SEWA AS DS', 'S.ID','=','DS.ID_SEWA')
+            ->join('USERS AS U', 'S.ID_PENYEWA','=','U.ID')
+            ->join('KOSTUM AS K', 'DS.ID_KOSTUM','=','K.ID' )
+            ->select('S.ID AS id_sewa','TK.ID AS id_toko', 'U.ID AS id_penyewa', 'K.ID AS id_kostum',
+                'U.FULLNAME AS nama_penyewa','DS.CREATED_AT AS tanggal_sewa','K.NAMA AS nama_kostum',
+                'DS.JUMLAH_SEWA AS jumlah_sewa', 'DS.PEMAKAIAN AS tanggal_pakai')
+            ->where('TK.ID','=',Toko::all()->firstWhere('id_penjual','=',Auth::user()->id)->id
+                    AND 'DS.STATUS', '=', '1')
+            ->get();
+        // return view('shop/order-list')->with('data',json_decode($data));
+        if (sizeof($data) != 0){
+            foreach ($data as $val){
+                $image = DB::table('KOSTUM_GAMBAR')->where('ID_KOSTUM','=',"$val->id_kostum")->first();
+                $final = [
+                    "id_sewa" => $val->id_sewa,
+                    "id_toko" => $val->id_toko,
+                    "id_penyewa" => $val->id_penyewa,
+                    "id_kostum" => $val->id_kostum,
+                    "nama_penyewa" => $val->nama_penyewa,
+                    "tanggal_sewa" => $val->tanggal_sewa,
+                    "jumlah_sewa" => $val->jumlah_sewa,
+                    "pemakaian" => $val->tanggal_pakai,
                     "nama_kostum" => $val->nama_kostum,
                     "gambar_kostum" => $image->filepath,
                 ];
                 array_push($result, $final);
             }
-            return view('shop/order-list')->with('data',json_decode(json_encode($result)));
+            return view('shop/penyewaan')->with('terima',json_decode(json_encode($result)));
         }else{
-            return view('shop/order-list');
+            return view('shop/penyewaan');
+        }
+    }
+
+    public function getOrderTolak(){
+        $result = array();
+        $data = DB::table('SEWA AS S')
+            ->join('TOKO AS TK', 'S.ID_TOKO','=','TK.ID')
+            ->join('DETAIL_SEWA AS DS', 'S.ID','=','DS.ID_SEWA')
+            ->join('USERS AS U', 'S.ID_PENYEWA','=','U.ID')
+            ->join('KOSTUM AS K', 'DS.ID_KOSTUM','=','K.ID' )
+            ->select('S.ID AS id_sewa','TK.ID AS id_toko', 'U.ID AS id_penyewa', 'K.ID AS id_kostum',
+                'U.FULLNAME AS nama_penyewa','DS.CREATED_AT AS tanggal_sewa','K.NAMA AS nama_kostum',
+                'DS.JUMLAH_SEWA AS jumlah_sewa', 'DS.PEMAKAIAN AS tanggal_pakai')
+            ->where(['TK.ID','=',Toko::all()->firstWhere('id_penjual','=',Auth::user()->id)->id],
+                    ['DS.STATUS', '=', '0'])
+            ->get();
+        // return view('shop/order-list')->with('data',json_decode($data));
+        if (sizeof($data) != 0){
+            foreach ($data as $val){
+                $image = DB::table('KOSTUM_GAMBAR')->where('ID_KOSTUM','=',"$val->id_kostum")->first();
+                $final = [
+                    "id_sewa" => $val->id_sewa,
+                    "id_toko" => $val->id_toko,
+                    "id_penyewa" => $val->id_penyewa,
+                    "id_kostum" => $val->id_kostum,
+                    "nama_penyewa" => $val->nama_penyewa,
+                    "tanggal_sewa" => $val->tanggal_sewa,
+                    "jumlah_sewa" => $val->jumlah_sewa,
+                    "pemakaian" => $val->tanggal_pakai,
+                    "nama_kostum" => $val->nama_kostum,
+                    "gambar_kostum" => $image->filepath,
+                ];
+                array_push($result, $final);
+            }
+            return view('shop/penyewaan')->with('tolak',json_decode(json_encode($result)));
+        }else{
+            return view('shop/penyewaan');
         }
     }
 
