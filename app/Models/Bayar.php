@@ -78,11 +78,11 @@ class Bayar extends Model
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function sewa()
+	public function detailSewa()
 	{
 		return $this->belongsTo(
 			// Model
-			'App\Models\Sewa',
+			'App\Models\DetailSewa',
 			// Foreign key
 			'id',
 			// Other key

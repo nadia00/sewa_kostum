@@ -73,35 +73,9 @@ class Sewa extends Model
 
 
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function bayars()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\Bayar',
-			// Foreign key
-			'id_sewa',
-			// Local key
-			'id'
-		);
-	}
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function dendas()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\Denda',
-			// Foreign key
-			'id_sewa',
-			// Local key
-			'id'
-		);
-	}
+
+
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -118,20 +92,7 @@ class Sewa extends Model
 		);
 	}
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function ratings()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\Rating',
-			// Foreign key
-			'id_sewa',
-			// Local key
-			'id'
-		);
-	}
+
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -68,11 +68,11 @@ class HistoriSewa extends Model
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function kostum()
+	public function detailKostum()
 	{
 		return $this->belongsTo(
 			// Model
-			'App\Models\Kostum',
+			'App\Models\DetailKostum',
 			// Foreign key
 			'id',
 			// Other key

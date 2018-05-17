@@ -21,9 +21,6 @@ class CreateKostumTable extends Migration
             $table->foreign('id_toko')->references('id')->on('toko');
             $table->string('nama', 100);
             $table->text('deskripsi');
-            $table->integer('harga');
-            $table->integer('jumlah_keseluruhan');
-            $table->integer('jumlah_stok');
             $table->integer('rating')->nullable();
             $table->timestamps();
         });

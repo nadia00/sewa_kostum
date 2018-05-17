@@ -73,6 +73,50 @@ class DetailSewa extends Model
 	protected $dates = ['pengambilan', 'pengembalian', 'tenggang_kembali', 'created_at', 'updated_at'];
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function dendas()
+    {
+        return $this->hasMany(
+        // Model
+            'App\Models\Denda',
+            // Foreign key
+            'id_sewa',
+            // Local key
+            'id'
+        );
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bayars()
+    {
+        return $this->hasMany(
+        // Model
+            'App\Models\Bayar',
+            // Foreign key
+            'id_sewa',
+            // Local key
+            'id'
+        );
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ratings()
+    {
+        return $this->hasMany(
+        // Model
+            'App\Models\Rating',
+            // Foreign key
+            'id_sewa',
+            // Local key
+            'id'
+        );
+    }
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -92,11 +136,11 @@ class DetailSewa extends Model
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function kostum()
+	public function detailKostum()
 	{
 		return $this->belongsTo(
 			// Model
-			'App\Models\Kostum',
+			'App\Models\DetailKostum',
 			// Foreign key
 			'id',
 			// Other key

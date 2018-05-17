@@ -16,12 +16,13 @@ class CreateTokoTable extends Migration
     {
         Schema::create('toko', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_penjual')->unsigned();
-            $table->foreign('id_penjual')->references('id')->on('users');
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
             $table->string('nama');
             $table->string('motto')->nullable();
-            $table->string('lokasi');
             $table->string('telepon');
+            $table->string('lokasi');
+            $table->string('filepath_gambar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

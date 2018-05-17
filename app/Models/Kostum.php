@@ -51,7 +51,7 @@ class Kostum extends Model
      * @var array
      */
     protected $fillable = [
-        'id_kategori','id_toko', 'nama', 'deskripsi','harga','jumlah_keseluruhan','jumlah_stok',
+        'id_kategori','id_toko', 'nama', 'deskripsi',
     ];
 
 	/**
@@ -81,32 +81,17 @@ class Kostum extends Model
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function detailSewas()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\DetailSewa',
-			// Foreign key
-			'id_kostum',
-			// Local key
-			'id'
-		);
-	}
-
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function historiSewas()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\HistoriSewa',
-			// Foreign key
-			'id_kostum',
-			// Local key
-			'id'
-		);
-	}
+    public function detailKostums()
+    {
+        return $this->hasMany(
+        // Model
+            'App\Models\DetailKostum',
+            // Foreign key
+            'id_kostum',
+            // Local key
+            'id'
+        );
+    }
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -123,20 +108,7 @@ class Kostum extends Model
 		);
 	}
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function ratings()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\Rating',
-			// Foreign key
-			'id_kostum',
-			// Local key
-			'id'
-		);
-	}
+
 
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

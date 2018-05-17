@@ -48,7 +48,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fullname', 'email', 'phone','password',
+        'fullname', 'email', 'phone','password','filepath_gambar'
     ];
 
     /**
@@ -103,7 +103,7 @@ class User extends Authenticatable
 			// Model
 			'App\Models\Sewa',
 			// Foreign key
-			'id_pembeli',
+			'id_penyewa',
 			// Local key
 			'id'
 		);
@@ -118,7 +118,7 @@ class User extends Authenticatable
 			// Model
 			'App\Models\Toko',
 			// Foreign key
-			'id_penjual',
+			'id_user',
 			// Local key
 			'id'
 		);

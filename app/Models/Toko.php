@@ -46,7 +46,7 @@ class Toko extends Model
      * @var array
      */
     protected $fillable = [
-        'id_penjual','nama', 'motto', 'telepon','lokasi',
+        'id_user','nama', 'motto', 'telepon','lokasi','filepath_gambar'
     ];
 
 	/**
@@ -114,7 +114,7 @@ class Toko extends Model
 			// Foreign key
 			'id',
 			// Other key
-			'id_penjual'
+			'id_user'
 		);
 	}
 
