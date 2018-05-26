@@ -62,11 +62,11 @@ class Kategori extends Model
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function kostums()
+	public function kostumKategoris()
 	{
 		return $this->hasMany(
 			// Model
-			'App\Models\Kostum',
+			'App\Models\KostumKategori',
 			// Foreign key
 			'id_kategori',
 			// Local key

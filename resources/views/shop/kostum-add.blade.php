@@ -8,34 +8,27 @@
                 <div class="span8" style="padding-left: 3%">
                     <form method="POST" action="{{ route('kostum.add') }}" enctype="multipart/form-data">
                         @csrf
-                        <input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_toko" value="{{\App\Models\Toko::all()->firstWhere('id_penjual','=',Auth::user()->id)->id}}">
+                        <input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_toko" value="{{\App\Models\Toko::all()->firstWhere('id_user','=',Auth::user()->id)->id}}">
                         <div class="form-group">
-                            <label for="username">Nama Kostum:</label>
-                            <input type="text" class="input-xxlarge form-control" id="nama" placeholder="Enter username" name="nama">
+                            <label for="nama">Nama Kostum:</label>
+                            <input type="text" class="input-xxlarge form-control" id="nama" placeholder="Isikan nama kostum" name="nama">
                         </div>
                         <div class="form-group">
-                            <label for="username">Kategori:</label>
-                            <input type="text" class="input-xxlarge form-control" id="nama" placeholder="Enter username" name="id_kategori">
+                            <label for="keterangan">Keterangan:</label>
+                            <textarea class="input-xxlarge form-control" id="keterangan" placeholder="Isikan keterangan" name="keterangan"></textarea>
+                            <p>*Isikan data ukuran kostum atau keterangan lainnya.</p>
                         </div>
                         <div class="form-group">
-                            <label for="username">Keterangan:</label>
-                            <input type="text" class="input-xxlarge form-control" id="keterangan" placeholder="Enter username" name="keterangan">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Harga:</label>
-                            <input type="text" class="input-xxlarge form-control" id="harga" placeholder="Enter username" name="harga">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Jumlah Keseluruhan Kostum:</label>
-                            <input type="text" class="input-xxlarge form-control" id="jumlah" placeholder="Enter username" name="jumlah">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Stok Ready:</label>
-                            <input type="text" class="input-xxlarge form-control" id="stok" placeholder="Enter username" name="stok">
+                            <label for="kategori">Kategori:</label>
+                            <select name="kategori[]" id="kategori" multiple>
+                                @foreach($kategori as $val)
+                                    <option value="{{$val->id}}">{{$val->nama}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <h5>Tambah Gambar</h5>
                         <div class="form-group">
-                            <input type="file" class="input-xxlarge form-control" id="stok" placeholder="Pilih Gambar" name="gambar[]" multiple>
+                            <input type="file" class="input-xxlarge form-control" id="gambar" placeholder="Pilih Gambar" name="gambar[]" multiple>
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
@@ -49,17 +42,17 @@
                 <div class="block">
                     <ul class="nav nav-list">
                         <li class="nav-header">Toko-ku</li>
-                        <li><a href="{{route('shop')}}">Profil</a></li>
-                        <li><a href="{{route('order.get')}}">Daftar Transaksi</a></li>
+                        {{--<li><a href="{{route('shop')}}">Profil</a></li>--}}
+                        {{--<li><a href="{{route('order.get')}}">Daftar Transaksi</a></li>--}}
                         <li>Kostum</li>
-                        <li><a href="{{ route('kostum.add') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>
-                        <li><a href="{{ route('kostum.get') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li>
+                        {{--<li><a href="{{ route('kostum.add') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>--}}
+                        {{--<li><a href="{{ route('kostum.get') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li>--}}
                         <li><a href="products.html">Setting Toko</a></li>
                     </ul>
                     <br/>
                     <ul class="nav nav-list below">
                         <li class="nav-header">Akun-ku</li>
-                        <li><a href="{{route('user')}}">Profil</a></li>
+{{--                        <li><a href="{{route('user')}}">Profil</a></li>--}}
                         <li><a href="products.html">Request</a></li>
                         <li><a href="products.html">Daftar Sewa</a></li>
                         <li><a href="products.html">Review</a></li>
@@ -69,5 +62,9 @@
             </div>
         </div>
     </section>
+
+    <script>
+        $('#kategori').multiSelect();
+    </script>
 
 @endsection

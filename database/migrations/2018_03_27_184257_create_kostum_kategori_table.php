@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKostumTable extends Migration
+class CreateKostumKategoriTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateKostumTable extends Migration
      */
     public function up()
     {
-        Schema::create('kostum', function (Blueprint $table) {
+        Schema::create('kostum_kategori', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_toko')->unsigned();
-            $table->foreign('id_toko')->references('id')->on('toko');
-            $table->string('nama', 100);
-            $table->text('keterangan')->nullable();
-            $table->integer('rating')->nullable();
+            $table->integer('id_kostum')->unsigned();
+            $table->foreign('id_kostum')->references('id')->on('kostum');
+            $table->integer('id_kategori')->unsigned();
+            $table->foreign('id_kategori')->references('id')->on('kategori');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateKostumTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kostum');
+        Schema::dropIfExists('kostum_kategoris');
     }
 }

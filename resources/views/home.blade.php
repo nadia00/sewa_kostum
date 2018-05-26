@@ -14,11 +14,12 @@
                         </span>
                     </h4>
                     <div class="row">
+
                         @if(!empty($data))
                             @foreach($data as $kostum)
                                 <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
-                                <div class="span3">
-                                    <div class="thumbnail">
+                                    <div class="span3">
+                                        <div class="thumbnail">
                                             <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive" style="height: 250px">
                                             <div class="caption">
                                                 <table class="table">
@@ -26,12 +27,12 @@
                                                         <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="title">{{$kostum->nama_kostum}}</a></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="category">{{$kostum->kategori}}</a></td>
+                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="category">KATEGORI</a></td>
                                                     </tr>
                                                 </table>
                                             </div>
+                                        </div>
                                     </div>
-                                </div>
                                 </a>
                             @endforeach
                     </div>
@@ -54,6 +55,7 @@
                         </span>
                     </h4>
                     <div class="row">
+
                         @if(!empty($data))
                             @foreach($data as $kostum)
                                 <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
@@ -66,7 +68,7 @@
                                                         <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="title">{{$kostum->nama_kostum}}</a></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="category">{{$kostum->kategori}}</a></td>
+                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="category">KATEGORI</a></td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -75,11 +77,11 @@
                                 </a>
                             @endforeach
                     </div>
-                    @else
-                        <div class="panel panel-default">
-                            <div class="panel-body center bg-danger">Tidak Ada Data</div>
-                        </div>
-                    @endif
+                        @else
+                            <div class="panel panel-default">
+                                <div class="panel-body center bg-danger">Tidak Ada Data</div>
+                            </div>
+                        @endif
 
                 </div>
             </div>

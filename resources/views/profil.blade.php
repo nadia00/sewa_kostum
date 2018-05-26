@@ -7,7 +7,7 @@
                 {{--<div class="span9">--}}
                 <h4 class="title"><span class="text"><strong>Akun</strong> Anda</span></h4>
                 <div class="span2">
-                    <img src="{{asset('storage/app/image/hNVsNtJ2xtjHjdvTS6Pd9aJtIqluSeGKK8HO77z1.jpeg')}}" alt="Foto Profil" style="max-width: 100%; max-height: 100%">
+                    <img src="{{asset('DQmP1f4FwxVNzmDLUKhvtTtimJ5ewCELqiGW7W5ae6a5H1X.jpeg')}}" alt="Foto Profil" style="max-width: 100%; max-height: 100%">
                 </div>
                 <div class="span5">
                     <h4>{{$data->nama}}</h4>

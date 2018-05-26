@@ -31,11 +31,10 @@ class HomeController extends Controller
     public function getAllCostumes(){
         $result = array();
         $data = DB::table('KOSTUM AS KM')
+            ->join('DETAIL_KOSTUM AS DK', 'DK.ID_KOSTUM', '=', 'KM.ID')
             ->join('TOKO AS TK', 'KM.ID_TOKO','=','TK.ID')
-            ->join('KATEGORI AS KI', 'KM.ID_KATEGORI','=','KI.ID')
-            ->where('KM.JUMLAH_STOK','>',0)
-            ->select('KM.ID AS id_kostum','TK.ID AS id_toko', 'KM.NAMA AS nama_kostum',
-                'KI.NAMA AS kategori','KM.HARGA AS harga','KM.JUMLAH_STOK AS stok')
+            ->join('KOSTUM_KATEGORI AS KK', 'KK.ID_KOSTUM','=','KM.ID')
+            ->select('KM.ID AS id_kostum','TK.ID AS id_toko', 'KM.NAMA AS nama_kostum')
             ->get();
         if (sizeof($data) != 0){
             foreach ($data as $val){
@@ -45,16 +44,14 @@ class HomeController extends Controller
                     "id_toko" => $val->id_toko,
                     "nama_kostum" => $val->nama_kostum,
                     "gambar_kostum" => $image->filepath,
-                    "kategori" => $val->kategori,
-                    "harga" => $val->harga,
-                    "stok" => $val->stok,
                 ];
                 array_push($result, $final);
             }
-            return view('home')->with('data', json_decode(json_encode($result)));
+            return view('home')->with('data',json_decode(json_encode($result)));
         }else{
             return view('home');
         }
     }
+
 
 }

@@ -5,14 +5,16 @@
         <div class="row">
             <div class="span9">
                 <h4 class="title"><span class="text"><strong>Buka</strong> Toko</span></h4>
-                <div class="span2">
-                    <img src="{{asset('storage/app/image/hNVsNtJ2xtjHjdvTS6Pd9aJtIqluSeGKK8HO77z1.jpeg')}}" alt="Foto Profil" style="max-width: 100%; max-height: 100%">
-                    <a class="btn btn-block btn-secondary">Pilih Foto</a>
-                </div>
-                <div class="span6" style="padding-left: 3%">
 
-                    <form method="POST" action="{{ route('shop.create') }}">
-                        @csrf
+                <form method="POST" action="{{ route('shop.create') }}" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="span2">
+                        <img src="" alt="Foto Profil" style="max-width: 100%; max-height: 100%">
+                        <input type="file" name="gambar">
+                    </div>
+
+                    <div class="span6" style="padding-left: 3%">
                         <div class="form-group row">
                             <label for="nama_toko" class="col-sm-4 col-form-label text-md-right">{{ __('Nama Toko') }}</label>
                             <input type="text" class="input-xxlarge form-control" name="nama_toko" id="nama_toko" placeholder="Masukan Nama Toko">
@@ -56,9 +58,8 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
-
-                </div>
+                    </div>
+                </form>
                 <div class="clearfix"></div>
                 {{--<hr>--}}
             </div>
@@ -68,17 +69,17 @@
                 <div class="block">
                     <ul class="nav nav-list">
                         <li class="nav-header">Toko-ku</li>
-                        <li><a href="{{route('shop')}}">Profil</a></li>
-                        <li><a href="{{route('order.get')}}">Daftar Transaksi</a></li>
+                        {{--<li><a href="{{route('shop')}}">Profil</a></li>--}}
+                        {{--<li><a href="{{route('order.get')}}">Daftar Transaksi</a></li>--}}
                         <li>Kostum</li>
-                        <li><a href="{{ route('kostum.add') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>
-                        <li><a href="{{ route('kostum.get') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li>
+                        {{--<li><a href="{{ route('kostum.add') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>--}}
+                        {{--<li><a href="{{ route('kostum.get') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li>--}}
                         <li><a href="products.html">Setting Toko</a></li>
                     </ul>
                     <br/>
                     <ul class="nav nav-list below">
                         <li class="nav-header">Akun-ku</li>
-                        <li><a href="{{route('user')}}">Profil</a></li>
+{{--                        <li><a href="{{route('user')}}">Profil</a></li>--}}
                         <li><a href="products.html">Request</a></li>
                         <li><a href="products.html">Daftar Sewa</a></li>
                         <li><a href="products.html">Review</a></li>

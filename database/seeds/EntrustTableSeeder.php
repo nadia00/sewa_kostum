@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Kategori;
+use App\Models\Ukuran;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -15,6 +17,37 @@ class EntrustTableSeeder extends Seeder
      */
     public function run()
     {
+        $kategori_adat = new Kategori();
+        $kategori_adat->nama = 'Adat';
+        $kategori_adat->deskripsi = 'Kostum Adat Indonesia';
+        $kategori_adat->save();
+
+        $kategori_tari = new Kategori();
+        $kategori_tari->nama = 'Tari';
+        $kategori_tari->deskripsi = 'Kostum Tari Tradisional di seluruh Indonesia';
+        $kategori_tari->save();
+
+        $kategori_juang = new Kategori();
+        $kategori_juang->nama = 'Juang';
+        $kategori_juang->deskripsi = 'Kostum Pejuang seperti Polisi, TNI, dll';
+        $kategori_juang->save();
+
+        $kategori_all = new Ukuran();
+        $kategori_all->nama = 'All Size';
+        $kategori_all->deskripsi = 'Satu ukuran untuk semua usia';
+        $kategori_all->save();
+
+        $kategori_anak = new Ukuran();
+        $kategori_anak->nama = 'Anak';
+        $kategori_anak->deskripsi = 'Untuk usia sekitar TK hingga SD';
+        $kategori_anak->save();
+
+        $kategori_dewasa = new Ukuran();
+        $kategori_dewasa->nama = 'Dewasa';
+        $kategori_dewasa->deskripsi = 'Untuk usia SMP ke atas';
+        $kategori_dewasa->save();
+
+
         $role_admin = new Role();
         $role_admin->name = 'admin';
         $role_admin->display_name = 'Admin Login';

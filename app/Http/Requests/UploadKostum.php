@@ -28,12 +28,16 @@ class UploadKostum extends FormRequest
     {
         $rules = [
             'nama' => 'required',
-            'harga' => 'required',
-            'jumlah' => 'required',
-            'stok' => 'required',
             'gambar' => 'required',
+            'kategori' => 'required',
         ];
         $photos = count($this->input('gambar'));
+        $categories = count($this->input('id_kategori'));
+
+        foreach(range(0, $categories) as $index) {
+            $rules['kategori.' . $index] = 'required';
+        }
+
         foreach(range(0, $photos) as $index) {
             $rules['photos.' . $index] = 'image|mimes:jpeg,bmp,png|max:2000';
         }

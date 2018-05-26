@@ -22,21 +22,16 @@
                                                     <td colspan="3"><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="title"><h4>{{$kostum->nama_kostum}}</h4></a></td>
                                                 </tr>
                                                 <tr><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="title">
-                                                    <td>Harga</td>
+                                                    <td>Pemilik</td>
                                                     <td>:</td>
-                                                    <td>Rp. {{$kostum->harga}},-</td>
-                                                </a></tr>
-                                                <tr><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="title">
-                                                    <td>Stok Tersedia</td>
-                                                    <td>:</td>
-                                                    <td>{{$kostum->stok}}</td>
+                                                    <td>Rp. {{$kostum->nama_toko}}</td>
                                                 </a></tr>
                                             </table>
-                                            <button class="btn btn-inverse" type="button">Delete</button>
+                                            <button class="btn btn-inverse" type="button"><a href="{{route('kostum.del',[$kostum->id_kostum])}}"> Delete</a></button>
                                         </div>
                                     </div>
                                 </div>
-                            {{--</a>--}}
+                            </a>
                         @endforeach
                     @else
                         <div class="panel panel-default">
@@ -51,17 +46,17 @@
                 <div class="block">
                     <ul class="nav nav-list">
                         <li class="nav-header">Toko-ku</li>
-                        <li><a href="{{route('shop')}}">Profil</a></li>
-                        <li><a href="{{route('order.get')}}">Daftar Transaksi</a></li>
+                        {{--<li><a href="{{route('shop')}}">Profil</a></li>--}}
+                        {{--<li><a href="{{route('order.get')}}">Daftar Transaksi</a></li>--}}
                         <li>Kostum</li>
-                        <li><a href="{{ route('kostum.add') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>
-                        <li><a href="{{ route('kostum.get') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li>
+                        {{--<li><a href="{{ route('kostum.add') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>--}}
+                        {{--<li><a href="{{ route('kostum.get') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li>--}}
                         <li><a href="products.html">Setting Toko</a></li>
                     </ul>
                     <br/>
                     <ul class="nav nav-list below">
                         <li class="nav-header">Akun-ku</li>
-                        <li><a href="{{route('user')}}">Profil</a></li>
+{{--                        <li><a href="{{route('user')}}">Profil</a></li>--}}
                         <li><a href="products.html">Request</a></li>
                         <li><a href="products.html">Daftar Sewa</a></li>
                         <li><a href="products.html">Review</a></li>

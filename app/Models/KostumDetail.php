@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \App\Models\Kategori $kategori
  * @property \App\Models\Toko $toko
  */
-class Kostum extends Model 
+class KostumDetail extends Model
 {
 
 	/**
@@ -43,7 +43,7 @@ class Kostum extends Model
 	 *
 	 * @var string
 	 */
-	protected $table = 'kostum';
+	protected $table = 'detail_kostum';
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +51,7 @@ class Kostum extends Model
      * @var array
      */
     protected $fillable = [
-        'id_toko', 'nama', 'keterangan',
+        'id_kostum', 'id_ukuran', 'harga', 'jumlah_keseluruhan', 'jumlah_stok',
     ];
 
 	/**
@@ -75,61 +75,5 @@ class Kostum extends Model
 	 * @var array
 	 */
 	protected $dates = ['created_at', 'updated_at'];
-
-
-
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-    public function detailKostums()
-    {
-        return $this->hasMany(
-        // Model
-            'App\Models\DetailKostum',
-            // Foreign key
-            'id_kostum',
-            // Local key
-            'id'
-        );
-    }
-	public function kostumGambars()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\KostumGambar',
-			// Foreign key
-			'id_kostum',
-			// Local key
-			'id'
-		);
-	}
-    public function kostumKategoris()
-    {
-        return $this->hasMany(
-        // Model
-            'App\Models\KostumKategori',
-            // Foreign key
-            'id_kostum',
-            // Local key
-            'id'
-        );
-    }
-
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function toko()
-	{
-		return $this->belongsTo(
-			// Model
-			'App\Models\Toko',
-			// Foreign key
-			'id',
-			// Other key
-			'id_toko'
-		);
-	}
-
-
 
 }

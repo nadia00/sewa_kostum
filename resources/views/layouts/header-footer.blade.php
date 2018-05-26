@@ -20,6 +20,7 @@
 	<script src="{{asset('public/bootstrap/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('public/themes/js/superfish.js')}}"></script>
 	<script src="{{asset('public/themes/js/jquery.scrolltotop.js')}}"></script>
+	{{--<link href="{{asset('public/css/multi-select.css')}}" media="screen" rel="stylesheet" type="text/css">--}}
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<script src="js/respond.min.js"></script>
@@ -180,5 +181,6 @@
         });
     });
 </script>
+{{--<script src="{{asset('public/js/jquery.multi-select.js')}}" type="text/javascript"></script>--}}
 </body>
 </html>
