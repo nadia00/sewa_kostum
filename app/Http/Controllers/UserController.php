@@ -16,10 +16,10 @@ class UserController extends Controller
     public function getMyProfile(){
         $user_id = Auth::user()->id;
         $data = DB::table('USERS as US')
-            ->join('TOKO AS TK', 'TK.ID_PENJUAL', '=', 'US.ID')
+            ->join('TOKO AS TK', 'TK.ID_USER', '=', 'US.ID')
             ->select('US.FULLNAME AS nama', 'US.EMAIL AS email', 'US.PHONE AS telp',
                 'TK.NAMA AS nama_toko', 'TK.MOTTO AS motto_toko', 'TK.LOKASI AS lokasi_toko', 'TK.TELEPON AS telp_toko')
-            ->where('ID_PENJUAL', '=', $user_id)
+            ->where('ID_USER', '=', $user_id)
             -> first();
         return view('profil')->with('data', $data);
     }

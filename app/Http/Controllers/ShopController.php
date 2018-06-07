@@ -26,7 +26,7 @@ class ShopController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
         $this->view = new HomeController();
     }
 
@@ -161,28 +161,41 @@ class ShopController extends Controller
         $data = DB::table('KOSTUM AS KM')
             ->join('TOKO AS TK', 'KM.ID_TOKO','=','TK.ID')
             ->join('KOSTUM_KATEGORI AS KK', 'KK.ID_KOSTUM', '=', 'KM.ID')
-            ->select('KM.ID AS id_kostum', 'TK.ID AS id_toko', 'TK.NAMA AS nama_toko', 'KM.KETERANGAN AS keterangan_kostum')
+            ->select('KM.ID AS id_kostum', 'TK.ID AS id_toko', 'TK.NAMA AS nama_toko', 'KM.KETERANGAN AS keterangan_kostum','KM.NAMA AS nama_kostum')
             ->where('KM.ID','=',$id_kostum)
             ->first();
         $final = [
-            "id_kostum" => $data[0]->id_kostum,
-            "id_toko" => $data[0]->id_toko,
-            "nama_toko" => $data[0]->nama_toko,
-            "nama_kostum" => $data[0]->nama_kostum,
-            "keterangan_kostum" => $data[0]->keterangan_kostum,
+            "id_kostum" => $data->id_kostum,
+            "id_toko" => $data->id_toko,
+            "nama_toko" => $data->nama_toko,
+            "nama_kostum" => $data->nama_kostum,
+            "keterangan_kostum" => $data->keterangan_kostum,
             "gambar" => array(),
-            "kategori" => array()
+            "kategori" => array(),
         ];
-        $image =  DB::table('KOSTUM_GAMBAR')->where('ID_KOSTUM','=',$data[0]->id_kostum)->get();
+        $image =  DB::table('KOSTUM_GAMBAR')->where('ID_KOSTUM','=',$data->id_kostum)->get();
         foreach ($image as $val){
             array_push($final['gambar'], array('filepath' => $val->filepath));
         }
-        $categories =  DB::table('KOSTUM_KATEGORI')->where('ID_KOSTUM','=',$data[0]->id_kostum)->get();
+//        dd($final);
+        $categories =  DB::table('KOSTUM_KATEGORI')
+                        ->where('ID_KOSTUM','=',$data->id_kostum)
+                        ->leftJoin('KATEGORI', 'KOSTUM_KATEGORI.ID_KATEGORI', '=', 'KATEGORI.ID')
+                        ->get();
         foreach ($categories as $val){
-            array_push($final['kategori'], array('id_kategori' => $val->id_kategori));
+            array_push($final['kategori'], array('nama_kategori' => $val->nama, 'id_kategori' => $val->id_kategori));
         }
+        $ukuran = DB::table('UKURAN')->get();
 
-//        return view('shop/kostum-detail')->with('data',json_decode(json_encode($final)));
+//        return response()->json($final);
+        return view('shop/kostum-detail', ['data' => $final,'ukuran'=>$ukuran]);
+    }
+
+    function getDetailHarga($ukuran, $kostum){
+        $detail =  DB::table('DETAIL_KOSTUM')
+            ->where('ID_KOSTUM','=',$kostum)
+            ->where('ID_UKURAN','=',$ukuran)->first();
+        return response()->json($detail);
     }
 
 }

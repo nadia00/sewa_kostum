@@ -1,122 +1,101 @@
-@extends('layouts.header-footer')
+@extends('layouts.master')
 
 @section('content')
 
-<section class="main-content">
-    <div class="row">
-        <div class="span12">
-            <div class="row">
-                <div class="span12">
-                    <h4 class="title">
-                        <span class="pull-left"><span class="text"><span class="line">All <strong>Costumes</strong></span></span></span>
-                        <span class="pull-right">
-                            <a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-                        </span>
-                    </h4>
-                    <div class="row">
+    <div id="all">
 
+        <div id="content">
+
+            <div class="container">
+                <div class="col-md-12">
+                    <div id="main-slider">
+                        <div class="item">
+                            <img src="{{asset('public/page/img/main-slider1.jpg')}}" alt="" class="img-responsive">
+                        </div>
+                    </div>
+                    <!-- /#main-slider -->
+                </div>
+            </div>
+
+            <!-- *** ADVANTAGES HOMEPAGE ***
+ _________________________________________________________ -->
+            <div id="advantages">
+
+                <div class="container">
+                    <div class="same-height-row">
+
+                    </div>
+                    <!-- /.row -->
+
+                </div>
+                <!-- /.container -->
+
+            </div>
+            <!-- /#advantages -->
+
+            <!-- *** ADVANTAGES END *** -->
+
+            <!-- *** HOT PRODUCT SLIDESHOW ***
+ _________________________________________________________ -->
+            <div id="hot">
+
+                <div class="box">
+                    <div class="container">
+                        <div class="col-md-12">
+                            <h2>Latest Product</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="product-slider">
                         @if(!empty($data))
                             @foreach($data as $kostum)
-                                <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
-                                    <div class="span3">
-                                        <div class="thumbnail">
-                                            <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive" style="height: 250px">
-                                            <div class="caption">
-                                                <table class="table">
-                                                    <tr>
-                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="title">{{$kostum->nama_kostum}}</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="category">KATEGORI</a></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
+                        <div class="item">
+                            <div class="product">
+                                <div class="flip-container">
+                                    <div class="flipper">
+                                        <div class="front">
+                                            <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
+                                                <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="back">
+                                            <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
+                                                <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive">
+                                            </a>
                                         </div>
                                     </div>
+                                </div>
+                                <a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="invisible">
+                                    <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive">
                                 </a>
-                            @endforeach
-                    </div>
-                        @else
-                            <div class="panel panel-default">
-                                <div class="panel-body center bg-danger">Tidak Ada Data</div>
+                                <div class="text">
+                                    <h3><a href="detail.html">{{$kostum->nama_kostum}}</a></h3>
+                                    <p class="price">{{$kostum->nama_toko}}</p>
+                                </div>
+                                <!-- /.text -->
                             </div>
-                        @endif
-
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="span12">
-                    <h4 class="title">
-                        <span class="pull-left"><span class="text"><span class="line">Latest <strong>Products</strong></span></span></span>
-                        <span class="pull-right">
-                            <a class="left button" href="#myCarousel-2" data-slide="prev"></a><a class="right button" href="#myCarousel-2" data-slide="next"></a>
-                        </span>
-                    </h4>
-                    <div class="row">
-
-                        @if(!empty($data))
-                            @foreach($data as $kostum)
-                                <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
-                                    <div class="span3">
-                                        <div class="thumbnail">
-                                            <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive" style="height: 250px">
-                                            <div class="caption">
-                                                <table class="table">
-                                                    <tr>
-                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="title">{{$kostum->nama_kostum}}</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="category">KATEGORI</a></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endforeach
-                    </div>
+                            <!-- /.product -->
+                        </div>
+                        @endforeach
                         @else
-                            <div class="panel panel-default">
-                                <div class="panel-body center bg-danger">Tidak Ada Data</div>
-                            </div>
-                        @endif
+                            <p>Belum ada Data</p>
+                    @endif
+                    </div>
+                    <!-- /.product-slider -->
 
                 </div>
+                <!-- /.container -->
+
             </div>
-            <div class="row feature_box">
-                <div class="span4">
-                    <div class="service">
-                        <div class="responsive">
-                            <img src="themes/images/feature_img_2.png" alt="" />
-                            <h4>MODERN <strong>DESIGN</strong></h4>
-                            <p>Lorem Ipsum is simply dummy text of the printing and printing industry unknown printer.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="service">
-                        <div class="customize">
-                            <img src="themes/images/feature_img_1.png" alt="" />
-                            <h4>FREE <strong>SHIPPING</strong></h4>
-                            <p>Lorem Ipsum is simply dummy text of the printing and printing industry unknown printer.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="service">
-                        <div class="support">
-                            <img src="themes/images/feature_img_3.png" alt="" />
-                            <h4>24/7 LIVE <strong>SUPPORT</strong></h4>
-                            <p>Lorem Ipsum is simply dummy text of the printing and printing industry unknown printer.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- /#hot -->
+
+            <!-- *** HOT END *** -->
+
+
         </div>
-    </div>
-</section>
+        <!-- /#content -->
 
 
 @endsection

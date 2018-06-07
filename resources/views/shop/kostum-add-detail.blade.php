@@ -1,86 +1,217 @@
-@extends('layouts.header-footer')
+@extends('layouts.master')
 
 @section('content')
-    <section class="main-content">
-        <div class="row">
-            <div class="span9">
-                <h4 class="title"><span class="text"><strong>Tambah</strong> Kostum</span></h4>
-                <div class="span8" style="padding-left: 3%">
-                    @if($kostum )
-                                <img class="img-responsive" style="width: 100px" src="{{url('/').Storage::disk('local')->url("app/".$gambar->filepath)}}" alt="Foto Profil">
-                                    {{ $kostum->nama }}
-                                    {{ $kostum->keterangan }}
-                    @endif
-                    <br>
-                    @foreach($ukuran as $val)
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$val->id}}">
-                            {{$val->nama}}
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal{{$val->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" action="{{route('detail.add')}}">
-                                            @csrf
-                                            <input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_kostum" value="{{$id_kostum}}">
-                                            <input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_ukuran" value="{{$val->id}}">
-                                            <div class="form-group">
-                                                <label for="harga">Harga:</label>
-                                                <input type="text" class="input-xxlarge form-control" id="harga" placeholder="Isikan harga" name="harga">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="jumlah">Jumlah Keseluruhan:</label>
-                                                <input type="number" class="input-xxlarge form-control" id="jumlah" placeholder="Isikan jumlah keseluruhan" name="jumlah_keseluruhan">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="stok">Stok:</label>
-                                                <input type="number" class="input-xxlarge form-control" id="stok" placeholder="Isikan stok" name="jumlah_stok">
-                                            </div>
-                                            <div>
-                                                <button type="submit" name="submit">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="clearfix"></div>
-                {{--<hr>--}}
+
+    <link href="{{asset('public/page/css/style-tab.css')}}" rel="stylesheet">
+
+    <div id="content">
+        <div class="container">
+
+            <div class="col-md-12">
+
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a>
+                    </li>
+                    <li>Tambah Kostum</li>
+                </ul>
+
             </div>
 
-            {{-- Side Bar --}}
-            <div class="span3 col">
-                <div class="block">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Toko-ku</li>
-                        {{--<li><a href="{{route('shop')}}">Profil</a></li>--}}
-                        {{--<li><a href="{{route('order.get')}}">Daftar Transaksi</a></li>--}}
-                        <li>Kostum</li>
-                        {{--<li><a href="{{ route('kostum.add') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Tambah Kostum</a></li>--}}
-                        {{--<li><a href="{{ route('kostum.get') }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Daftar Kostum</a></li>--}}
-                        <li><a href="products.html">Setting Toko</a></li>
-                    </ul>
-                    <br/>
-                    <ul class="nav nav-list below">
-                        <li class="nav-header">Akun-ku</li>
-                        {{--<li><a href="{{route('user')}}">Profil</a></li>--}}
-                        <li><a href="products.html">Request</a></li>
-                        <li><a href="products.html">Daftar Sewa</a></li>
-                        <li><a href="products.html">Review</a></li>
-                        <li><a href="products.html">Setting</a></li>
-                    </ul>
+            <div class="col-md-3">
+                <!-- *** CUSTOMER MENU ***
+_________________________________________________________ -->
+                <div class="panel panel-default sidebar-menu">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User section</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="customer-orders.html"><i class="fa fa-list"></i> Pesanan Saya</a>
+                            </li>
+                            <li>
+                                <a href="customer-orders.html"><i class="fa fa-heart"></i> Wishlist</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/user')}}"><i class="fa fa-user"></i> Profil</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="customer-orders.html"><i class="fa fa-th-list"></i> Penyewaan</a>
+                            </li>
+                            <li class="active">
+                                <a href="{{url('/user/kostum-add')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/user/kostum')}}"><i class="fa fa-list"></i> Daftar Kostum</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/user/myshop')}}"><i class="fa fa-user"></i> Toko</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </ul>
+                    </div>
+
                 </div>
+                <!-- /.col-md-3 -->
+
+                <!-- *** CUSTOMER MENU END *** -->
             </div>
+
+            <div class="col-md-9">
+                <div class="box">
+                    @if($kostum )
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img class="img-thumbnail img-responsive" src="{{url('/').Storage::disk('local')->url("app/".$gambar->filepath)}}" alt="Gambar Kostum">
+                            </div>
+                            <div class="col-sm-9">
+                                <p><strong>Nama Kostum : </strong> {{ $kostum->nama }}</p>
+                                <p><strong>Keterangan : </strong> {{ $kostum->keterangan }}</p>
+                            </div>
+                        </div>
+                    @endif
+
+                    <h1>Tambah Detail Kostum</h1>
+                    <p class="lead">Tambahkan detail kostum yang baru saja Anda masukkan.</p>
+                    <p class="text-muted">Anda bisa mengisi semua ukuran atau hanya salah satu saja.</p>
+
+                    {{--@foreach($ukuran as $val)--}}
+
+                        {{--<div class="tab">--}}
+                            {{--<button class="tablinks" onclick="openUkuran(event, 'kostum{{$val->id}}')">{{$val->nama}}</button>--}}
+                        {{--</div>--}}
+
+                        {{--<div id="kostum{{$val->id}}" class="tabcontent">--}}
+                            {{--<h3>{{$val->nama}}</h3>--}}
+                            {{--<p>Tambah detail kostum untuk ukuran {{$val->nama}}.</p>--}}
+                            {{--<form method="POST" action="{{route('detail.add')}}">--}}
+                                {{--@csrf--}}
+                                {{--<input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_kostum" value="{{$id_kostum}}">--}}
+                                {{--<input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_ukuran" value="{{$val->id}}">--}}
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="harga">Harga:</label>--}}
+                                    {{--<input type="text" class="input-xxlarge form-control" id="harga" placeholder="Isikan harga" name="harga">--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="jumlah">Jumlah Keseluruhan:</label>--}}
+                                    {{--<input type="number" class="input-xxlarge form-control" id="jumlah" placeholder="Isikan jumlah keseluruhan" name="jumlah_keseluruhan">--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="stok">Stok:</label>--}}
+                                    {{--<input type="number" class="input-xxlarge form-control" id="stok" placeholder="Isikan stok" name="jumlah_stok">--}}
+                                {{--</div>--}}
+                                {{--<div>--}}
+                                    {{--<button type="submit" name="submit">Submit</button>--}}
+                                {{--</div>--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
+
+                    {{--@endforeach--}}
+
+                    <div class="tab">
+                        <button class="tablinks" onclick="openUkuran(event, 'anak')">Anak</button>
+                        <button class="tablinks" onclick="openUkuran(event, 'dewasa')">Dewasa</button>
+                    </div>
+
+                    <div id="anak" class="tabcontent">
+                        <h3>Anak - Anak</h3>
+                        <p>Tambah detail kostum untuk ukuran anak - anak.</p>
+                        <form method="POST" action="{{route('detail.add')}}">
+                            @csrf
+                            <input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_kostum" value="{{$id_kostum}}">
+                            {{--<input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_ukuran" value="{{$val->id}}">--}}
+                            <div class="form-group">
+                                <label for="harga">Harga:</label>
+                                <input type="text" class="input-xxlarge form-control" id="harga" placeholder="Isikan harga" name="harga">
+                            </div>
+                            <div class="form-group">
+                                <label for="jumlah">Jumlah Keseluruhan:</label>
+                                <input type="number" class="input-xxlarge form-control" id="jumlah" placeholder="Isikan jumlah keseluruhan" name="jumlah_keseluruhan">
+                            </div>
+                            <div class="form-group">
+                                <label for="stok">Stok:</label>
+                                <input type="number" class="input-xxlarge form-control" id="stok" placeholder="Isikan stok" name="jumlah_stok">
+                            </div>
+                            <div>
+                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="dewasa" class="tabcontent">
+                        <h3>Dewasa</h3>
+                        <p>Tambah detail kostum untuk ukuran dewasa.</p>
+                        <form method="POST" action="{{route('detail.add')}}">
+                            @csrf
+                            <input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_kostum" value="{{$id_kostum}}">
+                            {{--<input class="form-control" type="hidden" id="nama" placeholder="Enter username" name="id_ukuran" value="{{$val->id}}">--}}
+                            <div class="form-group">
+                                <label for="harga">Harga:</label>
+                                <input type="text" class="input-xxlarge form-control" id="harga" placeholder="Isikan harga" name="harga">
+                            </div>
+                            <div class="form-group">
+                                <label for="jumlah">Jumlah Keseluruhan:</label>
+                                <input type="number" class="input-xxlarge form-control" id="jumlah" placeholder="Isikan jumlah keseluruhan" name="jumlah_keseluruhan">
+                            </div>
+                            <div class="form-group">
+                                <label for="stok">Stok:</label>
+                                <input type="number" class="input-xxlarge form-control" id="stok" placeholder="Isikan stok" name="jumlah_stok">
+                            </div>
+                            <div>
+                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <script>
+                        function openUkuran(evt, ukuran) {
+                            var i, tabcontent, tablinks;
+                            tabcontent = document.getElementsByClassName("tabcontent");
+                            for (i = 0; i < tabcontent.length; i++) {
+                                tabcontent[i].style.display = "none";
+                            }
+                            tablinks = document.getElementsByClassName("tablinks");
+                            for (i = 0; i < tablinks.length; i++) {
+                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                            }
+                            document.getElementById(ukuran).style.display = "block";
+                            evt.currentTarget.className += " active";
+                        }
+                    </script>
+
+
+                </div>
+
+            </div>
+
         </div>
-    </section>
+    </div>
+
 
 @endsection

@@ -25,4 +25,24 @@ class TransactionController extends Controller
         return redirect()->back();
     }
 
+    //order baru
+    public function getOrder(){
+
+    }
+
+    //order yg sudah dikonfirm
+    public function getOrderTerima(){
+
+    }
+    public function getOrderTolak(){
+
+    }
+
+    //konfirmasi order
+    public function terimaOrder(){
+
+    }
+    public function tolakOrder(){
+
+    }
 }

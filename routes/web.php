@@ -14,9 +14,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 Route::get('/', function () {
     return view('home');
 });
@@ -40,6 +37,7 @@ Route::prefix('user')->group(function(){
 //    Route::get('kostum-update', 'ShopController@updateCostume')->name('kostum.update');
     Route::get('kostum-del/{id}', 'ShopController@deleteCostume')->name('kostum.del');
     Route::get('detail/{id}', 'ShopController@getDetailCostume')->name('kostum.detail');
+    Route::get('detail-data/{ukuran}/{kostum}', 'ShopController@getDetailHarga')->name('kostum.detail');
 
 //    Route::get('myshop-order', 'TransactionController@getOrder')->name('order.get');
 //    Route::get('myshop-order-terima', 'TransactionController@getOrderTerima')->name('order.terima');
@@ -57,7 +55,6 @@ Route::prefix('user')->group(function(){
 
 Route::prefix('/admin')->group(function(){
     Route::get('/', 'HomeController@index');
-
     Route::get('/kategori', 'AdminController@showKategori')->name('admin.kategori');
     Route::get('/add-kategori', 'AdminController@addKategori');
     Route::get('/update-kategori', 'AdminController@updateKategori')->name('admin.kategori-edit');
