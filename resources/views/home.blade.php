@@ -49,39 +49,42 @@
 
                 <div class="container">
                     <div class="product-slider">
-                        @if(!empty($data))
-                            @foreach($data as $kostum)
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
-                                                <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="{{ url('user/detail', [$kostum->id_kostum]) }}">
-                                                <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive">
-                                            </a>
+                        @if(!empty($product))
+                            @foreach($product as $val)
+                            <div class="item">
+                                <div class="product">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front">
+                                                <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                </a>
+                                            </div>
+                                            <div class="back">
+                                                <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
+                                    <a href="{{ url('user/detail', [$val->id]) }}" class="invisible">
+                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                    </a>
+                                    <div class="text">
+                                        <h3><a href="detail.html">{{$val->name}}</a></h3>
+                                    </div>
+                                    <!-- /.text -->
                                 </div>
-                                <a href="{{ url('user/detail', [$kostum->id_kostum]) }}" class="invisible">
-                                    <img src="{{url('/').Storage::disk('local')->url("app/".$kostum->gambar_kostum)}}" alt="{{$kostum->nama_kostum}}" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">{{$kostum->nama_kostum}}</a></h3>
-                                    <p class="price">{{$kostum->nama_toko}}</p>
-                                </div>
-                                <!-- /.text -->
+                                <!-- /.product -->
                             </div>
-                            <!-- /.product -->
-                        </div>
-                        @endforeach
+                            @endforeach
                         @else
-                            <p>Belum ada Data</p>
-                    @endif
+                            <div class="row">
+                                <div class="panel  col-lg-12">
+                                    <div class="panel-body">No Data Found</div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <!-- /.product-slider -->
 
@@ -96,6 +99,5 @@
 
         </div>
         <!-- /#content -->
-
-
+    </div>
 @endsection

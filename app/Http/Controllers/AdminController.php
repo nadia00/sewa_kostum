@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use App\Models\Permission;
-use App\Models\Kategori;
+use App\Role;
+use App\Permission;
+use App\Kategori;
 
 use Illuminate\Http\Request;
 
