@@ -10,9 +10,10 @@
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a>
                     </li>
-                    <li>Ladies</li>
+                    <li>{{$categories->name}}</li>
                 </ul>
 
+                @if(sizeof($product) != 0)
                 <div class="box info-bar">
                     <div class="row">
                         <div class="col-sm-12 col-md-4 products-showing">
@@ -44,29 +45,28 @@
                 </div>
 
                 <div class="row products">
-
+                    @foreach($product as $val)
                     <div class="col-md-3 col-sm-4">
                         <div class="product">
                             <div class="flip-container">
                                 <div class="flipper">
                                     <div class="front">
-                                        <a href="detail.html">
-                                            <img src="img/product1.jpg" alt="" class="img-responsive">
+                                        <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                            <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
                                         </a>
                                     </div>
                                     <div class="back">
-                                        <a href="detail.html">
-                                            <img src="img/product1_2.jpg" alt="" class="img-responsive">
+                                        <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                            <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <a href="detail.html" class="invisible">
-                                <img src="img/product1.jpg" alt="" class="img-responsive">
+                            <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}" class="invisible">
+                                <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
                             </a>
                             <div class="text">
-                                <h3><a href="detail.html">Fur coat with very but very very long name</a></h3>
-                                <p class="price">$143.00</p>
+                                <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">{{$val->product->name}}</a></h3>
                                 <p class="buttons">
                                     <a href="detail.html" class="btn btn-default"><i class="fa fa-heart-o"></i> Wishlist</a>
                                     <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -76,7 +76,7 @@
                         </div>
                         <!-- /.product -->
                     </div>
-
+                    @endforeach
                 </div>
                 <!-- /.products -->
 
@@ -103,7 +103,15 @@
                         </li>
                     </ul>
                 </div>
-
+                @else
+                    <div class="box info-bar">
+                        <div class="row">
+                            <div class="col-sm-12 products-showing text-center">
+                                Tidak ada kostum
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
             <!-- /.col-md-9 -->

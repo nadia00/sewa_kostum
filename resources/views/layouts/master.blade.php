@@ -31,10 +31,24 @@
 
     <!-- your stylesheet with modifications -->
     <link href="{{asset('public/page/css/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('public/multiple/fastselect.css')}}" rel="stylesheet">
 
-    <script src="{{asset('public/page/js/respond.min.js')}}"></script>
 
     <link rel="shortcut icon" href="favicon.png">
+
+    <!-- *** SCRIPTS TO INCLUDE ***
+    _________________________________________________________ -->
+    <script src="{{asset('public/page/js/jquery-1.11.0.min.js')}}"></script>
+    <script src="{{asset('public/page/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('public/page/js/jquery.cookie.js')}}"></script>
+    <script src="{{asset('public/page/js/waypoints.min.js')}}"></script>
+    <script src="{{asset('public/page/js/modernizr.js')}}"></script>
+    <script src="{{asset('public/page/js/bootstrap-hover-dropdown.js')}}"></script>
+    <script src="{{asset('public/page/js/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('public/page/js/front.js')}}"></script>
+    <script src="{{asset('public/page/js/respond.min.js')}}"></script>
+    {{--<script src="{{asset('public/multiple/fastselect.js')}}"></script>--}}
+    <script src="{{asset('public/multiple/fastselect.standalone.min.js')}}"></script>
 
 
 
@@ -52,70 +66,76 @@ _________________________________________________________ -->
         <div class="col-md-6" data-animate="fadeInDown">
             <ul class="menu">
                 @guest
-                    <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+                    <li><a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">Login</a>
                     </li>
-                    <li><a href="register.html">Register</a>
+                    <li><a class="nav-link" href="{{route('register')}}" >Register</a>
                     </li>
                 @else
-                    <li><a href="register.html">Notifikasi</a>
-                    </li>
                     @role('user')
-                    <li><a href="#">Buat Toko</a>
+                    <li><a class="nav-link" href="{{route('user.create-shop')}}">Buat Toko</a>
                     </li>
                     @endrole
-                    <li><a href="{{url('/user')}}">Akun</a>
+                    @role('user-seller')
+                    <li><a class="nav-link" href="{{route('admin-shop.product')}}">Toko</a>
                     </li>
-                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    @endrole
+                    <li><a class="nav-link" href="{{url('/user')}}">Akun</a>
+                    </li>
+                    <li><a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
-                    </a></li>
+                        </a></li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 @endguest
             </ul>
         </div>
-    </div>
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="Login">User login</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('login') }}" method="post">
-                        <div class="form-group">
-                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" id="email-modal" placeholder="email" required autofocus>
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback">
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="Login">User login</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('login')}}" method="post">
+                            @csrf
+
+                            <div class="form-group">
+                                <input type="email" placeholder="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                            @endif
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password-modal" placeholder="password" required>
-                            @if ($errors->has('password'))
-                                <span class="invalid-feedback">
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" placeholder="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                            @endif
-                        </div>
+                                @endif
+                            </div>
 
-                        <p class="text-center">
-                            <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Log in</button>
-                        </p>
+                            <p class="text-center">
+                                <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Log in</button>
+                            </p>
 
-                    </form>
+                        </form>
 
-                    <p class="text-center text-muted">Not registered yet?</p>
-                    <p class="text-center text-muted"><a href="register.html"><strong>Register now</strong></a>! It is easy and done in 1&nbsp;minute and gives you access to special discounts and much more!</p>
+                        <p class="text-center text-muted">Not registered yet?</p>
+                        <p class="text-center text-muted"><a href="{{route('register')}}"><strong>Register now</strong></a>! It is easy and done in 1&nbsp;minute and gives you much more access!</p>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
 
 <!-- *** TOP BAR END *** -->
@@ -128,8 +148,8 @@ _________________________________________________________ -->
         <div class="navbar-header">
 
             <a class="navbar-brand home" href="{{url('/')}}" data-animate-hover="bounce">
-                <img src="img/logo.png" alt="Obaju logo" class="hidden-xs">
-                <img src="img/logo-small.png" alt="Obaju logo" class="visible-xs"><span class="sr-only">Obaju - go to homepage</span>
+                <img style="height: 50px" src="{{asset('public/logo.png')}}" alt="Obaju logo" class="hidden-xs">
+                <img style="height: 50px" src="{{asset('public/logo.png')}}" alt="Obaju logo" class="visible-xs"><span class="sr-only">Obaju - go to homepage</span>
             </a>
             <div class="navbar-buttons">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
@@ -140,13 +160,10 @@ _________________________________________________________ -->
                     <span class="sr-only">Toggle search</span>
                     <i class="fa fa-search"></i>
                 </button>
-                <a class="btn btn-default navbar-toggle" href="basket.html">
-                    <i class="fa fa-shopping-cart"></i>  <span class="hidden-xs">3 items in cart</span>
-                </a>
             </div>
         </div>
-        <!--/.navbar-header -->
 
+        <!--/.navbar-header -->
         <div class="navbar-collapse collapse" id="navigation">
 
             <ul class="nav navbar-nav navbar-left">
@@ -160,16 +177,12 @@ _________________________________________________________ -->
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <ul>
-                                            <li><a href="category.html">All Categories</a>
-                                            </li>
-                                            <li><a href="category.html">Adat</a>
-                                            </li>
-                                            <li><a href="category.html">Tari</a>
-                                            </li>
-                                            <li><a href="category.html">Juang</a>
-                                            </li>
-                                            <li><a href="category.html">Profesi</a>
-                                            </li>
+                                            <li><a href="#">All Categories</a></li>
+                                            @foreach($kategoris as $categories)
+                                                <li>
+                                                    <a href="{{url('category',[$categories->id])}}">{{$categories->name}}</a>
+                                                </li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -185,28 +198,23 @@ _________________________________________________________ -->
 
         <div class="navbar-buttons">
 
-            @guest
                 <div class="navbar-collapse collapse right" id="search-not-mobile">
+                    <button type="button" class="btn navbar-btn btn-primary"  data-toggle="modal" data-target="#cart" onclick="getCart()">
+                        <span class="sr-only">Toggle Cart</span>
+                        <i class="fa fa-shopping-cart"></i><span id="changer"></span>
+                    </button>
+                    <script>
+                        setInterval(function () {
+                            $.get("{{url('user/cart/total')}}", function (data) {
+                                document.getElementById("changer").innerHTML = data;
+                            })
+                        },1000)
+                    </script>
                     <button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">
                         <span class="sr-only">Toggle search</span>
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
-            @else
-                <div class="navbar-collapse collapse right" id="basket-overview">
-                    <a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm">Your Cart</span></a>
-                </div>
-                <!--/.nav-collapse -->
-
-                <div class="navbar-collapse collapse right" id="search-not-mobile">
-                    <button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">
-                        <span class="sr-only">Toggle search</span>
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            @endguest
-
-
 
         </div>
 
@@ -232,7 +240,122 @@ _________________________________________________________ -->
 <!-- /#navbar -->
 
 <!-- *** NAVBAR END *** -->
+{{--modal address--}}
+<div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
 
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="Login">Tambah Alamat</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{route("user.address")}}" method="post" id="address_form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Kota" name="city">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Kecamatan" name="district">
+                    </div>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control" placeholder="Alamat" name="street"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Kode Pos" name="zip_code">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Telepon" name="phone_number">
+                    </div>
+                </form>
+
+                <p class="text-center">
+                    <button class="btn btn-primary" form="address_form"><i class="fa fa-sign-in"></i> Submit</button>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{--<div id="add_address" class="modal fade" role="dialog">--}}
+    {{--<div class="modal-dialog">--}}
+        {{--<!-- Modal content-->--}}
+        {{--<div class="modal-content">--}}
+            {{--<div class="modal-header">--}}
+                {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+                {{--<h4 class="modal-title">Tambah Alamat</h4>--}}
+            {{--</div>--}}
+            {{--<div class="modal-body">--}}
+                {{--<form action="{{route("user.address")}}" method="post" id="address_form">--}}
+                    {{--<div class="form-group">--}}
+                        {{--<input type="text" class="form-control" placeholder="Kota" name="city">--}}
+                    {{--</div>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<input type="text" class="form-control" placeholder="Kecamatan" name="district">--}}
+                    {{--</div>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<input type="text" class="form-control" placeholder="Alamat" name="street">--}}
+                    {{--</div>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<input type="text" class="form-control" placeholder="Kode Pos" name="zip_code">--}}
+                    {{--</div>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<input type="text" class="form-control" placeholder="Telepon" name="phone_number">--}}
+                    {{--</div>--}}
+                {{--</form>--}}
+            {{--</div>--}}
+            {{--<div class="modal-footer">--}}
+                {{--<input type="submit" form="address_form" class="btn btn-primary">--}}
+                {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+    {{--</div>--}}
+{{--</div>--}}
+{{--modal cart--}}
+<div id="cart" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Your Chart</h4>
+            </div>
+            <div class="modal-body">
+                <div id="refresh-cart">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="clearCart()">Clear All</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function getCart(){
+        $.get("{{url('user/cart/show')}}", function (data) {
+            document.getElementById("refresh-cart").innerHTML = data;
+        })
+    }
+    function deleteCart(rowId){
+        $.get("{{url('user/cart/delete')}}/"+rowId, function (data) {
+            getCart()
+        })
+
+    }
+    function clearCart(){
+        $.get("{{url('user/cart/destroy')}}", function (data) {
+            getCart()
+        })
+
+    }
+
+</script>
 
 @yield('content')
 
@@ -274,19 +397,14 @@ _________________________________________________________ -->
 
             <div class="col-md-3 col-sm-6">
 
-                <h4>Top categories</h4>
+                <h4>Categories</h4>
 
                 <ul>
-                    <li><a href="category.html">All Categories</a>
-                    </li>
-                    <li><a href="category.html">Adat</a>
-                    </li>
-                    <li><a href="category.html">Tari</a>
-                    </li>
-                    <li><a href="category.html">Juang</a>
-                    </li>
-                    <li><a href="category.html">Profesi</a>
-                    </li>
+                    @foreach($kategoris as $categories)
+                        <li>
+                            <a href="{{url('kategori',[$categories->id])}}">{{$categories->name}}</a>
+                        </li>
+                    @endforeach
                 </ul>
 
                 <hr class="hidden-md hidden-lg">
@@ -332,16 +450,6 @@ _________________________________________________________ -->
 
 
 
-<!-- *** SCRIPTS TO INCLUDE ***
-_________________________________________________________ -->
-<script src="{{asset('public/page/js/jquery-1.11.0.min.js')}}"></script>
-<script src="{{asset('public/page/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('public/page/js/jquery.cookie.js')}}"></script>
-<script src="{{asset('public/page/js/waypoints.min.js')}}"></script>
-<script src="{{asset('public/page/js/modernizr.js')}}"></script>
-<script src="{{asset('public/page/js/bootstrap-hover-dropdown.js')}}"></script>
-<script src="{{asset('public/page/js/owl.carousel.min.js')}}"></script>
-<script src="{{asset('public/page/js/front.js')}}"></script>
 
 </body>
 </html>

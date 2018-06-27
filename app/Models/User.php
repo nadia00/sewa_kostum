@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 /*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -26,9 +26,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \App\Models\Role[] $roles
- * @property \App\Models\Sewa[] $sewas
- * @property \App\Models\Toko[] $tokos
+ * @property \App\Role[] $roles
  */
 class User extends Authenticatable
 {
@@ -48,7 +46,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fullname', 'email', 'phone','password','filepath_gambar'
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'phone_number',
+        'date_of_birth',
+        'avatar'
     ];
 
     /**
@@ -84,7 +88,7 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany(
 			// Model
-			'App\Models\Role',
+			'App\Role',
 			// Pivot table
 			'role_user',
 			// "Our" key
@@ -94,36 +98,19 @@ class User extends Authenticatable
 		);
 	}
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function sewas()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\Sewa',
-			// Foreign key
-			'id_penyewa',
-			// Local key
-			'id'
-		);
-	}
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function tokos()
-	{
-		return $this->hasMany(
-			// Model
-			'App\Models\Toko',
-			// Foreign key
-			'id_user',
-			// Local key
-			'id'
-		);
-	}
+    public function shop()
+    {
+        return $this->hasOne('App\Shop');
+    }
 
-
+    public function addresses()
+    {
+        return $this->hasMany('App\Address');
+    }
 
 }

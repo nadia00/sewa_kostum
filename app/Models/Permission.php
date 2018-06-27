@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 /*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -24,7 +24,7 @@ use Zizaco\Entrust\EntrustPermission;
  * @property string $description
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property \App\Models\Role[] $roles
+ * @property \App\Role[] $roles
  */
 class Permission extends EntrustPermission
 {
@@ -68,7 +68,7 @@ class Permission extends EntrustPermission
 	{
 		return $this->belongsToMany(
 			// Model
-			'App\Models\Role',
+			'App\Role',
 			// Pivot table
 			'permission_role',
 			// "Our" key

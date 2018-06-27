@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Kategori;
-use App\Models\Ukuran;
-use App\Models\Permission;
-use App\Models\Role;
-use App\Models\User;
+use App\Category;
+use App\Permission;
+use App\Role;
+use App\User;
+use App\Size;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,34 +17,25 @@ class EntrustTableSeeder extends Seeder
      */
     public function run()
     {
-        $kategori_adat = new Kategori();
-        $kategori_adat->nama = 'Adat';
-        $kategori_adat->deskripsi = 'Kostum Adat Indonesia';
+        $kategori_adat = new Category();
+        $kategori_adat->name = 'Adat';
         $kategori_adat->save();
 
-        $kategori_tari = new Kategori();
-        $kategori_tari->nama = 'Tari';
-        $kategori_tari->deskripsi = 'Kostum Tari Tradisional di seluruh Indonesia';
+        $kategori_tari = new Category();
+        $kategori_tari->name = 'Tari';
         $kategori_tari->save();
 
-        $kategori_juang = new Kategori();
-        $kategori_juang->nama = 'Juang';
-        $kategori_juang->deskripsi = 'Kostum Pejuang seperti Polisi, TNI, dll';
+        $kategori_juang = new Category();
+        $kategori_juang->name = 'Juang';
         $kategori_juang->save();
 
-        $kategori_all = new Ukuran();
-        $kategori_all->nama = 'All Size';
-        $kategori_all->deskripsi = 'Satu ukuran untuk semua usia';
-        $kategori_all->save();
 
-        $kategori_anak = new Ukuran();
-        $kategori_anak->nama = 'Anak';
-        $kategori_anak->deskripsi = 'Untuk usia sekitar TK hingga SD';
+        $kategori_anak = new Size();
+        $kategori_anak->name = 'Anak';
         $kategori_anak->save();
 
-        $kategori_dewasa = new Ukuran();
-        $kategori_dewasa->nama = 'Dewasa';
-        $kategori_dewasa->deskripsi = 'Untuk usia SMP ke atas';
+        $kategori_dewasa = new Size();
+        $kategori_dewasa->name = 'Dewasa';
         $kategori_dewasa->save();
 
 
@@ -95,9 +86,10 @@ class EntrustTableSeeder extends Seeder
         $role_user_seller->attachPermissions([$user_default, $user_seller]);
 
         $user = User::create([
-            'fullname' => "Nadia R",
-            'email' => "nadiaa0409@gmail.com",
-            'phone' => "082199482921",
+            'first_name' => "Nadia",
+            'last_name' => "Resti Permatasari",
+            'email' => "nadia@gmail.com",
+            'phone_number' => "082199482921",
             'password' => Hash::make("password"),
         ]);
 

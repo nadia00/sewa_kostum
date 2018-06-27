@@ -21,7 +21,7 @@ _________________________________________________________ -->
                 <div class="panel panel-default sidebar-menu">
 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Customer section</h3>
+                        <h3 class="panel-title">User section</h3>
                     </div>
 
                     <div class="panel-body">
@@ -40,28 +40,6 @@ _________________________________________________________ -->
                     </div>
 
                     <hr>
-
-                    @role('user-seller')
-                    <div class="panel-body">
-
-                        <ul class="nav nav-pills nav-stacked">
-                            <li>
-                                <a href="customer-orders.html"><i class="fa fa-th-list"></i> Penyewaan</a>
-                            </li>
-                            <li>
-                                <a href="{{url('/user/kostum-add')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
-                            </li>
-                            <li>
-                                <a href="{{url('/user/kostum')}}"><i class="fa fa-list"></i> Daftar Kostum</a>
-                            </li>
-                            <li>
-                                <a href="{{url('/user/myshop')}}"><i class="fa fa-home"></i> Toko</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <hr>
-                    @endrole
 
                     @role('user')
                     <div class="panel-body">
@@ -105,8 +83,12 @@ _________________________________________________________ -->
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="firstname">Nama</label>
-                                    <input type="text" class="form-control" id="firstname" value="{{$data->nama}}">
+                                    <label for="firstname">Nama Depan</label>
+                                    <input type="text" class="form-control" id="firstname" value="{{$data->first_name}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstname">Nama Belakang</label>
+                                    <input type="text" class="form-control" id="lastname" value="{{$data->last_name}}">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +98,7 @@ _________________________________________________________ -->
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="phone">Telephone</label>
-                                    <input type="text" class="form-control" id="phone" {{$data->telp}}>
+                                    <input type="text" class="form-control" id="phone" value="{{$data->phone_number}}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -135,14 +117,14 @@ _________________________________________________________ -->
                     <div class="row comment">
                         <div class="col-sm-3 col-md-2 text-center-xs">
                             <p>
-                                <img src="{{asset('public/storage/app/image/hNVsNtJ2xtjHjdvTS6Pd9aJtIqluSeGKK8HO77z1.jpeg')}}" class="img-responsive img-thumbnail" alt="Foto Toko">
+                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->shop->image)}}" class="img-responsive img-thumbnail" alt="{{$data->nama_toko}}">
                             </p>
                         </div>
                         <div class="col-sm-9 col-md-10">
-                            <h5>{{$data->nama_toko}}</h5>
-                            <p class="posted">{{$data->motto_toko}}</p>
-                            <p><i class="fa fa-location-arrow"></i> {{$data->lokasi_toko}}</p>
-                            <p><i class="fa fa-phone"></i> {{$data->telp_toko}}</p>
+                            <h5>{{$data->shop->name}}</h5>
+                            <p class="posted">{{$data->shop->description}}</p>
+                            <p><i class="fa fa-location-arrow"></i> {{$data->shop->district}} , {{$data->shop->city}} - {{$data->shop->country}}</p>
+                            <p><i class="fa fa-phone"></i> {{$data->shop->phone}}</p>
                         </div>
                     </div>
                     <!-- /.comment -->
