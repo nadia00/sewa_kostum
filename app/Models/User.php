@@ -102,14 +102,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Order');
     }
-<<<<<<< HEAD:app/Models/User.php
 
     public function shop()
     {
         return $this->hasOne('App\Shop');
     }
-=======
->>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb:app/User.php
 
     public function addresses()
     {

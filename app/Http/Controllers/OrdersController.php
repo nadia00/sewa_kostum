@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
-<<<<<<< HEAD
 use App\Category;
-=======
->>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
 use App\Order;
 use App\OrderProduct;
 use App\Shop;
@@ -29,14 +26,9 @@ class OrdersController extends Controller
     }
 
     public function method(){
-<<<<<<< HEAD
         $categories = Category::all();
         $address = Address::all()->where("user_id","=", Auth::user()->id);
         return view('order/method')->with("address",$address)->with("categories",$categories);
-=======
-        $address = Address::all()->where("user_id","=", Auth::user()->id);
-        return view('order/method')->with("address",$address);
->>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
     }
 
     public function store(Request $request){

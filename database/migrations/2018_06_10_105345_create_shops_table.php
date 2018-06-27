@@ -23,10 +23,7 @@ class CreateShopsTable extends Migration
             $table->string('country');
             $table->longText('description');
             $table->string('image');
-<<<<<<< HEAD
             $table->string('phone');
-=======
->>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
             $table->tinyInteger('status');
             $table->timestamps();
         });

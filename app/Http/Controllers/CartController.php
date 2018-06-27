@@ -120,7 +120,7 @@ class CartController extends Controller
                             <span class=\"pull-right\">Rp. ".Cart::subtotal()."</span></h3>
                             <div class=\"padding-top pull-right\">";
             if (Cart::count() > 0){
-                  $data.="<a href=".route('user.order-method')."><button class=\"btn btn-success\">Order <span class=\"fa fa-shopping-cart\"></span></button></a>
+                $data.="<a href=".route('user.order-method')."><button class=\"btn btn-success\">Order <span class=\"fa fa-shopping-cart\"></span></button></a>
                             or";
             }
             $data.="<a href=\"".url('/') ."\"><button class=\"btn btn-default\">Continue shopping</button></a>

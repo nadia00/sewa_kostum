@@ -53,11 +53,11 @@
                                 <div class="form-group col-sm-11">
                                     <select class="multipleSelect" multiple name="category[]" >
                                         @if(isset($categories))
-                                        @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
                                         @else
-                                        <option>Tidak Ada Kategori</option>
+                                            <option>Tidak Ada Kategori</option>
                                         @endif
                                     </select>
                                     <script>
