@@ -29,7 +29,10 @@ class EntrustTableSeeder extends Seeder
         $kategori_juang->name = 'Juang';
         $kategori_juang->save();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
         $kategori_anak = new Size();
         $kategori_anak->name = 'Anak';
         $kategori_anak->save();
@@ -88,7 +91,11 @@ class EntrustTableSeeder extends Seeder
         $user = User::create([
             'first_name' => "Nadia",
             'last_name' => "Resti Permatasari",
+<<<<<<< HEAD
             'email' => "nadia@gmail.com",
+=======
+            'email' => "nadiaa0409@gmail.com",
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
             'phone_number' => "082199482921",
             'password' => Hash::make("password"),
         ]);

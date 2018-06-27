@@ -47,9 +47,15 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 @if(sizeof($product) != 0)
                     <div class="container">
                         <div class="product-slider">
+=======
+                <div class="container">
+                    <div class="product-slider">
+                        @if(!empty($product))
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
                             @foreach($product as $val)
                             <div class="item">
                                 <div class="product">
@@ -71,17 +77,31 @@
                                         <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                     </a>
                                     <div class="text">
+<<<<<<< HEAD
                                         <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
                                         <p class="price">{{$val->shop->name}}</p>
+=======
+                                        <h3><a href="detail.html">{{$val->name}}</a></h3>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
                                     </div>
                                     <!-- /.text -->
                                 </div>
                                 <!-- /.product -->
                             </div>
                             @endforeach
+<<<<<<< HEAD
 
                         </div>
                         <!-- /.product-slider -->
+=======
+                        @else
+                            <div class="row">
+                                <div class="panel  col-lg-12">
+                                    <div class="panel-body">No Data Found</div>
+                                </div>
+                            </div>
+                        @endif
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
                     </div>
                     <!-- /.container -->
 

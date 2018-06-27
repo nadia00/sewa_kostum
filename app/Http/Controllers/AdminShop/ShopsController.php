@@ -49,7 +49,13 @@ class ShopsController extends Controller
     }
 
     public function profile(){
+<<<<<<< HEAD
         $data = Shop::all()->where('user_id','=',Auth::user()->id)->first();
         return view('admin/shop/profil')->with('data', $data);
+=======
+        $user = Auth::user()->id;
+        $data = Shop::all()->where('user_id','=',$user);
+        return $data;//Kirim Ke Blade Untuk Toko Profil
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
     }
 }

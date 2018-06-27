@@ -64,11 +64,14 @@ _________________________________________________________ -->
                 <!-- *** CUSTOMER MENU END *** -->
             </div>
 
+<<<<<<< HEAD:resources/views/admin/product/index.blade.php
             <div class="col-md-9" style="margin-bottom: 1%">
                 <a href="{{route('admin-shop.add-product')}}"> <button type="button" class="btn btn-default btn-lg"><i class="fa fa-plus"></i> Tambah Kostum</button></a>
             </div>
 
             @if(sizeof($product) != 0)
+=======
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb:resources/views/admin/product/index.blade.php
             <div class="col-md-9">
                 <div class="box info-bar">
                     <div class="row">
@@ -99,6 +102,7 @@ _________________________________________________________ -->
                     </div>
                 </div>
                 <div class="row products">
+<<<<<<< HEAD:resources/views/admin/product/index.blade.php
                     @foreach($product as $val)
                         <div class="col-md-4 col-sm-6">
                             <div class="product">
@@ -115,6 +119,38 @@ _________________________________________________________ -->
                                             </a>
                                         </div>
                                     </div>
+=======
+                    @if(!empty($product))
+                        @foreach($product as $val)
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front">
+                                                <a href="#">
+                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                </a>
+                                            </div>
+                                            <div class="back">
+                                                <a href="#">
+                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name }}" class="img-responsive">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="invisible">
+                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                    </a>
+                                    <div class="text">
+                                        <h3><a href="#}">{{$val->shop->name}}</a></h3>
+                                        <p class="price">$143.00</p>
+                                        <p class="buttons">
+                                            <a href="{{ route('admin-shop.edit-product', ['id'=>$val->id]) }}" class="btn btn-default"><i class="fa fa-edit"></i> Update</a>
+                                            <a href="{{route('kostum.del',[$val->id])}}" class="btn btn-primary"><i class="fa fa-eraser"></i> Delete</a>
+                                        </p>
+                                    </div>
+                                    <!-- /.text -->
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb:resources/views/admin/product/index.blade.php
                                 </div>
                                 <a href="#" class="invisible">
                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">

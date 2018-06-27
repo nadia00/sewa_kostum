@@ -8,7 +8,16 @@
             <div class="col-md-12">
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a>
+<<<<<<< HEAD:resources/views/product/detail.blade.php
                     <li>Kostum {{$product->name}}</li>
+=======
+                    </li>
+                    @foreach($categories as $val)
+                        <li><a href="#">{{$val->name}}</a>
+                    @endforeach
+                    </li>
+                    <li>{{$product->name}}</li>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb:resources/views/product/detail.blade.php
                 </ul>
 
             </div>
@@ -65,6 +74,7 @@ _________________________________________________________ -->
                             <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
                             </p>
 
+<<<<<<< HEAD:resources/views/product/detail.blade.php
                             <div class="text-center">
                                 <p>Ukuran tersedia:</p>
                                 <?php $i=true?>
@@ -86,6 +96,21 @@ _________________________________________________________ -->
                                         <label class="form-group">Lama Sewa :</label>
                                         <input class="form-control" placeholder="lama sewa" id="duration" type="number" min="1" value="1">
                                     </div>
+=======
+                            <p>Ukuran :</p>
+                            <?php $i=true?>
+                            @foreach($product->productSizes as $val)
+                                <button class="btn btn-default btn-click" size="{{$val->size->id}}" id="size{{$val->id}}" stock="{{$val->quantity}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
+                                @if($i === true)
+                                    <?php $temp_price = $val->id;$i=false?>
+                                @endif
+                            @endforeach
+                            <p class="price">Rp <span id="add-price"></span></p>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-4 text-center">
+                                    <p class="form-group">Jumlah :<input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="1"></p>
+                                    <p class="form-group">Lama Sewa :<input class="form-control" placeholder="lama sewa" id="duration" type="number" min="1" value="1"></p>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb:resources/views/product/detail.blade.php
                                 </div>
                             </div>
                             <script>
@@ -128,7 +153,11 @@ _________________________________________________________ -->
                                 }
 
                             </script>
+<<<<<<< HEAD:resources/views/product/detail.blade.php
                             <p class="text-center buttons" style="margin-top: 1%">
+=======
+                            <p class="text-center buttons">
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb:resources/views/product/detail.blade.php
                                 <a href="#" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                 {{--<a href="basket.html" class="btn btn-default"><i class="fa fa-heart"></i> Add to wishlist</a>--}}
                             </p>
@@ -151,10 +180,27 @@ _________________________________________________________ -->
 
 
                 <div class="box" id="details">
+<<<<<<< HEAD:resources/views/product/detail.blade.php
 
                     <h4>Product details</h4>
                     <p>{{$product->description}}</p>
 
+=======
+                    <p>
+                    <h4>Seller Information</h4>
+                    <p><i>Name </i>: {{$product->shop->name}}
+                        <br><i>Description </i>: {{$product->shop->description}}
+                        <br><i>Phone </i>: {{$product->shop->user->phone_number}}
+                        <br><i>Location </i>: {{$product->shop->district}}, {{$product->shop->city}} {{$product->shop->country}}
+                        <br><a href="#">more details..</a>
+                    </p>
+                    <h4>Product details</h4>
+                    <p>{{$product->description}}</p>
+                    <ul>
+                        <li>Polyester</li>
+                        <li>Machine wash</li>
+                    </ul>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb:resources/views/product/detail.blade.php
                     <h4>Size Available</h4>
                     <ul>
                         <li>@foreach($product->productSizes as $val){{$val->size->name}}, @endforeach</li>

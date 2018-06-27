@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
 @extends('layouts.master')
 
 @section('content')
@@ -16,11 +22,29 @@
 
                         <div class="panel-body">
                             <ul class="nav nav-pills nav-stacked category-menu">
+<<<<<<< HEAD
                                 @foreach($categories as $category)
                                     <li>
                                         <a href="#">{{$category->name}} </a>
                                     </li>
                                 @endforeach
+=======
+                                <li>
+                                    <a href="#">All Categories <span class="badge pull-right">42</span></a>
+                                </li>
+                                <li class="active">
+                                    <a href="#" id="2" onclick="selectCategori(this)">Adat  <span class="badge pull-right">123</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" id="3" onclick="selectCategori(this)">Tari  <span class="badge pull-right">11</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" id="4" onclick="selectCategori(this)">Juang  <span class="badge pull-right">11</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" id="5" onclick="selectCategori(this)">Absensi  <span class="badge pull-right">11</span></a>
+                                </li>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
                             </ul>
                             <script>
                                 function selectCategori(data){

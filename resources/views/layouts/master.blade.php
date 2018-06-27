@@ -66,7 +66,11 @@ _________________________________________________________ -->
         <div class="col-md-6" data-animate="fadeInDown">
             <ul class="menu">
                 @guest
+<<<<<<< HEAD
                     <li><a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+=======
+                    <li><a class="nav-link" href="{{route('login')}}" >Login</a>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
                     </li>
                     <li><a class="nav-link" href="{{route('register')}}" >Register</a>
                     </li>
@@ -90,6 +94,7 @@ _________________________________________________________ -->
                 @endguest
             </ul>
         </div>
+<<<<<<< HEAD
 
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
             <div class="modal-dialog modal-sm">
@@ -135,6 +140,8 @@ _________________________________________________________ -->
             </div>
         </div>
 
+=======
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
     </div>
 </div>
 
@@ -197,6 +204,7 @@ _________________________________________________________ -->
         <!--/.nav-collapse -->
 
         <div class="navbar-buttons">
+<<<<<<< HEAD
 
                 <div class="navbar-collapse collapse right" id="search-not-mobile">
                     <button type="button" class="btn navbar-btn btn-primary"  data-toggle="modal" data-target="#cart" onclick="getCart()">
@@ -215,6 +223,25 @@ _________________________________________________________ -->
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+=======
+            <div class="navbar-collapse collapse right" id="search-not-mobile">
+                <button type="button" class="btn navbar-btn btn-primary"  data-toggle="modal" data-target="#cart" onclick="getCart()">
+                    <span class="sr-only">Toggle Cart</span>
+                    <i class="fa fa-shopping-cart"></i><span id="changer"></span>
+                </button>
+                <script>
+                    setInterval(function () {
+                        $.get("{{url('user/cart/total')}}", function (data) {
+                            document.getElementById("changer").innerHTML = data;
+                        })
+                    },1000)
+                </script>
+                <button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">
+                    <span class="sr-only">Toggle search</span>
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
 
         </div>
 
@@ -241,6 +268,7 @@ _________________________________________________________ -->
 
 <!-- *** NAVBAR END *** -->
 {{--modal address--}}
+<<<<<<< HEAD
 <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
     <div class="modal-dialog modal-sm">
 
@@ -248,6 +276,15 @@ _________________________________________________________ -->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="Login">Tambah Alamat</h4>
+=======
+<div id="add_address" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Tambah Alamat</h4>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
             </div>
             <div class="modal-body">
                 <form action="{{route("user.address")}}" method="post" id="address_form">
@@ -258,7 +295,11 @@ _________________________________________________________ -->
                         <input type="text" class="form-control" placeholder="Kecamatan" name="district">
                     </div>
                     <div class="form-group">
+<<<<<<< HEAD
                         <textarea type="text" class="form-control" placeholder="Alamat" name="street"></textarea>
+=======
+                        <input type="text" class="form-control" placeholder="Alamat" name="street">
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Kode Pos" name="zip_code">
@@ -267,6 +308,7 @@ _________________________________________________________ -->
                         <input type="text" class="form-control" placeholder="Telepon" name="phone_number">
                     </div>
                 </form>
+<<<<<<< HEAD
 
                 <p class="text-center">
                     <button class="btn btn-primary" form="address_form"><i class="fa fa-sign-in"></i> Submit</button>
@@ -277,7 +319,59 @@ _________________________________________________________ -->
     </div>
 </div>
 
+=======
+            </div>
+            <div class="modal-footer">
+                <input type="submit" form="address_form" class="btn btn-primary">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+>>>>>>> 48e35bfb1baf557eafa08c0e4523c3a5233cdaeb
 
+    </div>
+</div>
+{{--modal cart--}}
+<div id="cart" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <div id="refresh-cart">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="clearCart()">Clear All</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function getCart(){
+        $.get("{{url('user/cart/show')}}", function (data) {
+            document.getElementById("refresh-cart").innerHTML = data;
+        })
+    }
+    function deleteCart(rowId){
+        $.get("{{url('user/cart/delete')}}/"+rowId, function (data) {
+            getCart()
+        })
+
+    }
+    function clearCart(){
+        $.get("{{url('user/cart/destroy')}}", function (data) {
+            getCart()
+        })
+
+    }
+
+</script>
 
 {{--<div id="add_address" class="modal fade" role="dialog">--}}
     {{--<div class="modal-dialog">--}}
