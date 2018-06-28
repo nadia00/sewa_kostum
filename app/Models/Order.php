@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    const STATUS_REJECTED = 0;
     const STATUS_CONFIRM = 1;
     const STATUS_SENDING = 2;
     const STATUS_RENTED = 3;
@@ -17,7 +18,9 @@ class Order extends Model
         'user_id',
         'shop_id',
         'addresses_id',
-        'status'
+        'status',
+        'beginning_date',
+        'final_date'
     ];
 
     public function user()

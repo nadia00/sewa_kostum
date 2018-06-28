@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Order;
+use App\OrderProduct;
 use App\Product;
 use App\ProductCategory;
+use App\ProductSize;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -17,7 +20,12 @@ class ProductsController extends Controller
     function detail($id){
         $categories = Category::all();
         $product = Product::all()->where('id','=',$id)->first();
-        return view('product/detail')->with('product',$product)->with('categories',$categories);
+
+
+        return view('product/detail')
+            ->with('product',$product)
+//            ->with('stok',$stok)
+            ->with('categories',$categories);
     }
-    //
+
 }

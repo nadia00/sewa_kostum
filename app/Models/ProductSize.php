@@ -26,4 +26,15 @@ class ProductSize extends Model
     {
         return $this->belongsTo('App\Size');
     }
+
+    function stock($id){
+        $size = 0;
+        $product = ProductSize::where('id','=',$id)->first();
+        $allorder = OrderProduct::all()->where('id','=',$id)->whereIn('order.status',[1,2]);
+        foreach ($allorder as $val){
+            $size += $val->quantity;
+        }
+        return $product->quantity-$size;
+    }
+
 }

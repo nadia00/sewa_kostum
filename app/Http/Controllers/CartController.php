@@ -17,6 +17,7 @@ class CartController extends Controller
             "price"=>$request->price,
             "options"=>[
                 "id"=>$request->id,
+                "id_shop"=>$request->id_shop,
                 "duration_in_days"=>$request->duration_in_days,
                 "size"=>$request->size_id,
                 "image"=>$request->image,

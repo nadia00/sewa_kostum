@@ -32,23 +32,28 @@ class OrdersController extends Controller
     }
 
     public function store(Request $request){
+        $temp = 0;
         $user = Auth::user()->id;
-        $shop = Shop::all()->where('user_id','=',$user)->first();
-        $cart = Cart::content();
-        $order = Order::create([
-            'user_id'=>$user,
-            'addresses_id'=>$request->addresses_id,
-            'shop_id'=>$shop->id,
-            'status'=>self::STATUS_NEW
-        ]);
-        foreach ($cart as $val){
-            OrderProduct::create([
-                'order_id'=>$order->id,
-                'product_size_id'=>$val->options->size,
-                'price'=>$val->price,
-                'quantity'=>$val->qty,
-                'duration_in_days'=>$val->options->duration_in_days
-            ]);
+        $cart = Cart::content()->groupBy('options.id_shop');
+       foreach ($cart as $data) {
+            foreach ($data as $val){
+                if ($temp != $val->options->id_shop) {
+                    $order = Order::create([
+                        'user_id' => $user,
+                        'addresses_id' => $request->addresses_id,
+                        'shop_id' => $val->options->id_shop,
+                        'status' => self::STATUS_NEW
+                    ]);
+                    $temp = $val->options->id_shop;
+                }
+                OrderProduct::create([
+                    'order_id' => $order->id,
+                    'product_size_id' => $val->options->size,
+                    'price' => $val->price,
+                    'quantity' => $val->qty,
+                    'duration_in_days' => $val->options->duration_in_days
+                ]);
+            }
         }
         Cart::destroy();
         return redirect()->route('home');

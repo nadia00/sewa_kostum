@@ -17,4 +17,5 @@ class ProductCategory extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
 }

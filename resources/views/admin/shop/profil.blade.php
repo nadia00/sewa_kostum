@@ -28,16 +28,16 @@ _________________________________________________________ -->
 
                         <ul class="nav nav-pills nav-stacked">
                             <li>
-                                <a href="customer-orders.html"><i class="fa fa-th-list"></i> Penyewaan</a>
+                                <a href="{{route('admin-shop.order')}}"><i class="fa fa-th-list"></i> Penyewaan</a>
                             </li>
                             <li>
-                                <a href="{{url('/user/kostum-add')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
+                                <a href="{{route('admin-shop.add-product')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
                             </li>
                             <li>
-                                <a href="{{url('/user/kostum')}}"><i class="fa fa-list"></i> Daftar Kostum</a>
+                                <a href="{{route('admin-shop.product')}}"><i class="fa fa-list"></i> Daftar Kostum</a>
                             </li>
                             <li class="active">
-                                <a href="{{url('/user/myshop')}}"><i class="fa fa-user"></i> Toko</a>
+                                <a href="{{route('admin-shop.profile')}}"><i class="fa fa-user"></i> Toko</a>
                             </li>
                         </ul>
                     </div>
@@ -122,7 +122,7 @@ _________________________________________________________ -->
                             <p>Pesanan Ditolak</p>
                         </div>
                         <div class="col-sm-2">
-                            <p> : </p>
+                            <p> : {{$count}}</p>
                             <p> : </p>
                             <p> : </p>
                         </div>

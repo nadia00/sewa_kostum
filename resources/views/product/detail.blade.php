@@ -27,7 +27,7 @@ _________________________________________________________ -->
                             <li>
                                 <a href="#">All Categories </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a href="#" id="2" onclick="selectCategori(this)">Adat  </a>
                             </li>
                             <li>
@@ -69,18 +69,19 @@ _________________________________________________________ -->
                                 <p>Ukuran tersedia:</p>
                                 <?php $i=true?>
                                 @foreach($product->productSizes as $val)
-                                    <button style="width: 30%; margin-left: 1%" class="btn btn-default btn-click" size="{{$val->size->id}}" id="size{{$val->id}}" stock="{{$val->quantity}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
+                                    <button style="width: 30%; margin-left: 1%" class="btn btn-default btn-click" size="{{$val->size->id}}" id="size{{$val->id}}" stock="{{$val->stock($val->id)}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
                                     @if($i === true)
-                                        <?php $temp_price = $val->id;$i=false?>
+                                        <?php $temp_price = $val->id;$i=false;?>
                                     @endif
                                 @endforeach
                             </div>
                             <p class="price">Rp <span id="add-price"></span></p>
+                            <p class="text-center"><b>Stok :</b> <span id="add-stock"></span></p>
                             <div class="row">
                                 <div class="col-lg-6 col-lg-offset-3">
                                     <div class="col-lg-12 form-group">
                                         <label class="form-group">Jumlah :</label>
-                                        <input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="1">
+                                        <input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >
                                     </div><br>
                                     <div class="col-lg-12">
                                         <label class="form-group">Lama Sewa :</label>
@@ -97,6 +98,7 @@ _________________________________________________________ -->
                                 $("#qty").attr('max', qty);
                                 $("#add-price").attr('price',val);
                                 document.getElementById("add-price").innerHTML = val;
+                                document.getElementById("add-stock").innerHTML = qty;
                                 function getPrice(data){
                                     this.active = $(data);
                                     var val = $(data).attr("value");
@@ -108,9 +110,15 @@ _________________________________________________________ -->
                                     document.getElementById("add-price").innerHTML = val;
                                 }
 
+                                $(document).ready(function () {
+                                    $("[type='number']").keypress(function (evt) {
+                                        evt.preventDefault();
+                                    });
+                                });
                                 function addToCart(){
                                     $data = {
                                         id:'{{$product->id}}',
+                                        id_shop:'{{$product->shop_id}}',
                                         name:'{{$product->name}}',
                                         price:$("#add-price").attr('price'),
                                         qty:$("#qty").val(),
@@ -128,11 +136,7 @@ _________________________________________________________ -->
                                 }
 
                             </script>
-                            <p class="text-center buttons" style="margin-top: 1%">
-                                <a href="#" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                {{--<a href="basket.html" class="btn btn-default"><i class="fa fa-heart"></i> Add to wishlist</a>--}}
-                            </p>
-
+                            <div  id="submit" class="text-center"><a href="#" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
 
                         </div>
 
@@ -164,7 +168,7 @@ _________________________________________________________ -->
                     <p><i>Name </i>: {{$product->shop->name}}
                         <br><i>Phone </i>: {{$product->shop->user->phone_number}}
                         <br><i>Location </i>: {{$product->shop->district}}, {{$product->shop->city}} {{$product->shop->country}}
-                        <br><a href="#">more details..</a>
+                        {{--<br><a href="#">more details..</a>--}}
                     </p>
 
                     @if($product->shop->description != null)

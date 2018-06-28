@@ -366,27 +366,14 @@ _________________________________________________________ -->
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-6">
-                <h4>Pages</h4>
 
-                <ul>
-                    <li><a href="text.html">About us</a>
-                    </li>
-                    <li><a href="text.html">Terms and conditions</a>
-                    </li>
-                    <li><a href="faq.html">FAQ</a>
-                    </li>
-                    <li><a href="contact.html">Contact us</a>
-                    </li>
-                </ul>
-
-                <hr>
 
                 <h4>User section</h4>
 
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
                     </li>
-                    <li><a href="register.html">Regiter</a>
+                    <li><a href="{{route('register')}}">Regiter</a>
                     </li>
                 </ul>
 
@@ -402,7 +389,7 @@ _________________________________________________________ -->
                 <ul>
                     @foreach($kategoris as $categories)
                         <li>
-                            <a href="{{url('kategori',[$categories->id])}}">{{$categories->name}}</a>
+                            <a href="{{url('category',[$categories->id])}}">{{$categories->name}}</a>
                         </li>
                     @endforeach
                 </ul>

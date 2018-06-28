@@ -50,6 +50,7 @@ class ShopsController extends Controller
 
     public function profile(){
         $data = Shop::all()->where('user_id','=',Auth::user()->id)->first();
-        return view('admin/shop/profil')->with('data', $data);
+        $count = $data->products->count();
+        return view('admin/shop/profil')->with('data', $data)->with('count',$count);
     }
 }

@@ -28,7 +28,7 @@ _________________________________________________________ -->
 
                         <ul class="nav nav-pills nav-stacked">
                             <li>
-                                <a href="customer-orders.html"><i class="fa fa-list"></i> Pesanan Saya</a>
+                                <a href="{{route('user.order-method')}}"><i class="fa fa-list"></i> Pesanan Saya</a>
                             </li>
                             <li>
                                 <a href="customer-wishlist.html"><i class="fa fa-heart"></i> Wishlist</a>

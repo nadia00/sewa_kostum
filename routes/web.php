@@ -34,6 +34,8 @@ Route::prefix('admin-shop')->group(function(){
 
     Route::get('product', 'AdminShop\ProductsController@index')->name('admin-shop.product');
 
+    Route::get('delete-product/{id}', 'AdminShop\ProductsController@deleteProduct')->name('delete-product');
+
     Route::get('add-product', 'AdminShop\ProductsController@addIndex')->name('admin-shop.add-product');
     Route::post('add-product', 'AdminShop\ProductsController@addCreate')->name('admin-shop.add-product');
 
@@ -50,6 +52,7 @@ Route::prefix('admin-shop')->group(function(){
 //    $user = \App\User::with('shop', 'orders')->where('id','=',3)->first();
 //    return response()->json($user);
 //});
+Route::get('product/stock/{id}','ProductsController@stok')->name('user.product-stock');
 
 Route::prefix('user')->group(function(){
     Route::get('/', 'UserController@index')->name('user');
@@ -60,7 +63,6 @@ Route::prefix('user')->group(function(){
     Route::post('create-shop', 'AdminShop\ShopsController@store')->name('user.create-shop');
 
     Route::get('detail/{id}', 'ProductsController@detail')->name('user.product-detail');
-
     Route::post('/cart/store', 'CartController@store')->name('user.cart-store');
     Route::get('/cart/destroy', 'CartController@destroy')->name('user.cart-clear');
     Route::get('/cart/total', 'CartController@size')->name('user.cart-size');
@@ -79,7 +81,6 @@ Route::get('detail-add/{id}', 'ShopController@costumeDetail')->name('kostum.size
 Route::post('detail-add', 'ShopController@addDetailCostume')->name('detail.add');
 
 //    Route::get('kostum-update', 'ShopController@updateCostume')->name('kostum.update');
-Route::get('kostum-del/{id}', 'ShopController@deleteCostume')->name('kostum.del');
 Route::get('detail/{id}', 'ShopController@getDetailCostume')->name('kostum.detail');
 Route::get('detail-data/{ukuran}/{kostum}', 'ShopController@getDetailHarga')->name('kostum.detail');
 

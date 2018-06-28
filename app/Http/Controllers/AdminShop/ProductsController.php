@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
+    //menampilkan product
     public function index(){
         $shops = Shop::all()->where('user_id','=',Auth::user()->id)->first();
         $product = Product::all()->where('shop_id','=',$shops->id)->sortBy(['desc']);
@@ -36,6 +37,7 @@ class ProductsController extends Controller
 
     }
 
+    //tambah produk baru
     public function addCreate(Request $request){
         $img_temp = [];
         $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
@@ -140,4 +142,8 @@ class ProductsController extends Controller
         return redirect()->route('admin-shop.product');
     }
 
+    public function deleteProduct($id_product){
+        $product = Product::where('id','=',$id_product)->delete();
+        return redirect()->back();
+    }
 }
