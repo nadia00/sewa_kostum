@@ -27,11 +27,29 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-
     public function getMyProfile(){
         $data = User::with('shop')->where('id', '=', Auth::user()->id)->first();
         return view('profil')->with('data', $data);
     }
 
+    public function editProfile(Request $request){
+        $this->validate($request, ['avatar'=>'image']);
 
+        $file = $request->file('avatar');
+        if (!empty($file)) {
+            $data['image'] = $file->store('user');
+        } else {
+            $data['image'] = asset('public/upload/default.jpg');
+        }
+
+        User::where('id','=',Auth::user()->id)
+                ->update([
+                    'first_name'=>$request->first_name,
+                    'last_name'=>$request->last_name,
+                    'phone_number'=>$request->phone_number,
+                    'date_of_birth'=>$request->date_of_birth,
+                    'avatar'=>$request->avatar,
+                ]);
+        return redirect()->route('home');
+    }
 }

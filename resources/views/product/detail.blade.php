@@ -7,7 +7,7 @@
 
             <div class="col-md-12">
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a>
+                    <li><a href="{{ url('/') }}">Home</a>
                     <li>Kostum {{$product->name}}</li>
                 </ul>
 
@@ -58,34 +58,52 @@ _________________________________________________________ -->
                         <div id="mainImage">
                             <img src="{{url('/').Storage::disk('local')->url("app/".$product->image)}}" alt="" class="img-responsive">
                         </div>
+                        <div class="row" id="thumbs" style="margin-top: 3%">
+                            @foreach($product->productImages as $val)
+                                <div class="col-xs-4">
+                                    <a href="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" class="thumb">
+                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="" class="img-responsive">
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
+
                     <div class="col-sm-6">
                         <div class="box">
                             <h1 class="text-center">{{$product->name}}</h1>
                             <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
                             </p>
-
+                            @if(empty(sizeof($product->productSizes)))
+                                <p>Tidak tersedia</p>
+                            @else
                             <div class="text-center">
                                 <p>Ukuran tersedia:</p>
                                 <?php $i=true?>
-                                @foreach($product->productSizes as $val)
-                                    <button style="width: 30%; margin-left: 1%" class="btn btn-default btn-click" size="{{$val->size->id}}" id="size{{$val->id}}" stock="{{$val->stock($val->id)}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
-                                    @if($i === true)
-                                        <?php $temp_price = $val->id;$i=false;?>
-                                    @endif
-                                @endforeach
+                                    @foreach($product->productSizes as $val)
+                                        <button style="width: 30%; margin-left: 1%" class="btn btn-default btn-click" size="{{$val->size->id}}" id="size{{$val->id}}" stock="{{$val->stock($val->id)}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
+                                        @if($i === true)
+                                            <?php $temp_price = $val->id;$i=false;?>
+                                        @endif
+                                    @endforeach
                             </div>
                             <p class="price">Rp <span id="add-price"></span></p>
                             <p class="text-center"><b>Stok :</b> <span id="add-stock"></span></p>
                             <div class="row">
-                                <div class="col-lg-6 col-lg-offset-3">
-                                    <div class="col-lg-12 form-group">
-                                        <label class="form-group">Jumlah :</label>
-                                        <input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >
-                                    </div><br>
-                                    <div class="col-lg-12">
-                                        <label class="form-group">Lama Sewa :</label>
-                                        <input class="form-control" placeholder="lama sewa" id="duration" type="number" min="1" value="1">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="col-lg-6">
+                                            <label>Jumlah :</label>
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 form-group">
+                                            <label>Lama Sewa :</label>
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="lama sewa" id="duration" type="number" min="1" value="1">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -137,18 +155,10 @@ _________________________________________________________ -->
 
                             </script>
                             <div  id="submit" class="text-center"><a href="#" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
-
+                            @endif
                         </div>
 
-                        <div class="row" id="thumbs">
-                            @foreach($product->productImages as $val)
-                                <div class="col-xs-4">
-                                    <a href="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" class="thumb">
-                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="" class="img-responsive">
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
+
                     </div>
 
                 </div>
@@ -160,9 +170,13 @@ _________________________________________________________ -->
                     <p>{{$product->description}}</p>
 
                     <h4>Size Available</h4>
-                    <ul>
-                        <li>@foreach($product->productSizes as $val){{$val->size->name}}, @endforeach</li>
-                    </ul>
+                    @if(empty(sizeof($product->productSizes)))
+                        <p>Tidak ada data</p>
+                    @else
+                        <ul>
+                            <li>@foreach($product->productSizes as $val){{$val->size->name}}, @endforeach</li>
+                        </ul>
+                    @endif
 
                     <h4>Seller Information</h4>
                     <p><i>Name </i>: {{$product->shop->name}}

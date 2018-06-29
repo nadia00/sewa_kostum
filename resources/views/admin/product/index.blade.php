@@ -105,23 +105,23 @@ _________________________________________________________ -->
                                     <div class="flip-container">
                                         <div class="flipper">
                                             <div class="front">
-                                                <a href="#">
+                                                <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
                                             <div class="back">
-                                                <a href="#">
+                                                <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name }}" class="img-responsive">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#" class="invisible">
+                                    <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}" class="invisible">
                                         <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                     </a>
                                     <div class="text">
-                                        <h3><a href="#}">{{$val->name}}</a></h3>
-                                        <p class="price">$143.00</p>
+                                        <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}}">{{$val->name}}</a></h3>
+                                        {{--<p class="price">$143.00</p>--}}
                                         <p class="buttons">
                                             <a href="{{ route('admin-shop.edit-product', ['id'=>$val->id]) }}" class="btn btn-default"><i class="fa fa-edit"></i> Update</a>
                                             <a href="{{route('delete-product',[$val->id])}}" class="btn btn-primary"><i class="fa fa-eraser"></i> Delete</a>

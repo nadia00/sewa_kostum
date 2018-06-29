@@ -79,17 +79,21 @@ _________________________________________________________ -->
                     <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
                     <h3>Personal details</h3>
-                    <form>
+                    <form action="{{route('user.edit-profile')}}" method="post"  enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <label for="firstname">Nama Depan</label>
-                                    <input type="text" class="form-control" id="firstname" value="{{$data->first_name}}">
+                                    <input type="text" class="form-control" id="firstname" value="{{ $data->first_name }}" name="first_name">
                                 </div>
                                 <div class="form-group">
                                     <label for="firstname">Nama Belakang</label>
-                                    <input type="text" class="form-control" id="lastname" value="{{$data->last_name}}">
+                                    <input type="text" class="form-control" id="lastname" value="{{ $data->last_name }}" name="last_name">
                                 </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->avatar)}}" alt="{{ $data->first_name }}" name="avatar">
                             </div>
                         </div>
                         <!-- /.row -->
@@ -98,17 +102,17 @@ _________________________________________________________ -->
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="phone">Telephone</label>
-                                    <input type="text" class="form-control" id="phone" value="{{$data->phone_number}}">
+                                    <input type="text" class="form-control" id="phone" value="{{ $data->phone_number }}" name="phone_number">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" value="{{$data->email}}">
+                                    <input type="text" class="form-control" id="email" value="{{ $data->email }}" name="email">
                                 </div>
                             </div>
                             <div class="col-sm-12 text-center">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
+                                <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
                             </div>
                         </div>
                     </form>

@@ -21,10 +21,8 @@ class ProductsController extends Controller
         $categories = Category::all();
         $product = Product::all()->where('id','=',$id)->first();
 
-
         return view('product/detail')
             ->with('product',$product)
-//            ->with('stok',$stok)
             ->with('categories',$categories);
     }
 

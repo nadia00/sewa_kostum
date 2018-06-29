@@ -39,6 +39,7 @@ class CartController extends Controller
         }else{
             $data = "<table class=\"table table-striped cart-table\">
                     <tr>
+                        <th></th>
                         <th class='text-center'>Name</th>
                         <th class='text-center'>Price</th>
                         <th class='text-center'>Quantity</th>
@@ -50,8 +51,11 @@ class CartController extends Controller
                     <tr>
                         <td>
                             <div class='row text-center'>
-                            <img style='max-width: 100px' class=\"img-responsive img-thumbnail\" src='".url('/').Storage::disk('local')->url("app/".$cart->options->image)."' alt='No Image'>
-                            </div>
+                                <img style='max-width: 100px' class=\"img-responsive img-thumbnail\" src='".url('/').Storage::disk('local')->url("app/".$cart->options->image)."' alt='No Image'>
+                                </div>
+                        </td>
+                        <td>
+                            
                             <div class='row text-center'>
                                 $cart->name
                             </div>

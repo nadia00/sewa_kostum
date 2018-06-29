@@ -8,9 +8,9 @@
             <div class="col-md-12">
 
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a>
+                    <li><a href="{{ url('/') }}">Home</a>
                     </li>
-                    <li>All Costume</li>
+                    <li>All Categories</li>
                 </ul>
 
                 @if(sizeof($product) != 0)
@@ -52,21 +52,21 @@
                                         <div class="flipper">
                                             <div class="front">
                                                 <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
-                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
                                             <div class="back">
                                                 <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
-                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                     <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}" class="invisible">
-                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                     </a>
                                     <div class="text">
-                                        <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">{{$val->product->name}}</a></h3>
+                                        <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
                                         <p class="buttons">
                                             <a href="detail.html" class="btn btn-default"><i class="fa fa-heart-o"></i> Wishlist</a>
                                             <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>

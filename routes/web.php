@@ -22,11 +22,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{id}', 'HomeController@productCategory')->name('product.category');
-Route::get('/all', 'HomeController@allProduct')->name('product.all');
+Route::get('/products', 'HomeController@allProduct')->name('product.all');
 
 Route::prefix('admin-shop')->group(function(){
-//    Route::get('', 'AdminShop\ProductsController@index');
-
     Route::get('profile', 'AdminShop\ShopsController@profile')->name('admin-shop.profile');
 
     Route::get('order', 'AdminShop\OrdersController@index')->name('admin-shop.order');
@@ -43,19 +41,11 @@ Route::prefix('admin-shop')->group(function(){
     Route::post('edit-product', 'AdminShop\ProductsController@editIndex')->name('admin-shop.edit-product');
 });
 
-//Route::get('/test', function (){
-//    $user = \App\User::all()->where('id','=',3)->first();
-//
-//    print_r($user->order);
-//});
-//Route::get('/test', function (){
-//    $user = \App\User::with('shop', 'orders')->where('id','=',3)->first();
-//    return response()->json($user);
-//});
 Route::get('product/stock/{id}','ProductsController@stok')->name('user.product-stock');
 
 Route::prefix('user')->group(function(){
     Route::get('/', 'UserController@index')->name('user');
+    Route::post('edit','UserController@editProfile')->name('user.edit-profile');
 
     Route::post("add-address","UserController@address")->name("user.address");
 

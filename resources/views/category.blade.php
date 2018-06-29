@@ -8,7 +8,7 @@
             <div class="col-md-12">
 
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a>
+                    <li><a href="{{ url('/') }}">Home</a>
                     </li>
                     <li>{{$categories->name}}</li>
                 </ul>

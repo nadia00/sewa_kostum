@@ -30,6 +30,7 @@ class HomeController extends Controller
 
     public function allProduct(){
         $product = Product::all();
-        return view('home')->with('product',$product);
+//        dd($product);
+        return view('all-product')->with('product',$product);
     }
 }

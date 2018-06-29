@@ -158,8 +158,8 @@ _________________________________________________________ -->
                                             </div>
                                             <div id="group-{{$size->id}}" hidden="hidden">
                                                 <div class="form-group">
-                                                    <br><input type="number" class="form-control" name="price-{{$size->id}}" value="" id="price-modal" placeholder="Harga {{$size->name}}" required autofocus>
-                                                    <br><input type="number" class="form-control" name="stock-{{$size->id}}" value="" id="stock-modal" placeholder="Stok {{$size->name}}" required autofocus>
+                                                    <br><input type="number" class="form-control" name="price-{{$size->id}}" value="" id="price-modal" placeholder="Harga {{$size->name}}" autofocus>
+                                                    <br><input type="number" class="form-control" name="stock-{{$size->id}}" value="" id="stock-modal" placeholder="Stok {{$size->name}}" autofocus>
                                                 </div>
                                             </div>
                                             <script>

@@ -50,6 +50,12 @@
     {{--<script src="{{asset('public/multiple/fastselect.js')}}"></script>--}}
     <script src="{{asset('public/multiple/fastselect.standalone.min.js')}}"></script>
 
+    <style>
+        .fstElement{
+            width: 100%;
+        }
+    </style>
+
 
 
 
@@ -177,7 +183,7 @@ _________________________________________________________ -->
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <ul>
-                                            <li><a href="#">All Categories</a></li>
+                                            <li><a href="{{ route('product.all') }}">All Categories</a></li>
                                             @foreach($kategoris as $categories)
                                                 <li>
                                                     <a href="{{url('category',[$categories->id])}}">{{$categories->name}}</a>
@@ -387,6 +393,9 @@ _________________________________________________________ -->
                 <h4>Categories</h4>
 
                 <ul>
+                    <li>
+                        <a href="{{ route('product.all') }}">All Categories</a>
+                    </li>
                     @foreach($kategoris as $categories)
                         <li>
                             <a href="{{url('category',[$categories->id])}}">{{$categories->name}}</a>
