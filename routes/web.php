@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{id}', 'HomeController@productCategory')->name('product.category');
-Route::get('/products', 'HomeController@allProduct')->name('product.all');
+Route::get('/products/{page?}', 'HomeController@allProduct')->name('product.all');
 
 Route::prefix('admin-shop')->group(function(){
     Route::get('profile', 'AdminShop\ShopsController@profile')->name('admin-shop.profile');

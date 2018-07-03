@@ -12,7 +12,9 @@ class OrderProduct extends Model
         'product_size_id',
         'price',
         'quantity',
-        'duration_in_days'
+        'first_date',
+        'last_date',
+        'date_return'
     ];
 
     public function order()

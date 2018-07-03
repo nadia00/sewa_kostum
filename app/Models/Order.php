@@ -19,9 +19,6 @@ class Order extends Model
         'shop_id',
         'addresses_id',
         'status',
-        'first_date',
-        'last_date',
-        'date_return'
     ];
 
     public function user()

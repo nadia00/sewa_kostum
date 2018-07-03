@@ -50,14 +50,18 @@
     {{--<script src="{{asset('public/multiple/fastselect.js')}}"></script>--}}
     <script src="{{asset('public/multiple/fastselect.standalone.min.js')}}"></script>
 
+    <link rel="stylesheet" href="css/rating.css">
+
     <style>
         .fstElement{
             width: 100%;
         }
+        .checked {
+            color: orange;
+        }
     </style>
 
-
-
+    @yield('custom_css');
 
 </head>
 
@@ -438,7 +442,9 @@ _________________________________________________________ -->
 </div>
 <!-- *** COPYRIGHT END *** -->
 
+<script src="js/rating.js"></script>
 
+@yield('custom_js')
 
 </div>
 <!-- /#all -->

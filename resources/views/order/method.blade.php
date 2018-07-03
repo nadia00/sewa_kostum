@@ -8,29 +8,6 @@
                 {{--<div class="col-md-3">--}}
                     {{--<!-- *** MENUS AND FILTERS ***--}}
     {{--_________________________________________________________ -->--}}
-                    {{--<div class="panel panel-default sidebar-menu">--}}
-
-                        {{--<div class="panel-heading">--}}
-                            {{--<h3 class="panel-title">Categories</h3>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="panel-body">--}}
-                            {{--<ul class="nav nav-pills nav-stacked category-menu">--}}
-                                {{--@foreach($categories as $category)--}}
-                                    {{--<li>--}}
-                                        {{--<a href="#">{{$category->name}} </a>--}}
-                                    {{--</li>--}}
-                                {{--@endforeach--}}
-                            {{--</ul>--}}
-                            {{--<script>--}}
-                                {{--function selectCategori(data){--}}
-                                    {{--var id = data.getAttribute('id');--}}
-                                    {{--console.log(id)--}}
-                                {{--}--}}
-                            {{--</script>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
 
                 <div class="col-md-12">
                     <div class="row" id="productMain">
@@ -73,17 +50,7 @@
                                     </script>
                                 </div>
                                 <div class="box text-center row">
-                                    <div class="col-sm-12"><label class="form-group"><i class="fa fa-calendar"></i> Tanggal Sewa :</label></div>
-                                    <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
-                                        <span><input type="date" class="form-control col-sm-2" name="first_name"></span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span>s/d</span>
-                                    </div>
-                                    {{--<span class="col-sm-2">-</span>--}}
-                                    <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
-                                        <span><input type="date" class="form-control col-sm-2" name="last_name"></span>
-                                    </div>
+
                                     <button form="form_order" class="btn btn-primary" style="cursor: pointer; margin-top: 10px;">
                                         <i class="fa fa-plus"></i> Order
                                     </button>

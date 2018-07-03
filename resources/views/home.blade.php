@@ -70,9 +70,18 @@
                                         <a href="{{ url('user/detail', [$val->id]) }}" class="invisible">
                                             <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                         </a>
+
                                         <div class="text">
                                             <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
-                                            <p class="price">{{$val->shop->name}}</p>
+
+                                            <div class="text-center" style="margin-top: -10%;">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+
                                         </div>
                                         <!-- /.text -->
                                     </div>

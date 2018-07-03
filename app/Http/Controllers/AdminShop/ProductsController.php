@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use Intervention\Image\ImageManagerStatic as Image;
+
 class ProductsController extends Controller
 {
     public function index(){
@@ -52,6 +54,7 @@ class ProductsController extends Controller
         if (sizeof($request->image) > 0){
             foreach ($request->image as $image){
                 $file = $image->store('product');
+//                $file = Image::make($image->getRealPath())->resize(300, 300)->store('product');
                 array_push($img_temp, $file);
 
             }
@@ -61,6 +64,7 @@ class ProductsController extends Controller
         }
         $product = Product::create($data);
         foreach ($img_temp as $image)
+
             ProductImage::create(['product_id'=>$product->id,'image' => $image]);
         if (sizeof($request->size)>0){
             foreach ($request->size as $size){

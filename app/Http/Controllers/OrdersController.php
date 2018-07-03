@@ -51,7 +51,8 @@ class OrdersController extends Controller
                     'product_size_id' => $val->options->size,
                     'price' => $val->price,
                     'quantity' => $val->qty,
-                    'duration_in_days' => $val->options->duration_in_days
+                    'first_date' => $val->first_date,
+                    'last_date' => $val->last_date
                 ]);
             }
         }

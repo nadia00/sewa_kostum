@@ -19,7 +19,9 @@ class CreateOrderProductsTable extends Migration
             $table->unsignedInteger('product_size_id');
             $table->decimal('price', 12, 2);
             $table->unsignedInteger('quantity');
-            $table->integer('duration_in_days');
+            $table->date('first_date');
+            $table->date('last_date');
+            $table->date('date_return')->nullable();
             $table->timestamps();
         });
     }

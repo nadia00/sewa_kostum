@@ -72,6 +72,13 @@ _________________________________________________________ -->
                     <div class="col-sm-6">
                         <div class="box">
                             <h1 class="text-center">{{$product->name}}</h1>
+                            <div class="text-center">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
                             <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
                             </p>
                             @if(empty(sizeof($product->productSizes)))
@@ -98,12 +105,19 @@ _________________________________________________________ -->
                                                 <input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 form-group">
-                                            <label>Lama Sewa :</label>
-                                            <div class="form-group">
-                                                <input class="form-control" placeholder="lama sewa" id="duration" type="number" min="1" value="1">
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="col-sm-12"><label class="form-group"><i class="fa fa-calendar"></i> Tanggal Sewa :</label></div>
+                                    <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
+                                        <span><input type="date" class="form-control col-sm-2" id="first_date" name="first_date"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span>s/d</span>
+                                    </div>
+                                    {{--<span class="col-sm-2">-</span>--}}
+                                    <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
+                                        <span><input type="date" class="form-control col-sm-2" id="last_date" name="last_date"></span>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +156,8 @@ _________________________________________________________ -->
                                         qty:$("#qty").val(),
                                         size_id: active.attr("size"),
                                         image:'{{$product->image}}',
-                                        duration_in_days:$("#duration").val()
+                                        first_date:$("#first_date").val(),
+                                        last_date:$("#last_date").val()
                                     };
                                     console.log($data)
                                     $.post("{{route('user.cart-store')}}", $data,
@@ -165,6 +180,27 @@ _________________________________________________________ -->
 
 
                 <div class="box" id="details">
+
+                    <h4>Add Review</h4>
+                    <form>
+                        <div>
+                            <span class="star-cb-group">
+                              <input type="radio" id="rating-5" name="rating" value="5" />
+                              <label for="rating-5">5</label>
+                              <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+                              <label for="rating-4">4</label>
+                              <input type="radio" id="rating-3" name="rating" value="3" />
+                              <label for="rating-3">3</label>
+                              <input type="radio" id="rating-2" name="rating" value="2" />
+                              <label for="rating-2">2</label>
+                              <input type="radio" id="rating-1" name="rating" value="1" />
+                              <label for="rating-1">1</label>
+                              <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" />
+                              <label for="rating-0">0</label>
+                            </span>
+                        </div>
+                    </form>
+
 
                     <h4>Product details</h4>
                     <p>{{$product->description}}</p>

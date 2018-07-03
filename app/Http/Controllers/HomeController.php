@@ -28,9 +28,15 @@ class HomeController extends Controller
             ->with('categories',$ctg);
     }
 
-    public function allProduct(){
-        $product = Product::all();
-//        dd($product);
-        return view('all-product')->with('product',$product);
+    public function allProduct($page = 0){
+        if ($page == 0){
+            $product = Product::paginate(6);
+            return view('all-product')->with('product',$product);
+        }
+        else{
+            $product = Product::paginate($page);
+            return response()->json(["product" => $product]);
+        }
+
     }
 }
