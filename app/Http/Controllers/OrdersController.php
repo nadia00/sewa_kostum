@@ -25,6 +25,19 @@ class OrdersController extends Controller
         $this->middleware('auth');
     }
 
+    function dateRange( $first, $last, $step = '+1 day', $format = 'Y/m/d' ) {
+        $dates = array();
+        $current = strtotime( $first );
+        $last = strtotime( $last );
+
+        while( $current <= $last ) {
+
+            $dates[] = date( $format, $current );
+            $current = strtotime( $step, $current );
+        }
+        return $dates;
+    }
+
     public function method(){
         $categories = Category::all();
         $address = Address::all()->where("user_id","=", Auth::user()->id);
@@ -35,25 +48,30 @@ class OrdersController extends Controller
         $temp = 0;
         $user = Auth::user()->id;
         $cart = Cart::content()->groupBy('options.id_shop');
-       foreach ($cart as $data) {
-            foreach ($data as $val){
+
+        $days = $this->dateRange($request->first_date, $request->last_date);
+
+        foreach ($cart as $data) {
+            foreach ($data as $val) {
                 if ($temp != $val->options->id_shop) {
                     $order = Order::create([
                         'user_id' => $user,
                         'addresses_id' => $request->addresses_id,
+                        'first_date' => $request->first_date,
+                        'last_date' => $request->last_date,
                         'shop_id' => $val->options->id_shop,
                         'status' => self::STATUS_NEW
                     ]);
                     $temp = $val->options->id_shop;
                 }
+//                dd($val);
                 OrderProduct::create([
                     'order_id' => $order->id,
                     'product_size_id' => $val->options->size,
                     'price' => $val->price,
                     'quantity' => $val->qty,
-                    'first_date' => $val->first_date,
-                    'last_date' => $val->last_date
                 ]);
+
             }
         }
         Cart::destroy();

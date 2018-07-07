@@ -77,8 +77,8 @@
                                     <div class="text">
                                         <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
                                         <p class="buttons">
-                                            <a href="detail.html" class="btn btn-default"><i class="fa fa-heart-o"></i> Wishlist</a>
-                                            <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}" class="btn btn-default"> View detail</a>
+                                            {{--<a href="#" class="btn btn-primary" onclick="addToCart()"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}}
                                         </p>
                                     </div>
 
@@ -143,7 +143,7 @@
                             var route_detail = '/sewa-kostum/user/detail/'+item.id;
                             var img_detail = '/sewa-kostum/storage/app/'+item.image;
 
-                            htmlProduct += '<div class="col-md-3 col-sm-4" id="product-container">';
+                            htmlProduct += '<div class="col-md-3 col-sm-4 product-container" id="product-container">';
                             htmlProduct += '<div class="product" id="product">';
                             htmlProduct += '<div class="flip-container" style="height: 250px;">';
                                 htmlProduct += '<div class="flipper">';

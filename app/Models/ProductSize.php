@@ -27,6 +27,11 @@ class ProductSize extends Model
         return $this->belongsTo('App\Size');
     }
 
+    public function cartStorage()
+    {
+        return $this->hasMany('App\CartStorage');
+    }
+
     function stock($id){
         $size = 0;
         $product = ProductSize::where('id','=',$id)->first();

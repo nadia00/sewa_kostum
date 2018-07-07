@@ -61,7 +61,7 @@
         }
     </style>
 
-    @yield('custom_css');
+    @yield('custom_css')
 
 </head>
 
@@ -287,43 +287,6 @@ _________________________________________________________ -->
     </div>
 </div>
 
-
-
-{{--<div id="add_address" class="modal fade" role="dialog">--}}
-{{--<div class="modal-dialog">--}}
-{{--<!-- Modal content-->--}}
-{{--<div class="modal-content">--}}
-{{--<div class="modal-header">--}}
-{{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
-{{--<h4 class="modal-title">Tambah Alamat</h4>--}}
-{{--</div>--}}
-{{--<div class="modal-body">--}}
-{{--<form action="{{route("user.address")}}" method="post" id="address_form">--}}
-{{--<div class="form-group">--}}
-{{--<input type="text" class="form-control" placeholder="Kota" name="city">--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<input type="text" class="form-control" placeholder="Kecamatan" name="district">--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<input type="text" class="form-control" placeholder="Alamat" name="street">--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<input type="text" class="form-control" placeholder="Kode Pos" name="zip_code">--}}
-{{--</div>--}}
-{{--<div class="form-group">--}}
-{{--<input type="text" class="form-control" placeholder="Telepon" name="phone_number">--}}
-{{--</div>--}}
-{{--</form>--}}
-{{--</div>--}}
-{{--<div class="modal-footer">--}}
-{{--<input type="submit" form="address_form" class="btn btn-primary">--}}
-{{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
-{{--</div>--}}
-{{--</div>--}}
-
-{{--</div>--}}
-{{--</div>--}}
 {{--modal cart--}}
 <div id="cart" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -422,21 +385,15 @@ _________________________________________________________ -->
 
 <!-- *** FOOTER END *** -->
 
-
-
-
 <!-- *** COPYRIGHT ***
 _________________________________________________________ -->
 <div id="copyright">
     <div class="container">
         <div class="col-md-6">
             <p class="pull-left">© 2018 Nadia R</p>
-
         </div>
         <div class="col-md-6">
-            <p class="pull-right">Template by <a href="https://bootstrapious.com/e-commerce-templates">Bootstrapious</a> & <a href="https://fity.cz">Fity</a>
-                <!-- Not removing these links is part of the license conditions of the template. Thanks for understanding :) If you want to use the template without the attribution links, you can do so after supporting further themes development at https://bootstrapious.com/donate  -->
-            </p>
+            <p class="pull-right">Template by <a href="https://bootstrapious.com/e-commerce-templates">Bootstrapious</a> & <a href="https://fity.cz">Fity</a></p>
         </div>
     </div>
 </div>

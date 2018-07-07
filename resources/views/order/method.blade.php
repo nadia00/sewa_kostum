@@ -50,7 +50,19 @@
                                     </script>
                                 </div>
                                 <div class="box text-center row">
-
+                                    <div class="col-lg-12">
+                                        <div class="col-sm-12"><label class="form-group"><i class="fa fa-calendar"></i> Tanggal Sewa :</label></div>
+                                        <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
+                                            <span><input type="date" form="form_order" class="form-control col-sm-2" id="first_date" name="first_date"></span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span>s/d</span>
+                                        </div>
+                                        {{--<span class="col-sm-2">-</span>--}}
+                                        <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
+                                            <span><input type="date" form="form_order" class="form-control col-sm-2" id="last_date" name="last_date"></span>
+                                        </div>
+                                    </div>
                                     <button form="form_order" class="btn btn-primary" style="cursor: pointer; margin-top: 10px;">
                                         <i class="fa fa-plus"></i> Order
                                     </button>

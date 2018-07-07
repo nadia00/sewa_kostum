@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('custom_css')
+
+@endsection
+
 @section('content')
 
     <div id="all">
@@ -53,14 +57,14 @@
                             @foreach($product as $val)
                                 <div class="item">
                                     <div class="product">
-                                        <div class="flip-container">
+                                        <div class="flip-container" style="height: 250px;">
                                             <div class="flipper">
-                                                <div class="front">
+                                                <div class="front" style="height: 250px;padding: 10px;">
                                                     <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
                                                         <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>
                                                 </div>
-                                                <div class="back">
+                                                <div class="back" style="height: 250px;padding: 10px;">
                                                     <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
                                                         <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>
@@ -68,7 +72,7 @@
                                             </div>
                                         </div>
                                         <a href="{{ url('user/detail', [$val->id]) }}" class="invisible">
-                                            <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+{{--                                            <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">--}}
                                         </a>
 
                                         <div class="text">

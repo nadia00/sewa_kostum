@@ -113,4 +113,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Address');
     }
 
+    public function cartStorage()
+    {
+        return $this->hasMany('App\CartStorage');
+    }
+
 }

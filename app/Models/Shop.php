@@ -43,6 +43,11 @@ class Shop extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function cartStorage()
+    {
+        return $this->hasMany('App\CartStorage');
+    }
     
     public static function getStatuses()
     {

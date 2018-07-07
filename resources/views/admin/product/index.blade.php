@@ -102,14 +102,14 @@ _________________________________________________________ -->
                         @foreach($product as $val)
                             <div class="col-md-4 col-sm-6">
                                 <div class="product">
-                                    <div class="flip-container">
+                                    <div class="flip-container" style="height: 300px;">
                                         <div class="flipper">
-                                            <div class="front">
+                                            <div class="front" style="height: 300px;padding: 10px;">
                                                 <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
-                                            <div class="back">
+                                            <div class="back" style="height: 300px;padding: 10px;">
                                                 <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name }}" class="img-responsive">
                                                 </a>
@@ -117,7 +117,7 @@ _________________________________________________________ -->
                                         </div>
                                     </div>
                                     <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}" class="invisible">
-                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+{{--                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">--}}
                                     </a>
                                     <div class="text">
                                         <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}}">{{$val->name}}</a></h3>

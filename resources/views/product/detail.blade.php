@@ -88,7 +88,7 @@ _________________________________________________________ -->
                                 <p>Ukuran tersedia:</p>
                                 <?php $i=true?>
                                     @foreach($product->productSizes as $val)
-                                        <button style="width: 30%; margin-left: 1%" class="btn btn-default btn-click" size="{{$val->size->id}}" id="size{{$val->id}}" stock="{{$val->stock($val->id)}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
+                                        <button style="width: 30%; margin-left: 1%" class="btn btn-default btn-click" size="{{$val->id}}" id="size{{$val->id}}" stock="{{$val->stock($val->id)}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
                                         @if($i === true)
                                             <?php $temp_price = $val->id;$i=false;?>
                                         @endif
@@ -107,19 +107,7 @@ _________________________________________________________ -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="col-sm-12"><label class="form-group"><i class="fa fa-calendar"></i> Tanggal Sewa :</label></div>
-                                    <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
-                                        <span><input type="date" class="form-control col-sm-2" id="first_date" name="first_date"></span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span>s/d</span>
-                                    </div>
-                                    {{--<span class="col-sm-2">-</span>--}}
-                                    <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
-                                        <span><input type="date" class="form-control col-sm-2" id="last_date" name="last_date"></span>
-                                    </div>
-                                </div>
+
                             </div>
                             <script>
                                 var active = $("#size{{$temp_price}}");
@@ -156,8 +144,6 @@ _________________________________________________________ -->
                                         qty:$("#qty").val(),
                                         size_id: active.attr("size"),
                                         image:'{{$product->image}}',
-                                        first_date:$("#first_date").val(),
-                                        last_date:$("#last_date").val()
                                     };
                                     console.log($data)
                                     $.post("{{route('user.cart-store')}}", $data,
@@ -218,7 +204,6 @@ _________________________________________________________ -->
                     <p><i>Name </i>: {{$product->shop->name}}
                         <br><i>Phone </i>: {{$product->shop->user->phone_number}}
                         <br><i>Location </i>: {{$product->shop->district}}, {{$product->shop->city}} {{$product->shop->country}}
-                        {{--<br><a href="#">more details..</a>--}}
                     </p>
 
                     @if($product->shop->description != null)
