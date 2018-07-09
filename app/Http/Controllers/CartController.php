@@ -24,7 +24,7 @@ class CartController extends Controller{
             )
         );
         Cart::add($data);
-//        var_dump(Cart::getContent());
+        var_dump(Cart::getContent());
     }
 
 

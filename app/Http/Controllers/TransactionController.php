@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sewa;
-use App\Models\DetailSewa;
-use App\Models\Toko;
+//use App\Models\Sewa;
+//use App\Models\DetailSewa;
+//use App\Models\Toko;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
