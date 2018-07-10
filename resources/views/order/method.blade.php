@@ -14,13 +14,53 @@
                         <div class="col-sm-8">
                             <div class="container-fluid" id="cart_content">
 
-                            </div>
-                            <script>
-                                $.get("{{url('user/order/show')}}", function (data) {
-                                    document.getElementById("cart_content").innerHTML = data;
-                                })
+                                @if(sizeof($carts)<1)
+                                    <div class='panel panel-danger text-center'>
+                                        <div class='panel-heading'>No Cart Available</div>
+                                    </div>
+                                @else
+                                    <table class="table table-striped cart-table">
+                                        <tr>
+                                            <th></th>
+                                            <th class='text-center'>Name</th>
+                                            <th class='text-center'>Price</th>
+                                            <th class='text-center'>Quantity</th>
+                                            <th class='text-center'>Total</th>
+                                        </tr>
 
-                            </script>
+                                        @foreach ($carts as $cart)
+                                            <tr>
+                                                <td>
+                                                    <div class='row text-center'>
+                                                        <img style='max-width: 100px' class="img-responsive img-thumbnail" src="{{url('/').Storage::disk('local')->url("app/".$cart->attributes->image) }}" alt='No Image'>
+                                                    </div>
+                                                </td>
+                                                <td>
+
+                                                    <div class='row text-center'>
+                                                        {{ $cart->name }}
+                                                    </div>
+                                                </td>
+                                                <td class='text-center'>Rp {{ number_format($cart->price) }}</td>
+                                                <td class='text-center'> {{ $cart->quantity }}</td>
+                                                <td class='text-center'>Rp {{ number_format($cart->price*$cart->quantity) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6 ">
+                                        <h3 class="border-bottom">Subtotal:
+                                            <span class="pull-right">Rp {{ Cart::getSubTotal() }}</span></h3>
+                                    </div>
+                                @endif
+                            </div>
+
+
+
+
+
+                            </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="container-fluid">
@@ -54,13 +94,6 @@
                                         <div class="col-sm-12"><label class="form-group"><i class="fa fa-calendar"></i> Tanggal Sewa :</label></div>
                                         <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
                                             <span><input type="date" form="form_order" class="form-control col-sm-2" id="first_date" name="first_date"></span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <span>s/d</span>
-                                        </div>
-                                        {{--<span class="col-sm-2">-</span>--}}
-                                        <div class="col-sm-5" style="padding-right: 0px;padding-left: 0px">
-                                            <span><input type="date" form="form_order" class="form-control col-sm-2" id="last_date" name="last_date"></span>
                                         </div>
                                     </div>
                                     <button form="form_order" class="btn btn-primary" style="cursor: pointer; margin-top: 10px;">

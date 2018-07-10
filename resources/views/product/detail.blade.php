@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+<?php
+//        dd($product);
+?>
 @section('content')
 
     <div id="content">
@@ -56,7 +58,7 @@ _________________________________________________________ -->
                 <div class="row" id="productMain">
                     <div class="col-sm-6">
                         <div id="mainImage">
-                            <img src="{{url('/').Storage::disk('local')->url("app/".$product->image)}}" alt="" class="img-responsive">
+                            <img src="{{url('/').Storage::disk('local')->url("app/".$product['image'])}}" alt="" class="img-responsive">
                         </div>
                         <div class="row" id="thumbs" style="margin-top: 3%">
                             @foreach($product->productImages as $val)
@@ -96,19 +98,31 @@ _________________________________________________________ -->
                             </div>
                             <p class="price">Rp <span id="add-price"></span></p>
                             <p class="text-center"><b>Stok :</b> <span id="add-stock"></span></p>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="col-lg-6">
-                                            <label>Jumlah :</label>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-5" style="padding-left: 10px;">
+                                            <label class="form-group">Jumlah :</label>
+                                        </div>
+                                        <div class="col-lg-5" style="padding-right: 0px;padding-left: 0px;">
                                             <div class="form-group">
                                                 <input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >
                                             </div>
                                         </div>
                                     </div>
+                                    {{--<div class="col-lg-12">--}}
+                                        {{--<div class="col-sm-5" style="padding-left: 10px;">--}}
+                                            {{--<label class="form-group"><i class="fa fa-calendar"></i> Tanggal Sewa :</label>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-sm-5" style="padding-right: 0px;padding-left: 0px;">--}}
+                                            {{--<span><input type="date" class="form-control col-sm-2" id="last_date" name="last_date"></span>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                 </div>
+                                <div  id="submit" class="text-center"><a href="#" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
 
-                            </div>
+                            @endif
+
                             <script>
                                 var active = $("#size{{$temp_price}}");
                                 var val = $("#size{{$temp_price}}").attr("value");
@@ -136,8 +150,9 @@ _________________________________________________________ -->
                                     });
                                 });
                                 function addToCart(){
+                                    var dataarray = [];
                                     $data = {
-                                        id:'{{$product->id}}',
+                                        id: '{{$product->id}}',
                                         id_shop:'{{$product->shop_id}}',
                                         name:'{{$product->name}}',
                                         price:$("#add-price").attr('price'),
@@ -145,18 +160,19 @@ _________________________________________________________ -->
                                         size_id: active.attr("size"),
                                         image:'{{$product->image}}',
                                     };
-                                    console.log($data)
+                                    var gambar = 'Gambarnya adalah: '+'<?php echo $product['image'] ?>';
+                                    console.log($data);
+                                    // console.log($data);
                                     $.post("{{route('user.cart-store')}}", $data,
                                         function(data, status){
-                                            console.log(data)
+                                            // console.log(data)
                                             $("#cart").modal('show');
                                             getCart()
                                         });
                                 }
 
                             </script>
-                            <div  id="submit" class="text-center"><a href="#" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
-                            @endif
+
                         </div>
 
 

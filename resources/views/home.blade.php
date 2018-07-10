@@ -60,23 +60,23 @@
                                         <div class="flip-container" style="height: 250px;">
                                             <div class="flipper">
                                                 <div class="front" style="height: 250px;padding: 10px;">
-                                                    <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                                    <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
                                                         <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>
                                                 </div>
                                                 <div class="back" style="height: 250px;padding: 10px;">
-                                                    <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                                    <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
                                                         <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="{{ url('user/detail', [$val->id]) }}" class="invisible">
+                                        <a href="{{ url('detail', [$val->id]) }}" class="invisible">
 {{--                                            <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">--}}
                                         </a>
 
                                         <div class="text">
-                                            <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
+                                            <h3><a href="{{ route('product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
 
                                             <div class="text-center" style="margin-top: -10%;">
                                                 <span class="fa fa-star checked"></span>

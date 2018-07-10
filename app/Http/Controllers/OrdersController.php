@@ -7,7 +7,8 @@ use App\Category;
 use App\Order;
 use App\OrderProduct;
 use App\Shop;
-use Gloudemans\Shoppingcart\Facades\Cart;
+//use Gloudemans\Shoppingcart\Facades\Cart;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,31 +26,19 @@ class OrdersController extends Controller
         $this->middleware('auth');
     }
 
-    function dateRange( $first, $last, $step = '+1 day', $format = 'Y/m/d' ) {
-        $dates = array();
-        $current = strtotime( $first );
-        $last = strtotime( $last );
-
-        while( $current <= $last ) {
-
-            $dates[] = date( $format, $current );
-            $current = strtotime( $step, $current );
-        }
-        return $dates;
-    }
-
     public function method(){
         $categories = Category::all();
         $address = Address::all()->where("user_id","=", Auth::user()->id);
-        return view('order/method')->with("address",$address)->with("categories",$categories);
+        $cart = Cart::getContent();
+        return view('order/method')->with("address",$address)
+            ->with("categories",$categories)
+            ->with("carts",$cart);
     }
 
     public function store(Request $request){
         $temp = 0;
         $user = Auth::user()->id;
         $cart = Cart::content()->groupBy('options.id_shop');
-
-        $days = $this->dateRange($request->first_date, $request->last_date);
 
         foreach ($cart as $data) {
             foreach ($data as $val) {
@@ -77,5 +66,5 @@ class OrdersController extends Controller
         Cart::destroy();
         return redirect()->route('home');
     }
-    //
+
 }

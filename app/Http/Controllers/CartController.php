@@ -9,7 +9,22 @@ use Illuminate\Support\Facades\Storage;
 
 class CartController extends Controller{
 
+    function dateRange( $first, $last, $step = '+1 day', $format = 'Y/m/d' ) {
+        $dates = array();
+        $current = strtotime( $first );
+        $last = strtotime( $last );
+
+        while( $current <= $last ) {
+
+            $dates[] = date( $format, $current );
+            $current = strtotime( $step, $current );
+        }
+        return $dates;
+    }
+
+
     public function store(Request $request){
+
         $data = array(
             "id"=>$request->id.$request->size_id,
             "name"=>$request->name,
@@ -24,7 +39,6 @@ class CartController extends Controller{
             )
         );
         Cart::add($data);
-        var_dump(Cart::getContent());
     }
 
 
@@ -44,58 +58,6 @@ class CartController extends Controller{
         return (int)$cartCollection;
     }
 
-    public function showOrder()
-    {
-        $carts = Cart::getContent();
-        if($this->size()<1){
-            return "
-                <div class='panel panel-danger text-center'>
-                    <div class='panel-heading'>No Cart Available</div>
-                </div>
-            ";
-        }else{
-            $data = "<table class=\"table table-striped cart-table\">
-                    <tr>
-                        <th></th>
-                        <th class='text-center'>Name</th>
-                        <th class='text-center'>Price</th>
-                        <th class='text-center'>Quantity</th>
-                        <th class='text-center'>Total</th>
-                    </tr>";
-
-            foreach ($carts as $cart){
-                $data.= "
-                    <tr>
-                        <td>
-                            <div class='row text-center'>
-                                <img style='max-width: 100px' class=\"img-responsive img-thumbnail\" src='".url('/').Storage::disk('local')->url("app/".$cart->attributes->image)."' alt='No Image'>
-                                </div>
-                        </td>
-                        <td>
-
-                            <div class='row text-center'>
-                                $cart->name
-                            </div>
-                        </td>
-                        <td class='text-center'>Rp. ".number_format($cart->price)."</td>
-                        <td class='text-center'>".$cart->quantity."</td>
-                        <td class='text-center'>Rp. ".number_format($cart->price*$cart->quantity)."</td>
-                    </tr>";
-            }
-            $data.= "</table>
-                    <div class=\"row\">
-                        <div class=\"col-md-6\"></div>
-                        <div class=\"col-md-6 \">
-                            <h3 class=\"border-bottom\">Subtotal:
-                            <span class=\"pull-right\">Rp. ".Cart::subTotal()."</span></h3>";
-            $data.="
-                        </div>
-                    </div>";
-            return $data;
-
-        }
-    }
-
     public function show()
     {
         $carts = Cart::getContent();
@@ -108,13 +70,13 @@ class CartController extends Controller{
         }else{
             $data = "<table class=\"table table-striped cart-table\">
                     <tr>
-                        <th class='text-center'>Name</th>
+                        <th class='text-center'>Product</th>
                         <th class='text-center'>Price</th>
                         <th class='text-center'>Quantity</th>
                         <th class='text-center'>Total</th>
                         <th class=\"text-right\"></th>
                     </tr>";
-
+//            dd($carts);
             foreach ($carts as $cart){
                 $data.= "
                     <tr>
@@ -136,14 +98,14 @@ class CartController extends Controller{
             }
             $data.= "</table>
                     <div class=\"row\">
-                        <div class=\"col-md-6\"></div>
+                        <div class=\"col-md-6\"><p>*Harga belum termasuk ongkos kirim</p></div>
                         <div class=\"col-md-6 \">
                             <h3 class=\"border-bottom\">Subtotal:
                             <span class=\"pull-right\">Rp. ".Cart::getSubTotal()."</span></h3>
                             <div class=\"padding-top pull-right\">";
             if (Cart::getTotalQuantity() > 0){
                 $data.="<a href=".route('user.order-method')."><button class=\"btn btn-success\">Order <span class=\"fa fa-shopping-cart\"></span></button></a>
-                            or";
+                                                or";
             }
             $data.="<a href=\"".url('/') ."\"><button class=\"btn btn-default\">Continue shopping</button></a>
                             </div>
@@ -156,188 +118,3 @@ class CartController extends Controller{
 
 }
 
-//use App\Shoppingcart;
-//use Gloudemans\Shoppingcart\Facades\Cart;
-//use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Storage;
-//
-//class CartController extends Controller{
-//}
-//
-//class CartController extends Controller
-//{
-//    public function add(Request $request)
-//    {
-//
-//        $data = [
-//            "id"=>$request->id.$request->size_id,
-//            "name"=>$request->name,
-//            "qty"=>$request->qty,
-//            "price"=>$request->price,
-//            "options"=>[
-//                "id"=>$request->id,
-//                "id_shop"=>$request->id_shop,
-//                "id_product"=>$request->size_id,
-//                "size"=>$request->size_id,
-//                "image"=>$request->image,
-//            ]
-//        ];
-//        Cart::add($data);
-////        Cart::store($data);
-//    }
-//
-//    public function showOrder()
-//    {
-//        $carts = Cart::content();
-//        if($this->size()<1){
-//            return "
-//                <div class='panel panel-danger text-center'>
-//                    <div class='panel-heading'>No Cart Available</div>
-//                </div>
-//            ";
-//        }else{
-//            $data = "<table class=\"table table-striped cart-table\">
-//                    <tr>
-//                        <th></th>
-//                        <th class='text-center'>Name</th>
-//                        <th class='text-center'>Price</th>
-//                        <th class='text-center'>Quantity</th>
-//                        <th class='text-center'>Total</th>
-//                    </tr>";
-//
-//            foreach ($carts as $cart){
-//                $data.= "
-//                    <tr>
-//                        <td>
-//                            <div class='row text-center'>
-//                                <img style='max-width: 100px' class=\"img-responsive img-thumbnail\" src='".url('/').Storage::disk('local')->url("app/".$cart->options->image)."' alt='No Image'>
-//                                </div>
-//                        </td>
-//                        <td>
-//
-//                            <div class='row text-center'>
-//                                $cart->name
-//                            </div>
-//                        </td>
-//                        <td class='text-center'>Rp. ".number_format($cart->price)."</td>
-//                        <td class='text-center'>".$cart->qty."</td>
-//                        <td class='text-center'>Rp. ".number_format($cart->price*$cart->qty)."</td>
-//                    </tr>";
-//            }
-//            $data.= "</table>
-//                    <div class=\"row\">
-//                        <div class=\"col-md-6\"></div>
-//                        <div class=\"col-md-6 \">
-//                            <h3 class=\"border-bottom\">Subtotal:
-//                            <span class=\"pull-right\">Rp. ".Cart::subtotal()."</span></h3>";
-//            $data.="
-//                        </div>
-//                    </div>";
-//            return $data;
-//
-//        }
-//    }
-//
-//    public function show()
-//    {
-//        $carts = Cart::content();
-//        if($this->size()<1){
-//            return "
-//                <div class='panel panel-danger text-center'>
-//                    <div class='panel-heading'>No Cart Available</div>
-//                </div>
-//            ";
-//        }else{
-//            $data = "<table class=\"table table-striped cart-table\">
-//                    <tr>
-//                        <th class='text-center'>Name</th>
-//                        <th class='text-center'>Price</th>
-//                        <th class='text-center'>Quantity</th>
-//                        <th class='text-center'>Total</th>
-//                        <th class=\"text-right\"></th>
-//                    </tr>";
-//
-//            foreach ($carts as $cart){
-//                $data.= "
-//                    <tr>
-//                        <td>
-//                            <div class='row text-center'>
-//                            <img style='max-width: 100px' class=\"img-responsive img-thumbnail\" src='".url('/').Storage::disk('local')->url("app/".$cart->options->image)."' alt='No Image'>
-//                            </div>
-//                            <div class='row text-center'>
-//                                $cart->name
-//                            </div>
-//                        </td>
-//                        <td class='text-center'>Rp. ".number_format($cart->price)."</td>
-//                        <td class='text-center'>".$cart->qty."</td>
-//                        <td class='text-center'>Rp. ".number_format($cart->price*$cart->qty)."</td>
-//                        <td class='set-width-5 text-center'>
-//                            <a href='#' class='btn btn-danger' onclick='deleteCart(\"$cart->rowId\")'><i class='fa fa-trash-o'></i></a>
-//                        </td>
-//                    </tr>";
-//            }
-//            $data.= "</table>
-//                    <div class=\"row\">
-//                        <div class=\"col-md-6\"></div>
-//                        <div class=\"col-md-6 \">
-//                            <h3 class=\"border-bottom\">Subtotal:
-//                            <span class=\"pull-right\">Rp. ".Cart::subtotal()."</span></h3>
-//                            <div class=\"padding-top pull-right\">";
-//            if (Cart::count() > 0){
-//                $data.="<a href=".route('user.order-method')."><button class=\"btn btn-success\">Order <span class=\"fa fa-shopping-cart\"></span></button></a>
-//                            or";
-//            }
-//            $data.="<a href=\"".url('/') ."\"><button class=\"btn btn-default\">Continue shopping</button></a>
-//                            </div>
-//                        </div>
-//                    </div>";
-//            return $data;
-//
-//        }
-//    }
-//
-//    public function delete($rowId)
-//    {
-//        Cart::remove("$rowId");
-//        return "OK";
-//    }
-//
-//    public function destroy(){
-//        Cart::destroy();
-//        return "OK";
-//    }
-//
-//    public function update(Request $request, $rowId)
-//    {
-//        $this->validate($request, [
-//            'qty' => 'required|numeric'
-//        ]);
-//        $qty = $request['qty'];
-//        Cart::update($rowId, $qty);
-//        return "OK";
-//    }
-//
-//    function size(){
-//        return (int)Cart::count();
-//    }
-//
-//    public function error($error)
-//    {
-//        $carts = Cart::content();
-//        return view('carts.cart')
-//            ->with('error', $error)
-//            ->with('carts', $carts);
-//    }
-//
-//    public function insertdb(){
-//        $cart = Cart::content();
-//        Shoppingcart::create([
-//            'user_id'=>Auth::user()->id,
-//            'shop_id'=>$cart->options->id_shop,
-//            'product_id'=>$cart->options->id_product,
-//            'qty'=>$cart->qty,
-//            'price'=>$cart->price,
-//        ]);
-//    }
-//
-//}

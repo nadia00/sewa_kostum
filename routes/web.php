@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{id}', 'HomeController@productCategory')->name('product.category');
 Route::get('/products/{page?}', 'HomeController@allProduct')->name('product.all');
+Route::get('detail/{id}', 'ProductsController@detail')->name('product-detail');
 
 Route::prefix('admin-shop')->group(function(){
     Route::get('profile', 'AdminShop\ShopsController@profile')->name('admin-shop.profile');
@@ -52,7 +53,6 @@ Route::prefix('user')->group(function(){
     Route::get('create-shop', 'AdminShop\ShopsController@create')->name('user.create-shop');
     Route::post('create-shop', 'AdminShop\ShopsController@store')->name('user.create-shop');
 
-    Route::get('detail/{id}', 'ProductsController@detail')->name('user.product-detail');
     Route::post('/cart/store', 'CartController@store')->name('user.cart-store');
     Route::get('/cart/destroy', 'CartController@destroy')->name('user.cart-clear');
     Route::get('/cart/total', 'CartController@size')->name('user.cart-size');
@@ -67,21 +67,15 @@ Route::prefix('user')->group(function(){
 
 
 
-Route::get('detail-add/{id}', 'ShopController@costumeDetail')->name('kostum.size');
-Route::post('detail-add', 'ShopController@addDetailCostume')->name('detail.add');
-
-//    Route::get('kostum-update', 'ShopController@updateCostume')->name('kostum.update');
-Route::get('detail/{id}', 'ShopController@getDetailCostume')->name('kostum.detail');
-Route::get('detail-data/{ukuran}/{kostum}', 'ShopController@getDetailHarga')->name('kostum.detail');
 
 
-Route::prefix('/admin')->group(function(){
-    Route::get('/', 'HomeController@index');
-    Route::get('/kategori', 'AdminController@showKategori')->name('admin.kategori');
-    Route::get('/add-kategori', 'AdminController@addKategori');
-    Route::get('/update-kategori', 'AdminController@updateKategori')->name('admin.kategori-edit');
-    Route::get('/delete-kategori', 'AdminController@deleteKategori')->name('admin.kategori-delete');
-});
+//Route::prefix('/admin')->group(function(){
+//    Route::get('/', 'HomeController@index');
+//    Route::get('/kategori', 'AdminController@showKategori')->name('admin.kategori');
+//    Route::get('/add-kategori', 'AdminController@addKategori');
+//    Route::get('/update-kategori', 'AdminController@updateKategori')->name('admin.kategori-edit');
+//    Route::get('/delete-kategori', 'AdminController@deleteKategori')->name('admin.kategori-delete');
+//});
 
 
 //nyobak

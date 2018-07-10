@@ -10,7 +10,7 @@
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a>
                     </li>
-                    <li>Kostum</li>
+                    <li>Pesanan</li>
                 </ul>
 
             </div>
@@ -72,52 +72,62 @@ _________________________________________________________ -->
                     @if(!empty($orders))
                         <div class="row">
 
-                            <table class="table">
-                                <tr>
-                                    <th>Order</th>
-                                    <th>Pemesan</th>
-                                    <th>Status</th>
-                                </tr>
-                                @foreach($orders as $val)
-                                    <tr>
-                                        <td>{{date('d M Y',strtotime($val->created_at))}}</td>
-                                        <td>{{$val->user->first_name}}</td>
-                                        <td>
-                                            <form action="{{route("admin-shop.refresh-order")}}">
-                                                <input type="hidden" name="order_id" value="{{$val->id}}">
-                                                <select class="form-control" name="status">
-                                                    <option value="{{0}}" @if(0==$val->status)selected @endif>Pesanan Baru</option>
-                                                    <option value="{{1}}" @if(1==$val->status)selected @endif>Pesanan Di Terima</option>
-                                                    <option value="{{2}}" @if(2==$val->status)selected @endif>Pengiriman</option>
-                                                    <option value="{{3}}" @if(3==$val->status)selected @endif>Disewakan</option>
-                                                    <option value="{{4}}" @if(4==$val->status)selected @endif>Telah Kembali</option>
-                                                </select>
-                                                <input class="form-control" type="submit" value="update">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <table class="table">
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Size</th>
-                                                    <th>Jumlah</th>
-                                                    <th>Biaya</th>
-                                                </tr>
-                                                @foreach($val->orderProducts as $op)
-                                                    <tr>
-                                                        <td>{{$op->product->product->name}}</td>
-                                                        <td>{{$op->product->size->name}}</td>
-                                                        <td>{{$op->quantity}}</td>
-                                                        <td class="text-left">Rp. {{number_format($op->quantity*$op->price)}}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </table>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            <table>
+
                             </table>
+
+
+
+
+
+
+
+                            {{--<table class="table">--}}
+                                {{--<tr>--}}
+                                    {{--<th>Order</th>--}}
+                                    {{--<th>Pemesan</th>--}}
+                                    {{--<th>Status</th>--}}
+                                {{--</tr>--}}
+                                {{--@foreach($orders as $val)--}}
+                                    {{--<tr>--}}
+                                        {{--<td>{{date('d M Y',strtotime($val->created_at))}}</td>--}}
+                                        {{--<td>{{$val->user->first_name}}</td>--}}
+                                        {{--<td>--}}
+                                            {{--<form action="{{route("admin-shop.refresh-order")}}">--}}
+                                                {{--<input type="hidden" name="order_id" value="{{$val->id}}">--}}
+                                                {{--<select class="form-control" name="status">--}}
+                                                    {{--<option value="{{0}}" @if(0==$val->status)selected @endif>Pesanan Baru</option>--}}
+                                                    {{--<option value="{{1}}" @if(1==$val->status)selected @endif>Pesanan Di Terima</option>--}}
+                                                    {{--<option value="{{2}}" @if(2==$val->status)selected @endif>Pengiriman</option>--}}
+                                                    {{--<option value="{{3}}" @if(3==$val->status)selected @endif>Disewakan</option>--}}
+                                                    {{--<option value="{{4}}" @if(4==$val->status)selected @endif>Telah Kembali</option>--}}
+                                                {{--</select>--}}
+                                                {{--<input class="form-control" type="submit" value="update">--}}
+                                            {{--</form>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<td colspan="3">--}}
+                                            {{--<table class="table">--}}
+                                                {{--<tr>--}}
+                                                    {{--<th>Product</th>--}}
+                                                    {{--<th>Size</th>--}}
+                                                    {{--<th>Jumlah</th>--}}
+                                                    {{--<th>Biaya</th>--}}
+                                                {{--</tr>--}}
+                                                {{--@foreach($val->orderProducts as $op)--}}
+                                                    {{--<tr>--}}
+                                                        {{--<td>{{$op->product->product->name}}</td>--}}
+                                                        {{--<td>{{$op->product->size->name}}</td>--}}
+                                                        {{--<td>{{$op->quantity}}</td>--}}
+                                                        {{--<td class="text-left">Rp. {{number_format($op->quantity*$op->price)}}</td>--}}
+                                                    {{--</tr>--}}
+                                                {{--@endforeach--}}
+                                            {{--</table>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                {{--@endforeach--}}
+                            {{--</table>--}}
                         </div>
                     @else
                         <div class="col-md-4 col-sm-6">

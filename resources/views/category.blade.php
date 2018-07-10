@@ -51,22 +51,22 @@
                                     <div class="flip-container">
                                         <div class="flipper">
                                             <div class="front">
-                                                <a href="{{ route('user.product-detail', ['id'=>$val->product_id]) }}">
+                                                <a href="{{ route('product-detail', ['id'=>$val->product_id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
                                             <div class="back">
-                                                <a href="{{ route('user.product-detail', ['id'=>$val->product_id]) }}">
+                                                <a href="{{ route('product-detail', ['id'=>$val->product_id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="{{ route('user.product-detail', ['id'=>$val->product_id]) }}" class="invisible">
+                                    <a href="{{ route('product-detail', ['id'=>$val->product_id]) }}" class="invisible">
                                         <img src="{{url('/').Storage::disk('local')->url("app/".$val->product->image)}}" alt="{{$val->name}}" class="img-responsive">
                                     </a>
                                     <div class="text">
-                                        <h3><a href="{{ route('user.product-detail', ['id'=>$val->product_id]) }}">{{$val->product->name}}</a></h3>
+                                        <h3><a href="{{ route('product-detail', ['id'=>$val->product_id]) }}">{{$val->product->name}}</a></h3>
                                         <p class="buttons">
                                             <a href="detail.html" class="btn btn-default"><i class="fa fa-heart-o"></i> Wishlist</a>
                                             <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>

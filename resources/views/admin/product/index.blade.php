@@ -70,34 +70,6 @@ _________________________________________________________ -->
 
             @if(sizeof($product) != 0)
                 <div class="col-md-9">
-                    <div class="box info-bar">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3 products-showing">
-                                Showing <strong>12</strong> of <strong>25</strong> products
-                            </div>
-                            <div class="col-sm-12 col-md-8  products-number-sort">
-                                <div class="row">
-                                    <form class="form-inline">
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="products-number">
-                                                <strong>Show</strong>  <a href="#" class="btn btn-default btn-sm btn-primary">12</a>  <a href="#" class="btn btn-default btn-sm">24</a>  <a href="#" class="btn btn-default btn-sm">All</a> products
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="products-sort-by">
-                                                <strong>Sort by</strong>
-                                                <select name="sort-by" class="form-control">
-                                                    <option>Price</option>
-                                                    <option>Name</option>
-                                                    <option>Sales first</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row products">
                         @foreach($product as $val)
                             <div class="col-md-4 col-sm-6">
@@ -105,23 +77,22 @@ _________________________________________________________ -->
                                     <div class="flip-container" style="height: 300px;">
                                         <div class="flipper">
                                             <div class="front" style="height: 300px;padding: 10px;">
-                                                <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                                <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
                                             <div class="back" style="height: 300px;padding: 10px;">
-                                                <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}">
+                                                <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
                                                     <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name }}" class="img-responsive">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="{{ route('user.product-detail', ['id'=>$val->id]) }}" class="invisible">
+                                    <a href="{{ route('product-detail', ['id'=>$val->id]) }}" class="invisible">
 {{--                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">--}}
                                     </a>
                                     <div class="text">
-                                        <h3><a href="{{ route('user.product-detail', ['id'=>$val->id]) }}}">{{$val->name}}</a></h3>
-                                        {{--<p class="price">$143.00</p>--}}
+                                        <h3><a href="{{ route('product-detail', ['id'=>$val->id]) }}}">{{$val->name}}</a></h3>
                                         <p class="buttons">
                                             <a href="{{ route('admin-shop.edit-product', ['id'=>$val->id]) }}" class="btn btn-default"><i class="fa fa-edit"></i> Update</a>
                                             <a href="{{route('delete-product',[$val->id])}}" class="btn btn-primary"><i class="fa fa-eraser"></i> Delete</a>
