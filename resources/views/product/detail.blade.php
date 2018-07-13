@@ -99,27 +99,34 @@ _________________________________________________________ -->
                             <p class="price">Rp <span id="add-price"></span></p>
                             <p class="text-center"><b>Stok :</b> <span id="add-stock"></span></p>
 
-                                <div class="row">
+                                <div class="center">
                                     <div class="col-lg-12">
-                                        <div class="col-lg-5" style="padding-left: 10px;">
+                                        <div class="col-lg-4" >
                                             <label class="form-group">Jumlah :</label>
                                         </div>
-                                        <div class="col-lg-5" style="padding-right: 0px;padding-left: 0px;">
-                                            <div class="form-group">
-                                                <input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >
+                                        <div class="col-lg-8">
+                                            <div class="row col-lg-12">
+                                                <input type="button" id="down" value="-" data-min="1" class="btn btn-default"/>
+                                                <input type="text" id="qty" value="1" style="width: 10%; text-align: center; border: 0px; background-color: #ffffff" disabled/>
+                                                <input type="button" id="up" value="+" data-max="5" class="btn btn-default"/>
                                             </div>
                                         </div>
+
+                                        {{--<div class="col-lg-5" style="padding-left: 10px;">--}}
+                                            {{--<label class="form-group">Jumlah :</label>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-lg-5" style="padding-right: 0px;padding-left: 0px;">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                     </div>
-                                    {{--<div class="col-lg-12">--}}
-                                        {{--<div class="col-sm-5" style="padding-left: 10px;">--}}
-                                            {{--<label class="form-group"><i class="fa fa-calendar"></i> Tanggal Sewa :</label>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-sm-5" style="padding-right: 0px;padding-left: 0px;">--}}
-                                            {{--<span><input type="date" class="form-control col-sm-2" id="last_date" name="last_date"></span>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
                                 </div>
-                                <div  id="submit" class="text-center"><a href="#" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a></div>
+                                <div id="submit" class="text-center">
+                                    <a href="#" onclick="addToCart()" class="form-group btn btn-primary">
+                                        <i class="fa fa-shopping-cart"></i> Add to cart
+                                    </a>
+                                </div>
 
                             @endif
 
@@ -129,7 +136,7 @@ _________________________________________________________ -->
                                 var qty = $("#size{{$temp_price}}").attr("stock");
                                 $(".btn-click").attr('class','btn btn-default btn-click');
                                 $("#size{{$temp_price}}").attr('class','btn btn-primary btn-click');
-                                $("#qty").attr('max', qty);
+                                $("#up").attr('data-max', qty);
                                 $("#add-price").attr('price',val);
                                 document.getElementById("add-price").innerHTML = val;
                                 document.getElementById("add-stock").innerHTML = qty;
@@ -139,16 +146,33 @@ _________________________________________________________ -->
                                     var qty = $(data).attr("stock");
                                     $(".btn-click").attr('class','btn btn-default btn-click');
                                     $(data).attr('class','btn btn-primary btn-click');
-                                    $("#qty").attr('max', qty);
+                                    $("#up").attr('data-max', qty);
                                     $("#add-price").attr('price',val);
                                     document.getElementById("add-price").innerHTML = val;
                                 }
 
-                                $(document).ready(function () {
-                                    $("[type='number']").keypress(function (evt) {
-                                        evt.preventDefault();
+                                $(document).ready(function() {
+                                    $("#up").on('click',function(){
+                                        var $incdec = $(this).parent().find("#qty");
+                                        if ($incdec.val() < $(this).data("max")) {
+                                            $incdec.val(parseInt($incdec.val())+1);
+                                        }
+                                    });
+
+                                    $("#down").on('click',function(){
+                                        var $incdec = $(this).parent().find("#qty");
+                                        if ($incdec.val() > $(this).data("min")) {
+                                            $incdec.val(parseInt($incdec.val())-1);
+                                        }
                                     });
                                 });
+
+                                // $(document).ready(function () {
+                                //     $("[type='number']").keypress(function (evt) {
+                                //         evt.preventDefault();
+                                //     });
+                                // });
+
                                 function addToCart(){
                                     var dataarray = [];
                                     $data = {
@@ -172,17 +196,11 @@ _________________________________________________________ -->
                                 }
 
                             </script>
-
                         </div>
-
-
                     </div>
-
                 </div>
 
-
                 <div class="box" id="details">
-
                     <h4>Add Review</h4>
                     <form>
                         <div>
@@ -202,7 +220,6 @@ _________________________________________________________ -->
                             </span>
                         </div>
                     </form>
-
 
                     <h4>Product details</h4>
                     <p>{{$product->description}}</p>
@@ -227,99 +244,6 @@ _________________________________________________________ -->
                             <p><em>{{$product->shop->description}}</em></p>
                         </blockquote>
                     @endif
-
-
-                </div>
-
-                <div class="row same-height-row">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="box same-height">
-                            <h3>You may also like these products</h3>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product same-height">
-                            <div class="flip-container">
-                                <div class="flipper">
-                                    <div class="front">
-                                        <a href="detail.html">
-                                            <img src="img/product2.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                    <div class="back">
-                                        <a href="detail.html">
-                                            <img src="img/product2_2.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="detail.html" class="invisible">
-                                <img src="img/product2.jpg" alt="" class="img-responsive">
-                            </a>
-                            <div class="text">
-                                <h3>Fur coat</h3>
-                                <p class="price">$143</p>
-                            </div>
-                        </div>
-                        <!-- /.product -->
-                    </div>
-
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product same-height">
-                            <div class="flip-container">
-                                <div class="flipper">
-                                    <div class="front">
-                                        <a href="detail.html">
-                                            <img src="img/product1.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                    <div class="back">
-                                        <a href="detail.html">
-                                            <img src="img/product1_2.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="detail.html" class="invisible">
-                                <img src="img/product1.jpg" alt="" class="img-responsive">
-                            </a>
-                            <div class="text">
-                                <h3>Fur coat</h3>
-                                <p class="price">$143</p>
-                            </div>
-                        </div>
-                        <!-- /.product -->
-                    </div>
-
-
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product same-height">
-                            <div class="flip-container">
-                                <div class="flipper">
-                                    <div class="front">
-                                        <a href="detail.html">
-                                            <img src="img/product3.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                    <div class="back">
-                                        <a href="detail.html">
-                                            <img src="img/product3_2.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="detail.html" class="invisible">
-                                <img src="img/product3.jpg" alt="" class="img-responsive">
-                            </a>
-                            <div class="text">
-                                <h3>Fur coat</h3>
-                                <p class="price">$143</p>
-
-                            </div>
-                        </div>
-                        <!-- /.product -->
-                    </div>
 
                 </div>
 

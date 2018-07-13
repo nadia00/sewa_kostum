@@ -10,7 +10,7 @@
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a>
                     </li>
-                    <li>Toko</li>
+                    <li>Profil</li>
                 </ul>
 
             </div>
@@ -44,6 +44,17 @@ _________________________________________________________ -->
 
                     <hr>
 
+                    @role('user')
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="customer-orders.html"><i class="fa fa-home"></i> Buka Toko</a>
+                            </li>
+                        </ul>
+                    </div>
+                    @endrole
+
                     <div class="panel-body">
 
                         <ul class="nav nav-pills nav-stacked">
@@ -66,51 +77,43 @@ _________________________________________________________ -->
 
             <div class="col-md-9">
                 <div class="box">
-                    <h1>Toko Saya</h1>
-                    <p class="lead">Change your personal details or your password here.</p>
-                    <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <h1>My Shop</h1>
+                    {{--<p class="lead">Change your personal details or your password here.</p>--}}
 
-                    <h3>Personal details</h3>
-                    <form>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="firstname">Nama</label>
-                                    <input type="text" class="form-control" id="name" value="{{$data->name}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="firstname">Description</label>
-                                    <input type="text" class="form-control" id="description" value="{{$data->description}}">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.row -->
+                    <h3>Personal detail <span><a href="{{ route('admin-shop.edit') }}"> <i class="fa fa-edit"></i></a></span> </h3>
 
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="phone">Lokasi</label>
-                                    <textarea class="form-control" id="comment" rows="4" value="{{$data->district}}"></textarea>
-                                    {{--<input type="text" class="form-control" id="phone" {{$data->telp_toko}}>--}}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="phone">Telephone</label>
-                                    <input type="text" class="form-control" id="phone" value="{{$data->phone}}">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 text-center">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
-                            </div>
+                    <div class="row comment">
+                        <div class="col-sm-3 col-md-2 text-center-xs">
+                            <p>
+                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->image)}}" class="img-responsive img-thumbnail" alt="{{$data->name}}">
+                            </p>
                         </div>
-                    </form>
+                        <div class="col-sm-9 col-md-10">
+                            <h5>{{ $data->name }}</h5>
+                            <p class="posted"><i class="fa fa-quote-left"></i> {{ $data->description }} <i class="fa fa-quote-right"></i></p>
+                            <p><i class="fa fa-phone"></i> {{ $data->phone }}</p>
+                            <p><i class="fa fa-location-arrow"></i> {{$data->district}} , {{$data->city}} - {{$data->country}}</p>
+                        </div>
+                    </div>
 
-                    <h3>Aktivitas Anda</h3>
+                    <hr>
+                    <h3>My Fine <span><a href="{{ route('admin-shop.cek') }}"> <i class="fa fa-edit"></i></a></span></h3>
+                    <div class="row comment">
+                        <div class="col-sm-3">
+                            <p>Overdue Fine</p>
+                            <p>Broken</p>
+                            <p>Lost</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p> : </p>
+                            <p> : </p>
+                            <p> : </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h3>My Activity</h3>
                     <div class="row comment">
                         <div class="col-sm-9 col-md-10">
                             <h5>{{$data->name}}</h5>
@@ -127,6 +130,7 @@ _________________________________________________________ -->
                             <p> : </p>
                         </div>
                     </div>
+
                     <!-- /.comment -->
 
                 </div>

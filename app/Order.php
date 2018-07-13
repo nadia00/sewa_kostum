@@ -13,14 +13,13 @@ class Order extends Model
     const STATUS_RETURN = 4;
     const STATUS_DONE = 5;
 
-    public $timestamps = true;
+//    public $timestamps = true;
     protected $fillable = [
         'user_id',
         'shop_id',
         'addresses_id',
         'status',
         'first_date',
-        'last_date',
         'date_return'
     ];
 
@@ -42,6 +41,11 @@ class Order extends Model
     public function shop()
     {
         return $this->belongsTo('App\Shop','shop_id','id');
+    }
+
+    public function fine()
+    {
+        return $this->hasMany('App\Fine','order_id','id');
     }
 
     public function statusText()

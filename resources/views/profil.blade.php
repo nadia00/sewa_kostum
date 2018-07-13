@@ -25,13 +25,12 @@ _________________________________________________________ -->
                     </div>
 
                     <div class="panel-body">
-
                         <ul class="nav nav-pills nav-stacked">
                             <li>
                                 <a href="{{route('user.order-method')}}"><i class="fa fa-list"></i> Pesanan Saya</a>
                             </li>
                             <li>
-                                <a href="customer-wishlist.html"><i class="fa fa-heart"></i> Wishlist</a>
+                                <a href="{{route('user.order-list')}}"><i class="fa fa-list"></i> Daftar Pesanan</a>
                             </li>
                             <li class="active">
                                 <a href="{{url('/user')}}"><i class="fa fa-user"></i> Profil</a>
@@ -75,47 +74,23 @@ _________________________________________________________ -->
             <div class="col-md-9">
                 <div class="box">
                     <h1>My account</h1>
-                    <p class="lead">Change your personal details or your password here.</p>
-                    <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
-                    <h3>Personal details</h3>
-                    <form action="{{route('user.edit-profile')}}" method="post"  enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <label for="firstname">Nama Depan</label>
-                                    <input type="text" class="form-control" id="firstname" value="{{ $data->first_name }}" name="first_name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="firstname">Nama Belakang</label>
-                                    <input type="text" class="form-control" id="lastname" value="{{ $data->last_name }}" name="last_name">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->avatar)}}" alt="{{ $data->first_name }}" name="avatar">
-                            </div>
-                        </div>
-                        <!-- /.row -->
+                    <h3>Personal detail <span><a href="{{ route('user.edit') }}"> <i class="fa fa-edit"></i></a></span> </h3>
 
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="phone">Telephone</label>
-                                    <input type="text" class="form-control" id="phone" value="{{ $data->phone_number }}" name="phone_number">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" value="{{ $data->email }}" name="email">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 text-center">
-                                <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
-                            </div>
+                    <div class="row comment">
+                        <div class="col-sm-3 col-md-2 text-center-xs">
+                            <p>
+                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->avatar)}}" class="img-responsive img-thumbnail" alt="{{$data->first_name}}">
+                            </p>
                         </div>
-                    </form>
+                        <div class="col-sm-9 col-md-10">
+                            <h5>{{ $data->first_name }} {{ $data->last_name }}</h5>
+                            <p class="posted"><i class="fa fa-phone"></i> {{ $data->phone_number }} </p>
+                            <p><i class="fa fa-inbox"></i> {{ $data->email }}</p>
+                        </div>
+                    </div>
+
+
 
                     <h3>My Shop</h3>
                     <div class="row comment">
@@ -126,7 +101,7 @@ _________________________________________________________ -->
                         </div>
                         <div class="col-sm-9 col-md-10">
                             <h5>{{$data->shop->name}}</h5>
-                            <p class="posted">{{$data->shop->description}}</p>
+                            <p class="posted"><i class="fa fa-quote-left"></i> {{$data->shop->description}} <i class="fa fa-quote-right"></i></p>
                             <p><i class="fa fa-location-arrow"></i> {{$data->shop->district}} , {{$data->shop->city}} - {{$data->shop->country}}</p>
                             <p><i class="fa fa-phone"></i> {{$data->shop->phone}}</p>
                         </div>

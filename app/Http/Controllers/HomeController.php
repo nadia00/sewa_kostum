@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
+        $product = Product::all()->sortByDesc('created_at');
         return view('home')->with('product',$product);
     }
 

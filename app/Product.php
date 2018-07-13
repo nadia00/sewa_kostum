@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'image', 'shop_id'];
-    protected $dates = ['created_at', 'updated_at'];
+    protected $fillable = ['name', 'image', 'description', 'shop_id'];
+//    protected $dates = ['created_at', 'updated_at'];
 
     public function shop()
     {

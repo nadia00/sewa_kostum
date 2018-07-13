@@ -10,7 +10,7 @@
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a>
                     </li>
-                    <li>Penyewaan</li>
+                    <li>History Order</li>
                 </ul>
 
             </div>
@@ -21,23 +21,19 @@ _________________________________________________________ -->
                 <div class="panel panel-default sidebar-menu">
 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Shop section</h3>
+                        <h3 class="panel-title">User section</h3>
                     </div>
 
                     <div class="panel-body">
-
                         <ul class="nav nav-pills nav-stacked">
-                            <li  class="active">
-                                <a href="{{route('admin-shop.order')}}}}"><i class="fa fa-th-list"></i> Penyewaan</a>
+                            <li>
+                                <a href="{{route('user.order-method')}}"><i class="fa fa-list"></i> Pesanan Saya</a>
+                            </li>
+                            <li class="active">
+                                <a href="{{route('user.order-list')}}"><i class="fa fa-list"></i> Daftar Pesanan</a>
                             </li>
                             <li>
-                                <a href="{{route('admin-shop.add-product')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin-shop.product')}}"><i class="fa fa-list"></i> Daftar Kostum</a>
-                            </li>
-                            <li>
-                                <a href="{{route('admin-shop.profile')}}"><i class="fa fa-user"></i> Toko</a>
+                                <a href="{{url('/user')}}"><i class="fa fa-user"></i> Profil</a>
                             </li>
                         </ul>
                     </div>
@@ -71,28 +67,25 @@ _________________________________________________________ -->
                         <div class="row">
                             <table class="table">
                                 {{--<tr>--}}
-                                    {{--<th>Order</th>--}}
-                                    {{--<th>Pemesan</th>--}}
-                                    {{--<th>Status</th>--}}
+                                {{--<th>Order</th>--}}
+                                {{--<th>Pemesan</th>--}}
+                                {{--<th>Status</th>--}}
                                 {{--</tr>--}}
                                 @foreach( $orders as $val)
                                     <tr>
                                         <td>
                                             {{date('d M Y',strtotime($val->created_at))}}
                                             <br>
-                                            {{$val->user->first_name}}
+                                            {{$val->shop->name}}
 
-                                            <form action="{{route("admin-shop.refresh-order")}}">
-                                                <input type="hidden" name="order_id" value="{{$val->id}}">
-                                                <select class="form-control" name="status">
-                                                    <option value="{{0}}" @if(0==$val->status)selected @endif>Pesanan Baru</option>
-                                                    <option value="{{1}}" @if(1==$val->status)selected @endif>Pesanan Di Terima</option>
-                                                    <option value="{{2}}" @if(2==$val->status)selected @endif>Pengiriman</option>
-                                                    <option value="{{3}}" @if(3==$val->status)selected @endif>Disewakan</option>
-                                                    <option value="{{4}}" @if(4==$val->status)selected @endif>Telah Kembali</option>
-                                                </select>
-                                                <input class="form-control" type="submit" value="update">
-                                            </form>
+                                            @if($val->status == 0)
+                                                <form action="{{route("user.refresh-order")}}">
+                                                    <input type="hidden" name="order_id" value="{{$val->id}}">
+                                                    <button class="form-group btn btn-default" type="submit">Batalkan</button>
+                                                </form>
+                                            @else
+                                                <button class="form-group btn btn-default" type="submit" disabled>Batalkan</button>
+                                            @endif
                                         </td>
                                         <td colspan="3">
                                             <table class="table">

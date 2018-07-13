@@ -28,6 +28,14 @@ Route::get('detail/{id}', 'ProductsController@detail')->name('product-detail');
 Route::prefix('admin-shop')->group(function(){
     Route::get('profile', 'AdminShop\ShopsController@profile')->name('admin-shop.profile');
 
+    Route::get('edit','UserController@edit')->name('admin-shop.edit');
+    Route::post('edit','UserController@editProfile')->name('admin-shop.edit-profile');
+
+    Route::get('cek', 'AdminShop\FineController@cek')->name('admin-shop.cek');
+    Route::get('fine', 'AdminShop\FineController@index')->name('admin-shop.fine');
+    Route::post('fine-add','AdminShop\FineController@insert')->name('admin-shop.insert-fine');
+    Route::post('fine','AdminShop\FineController@edit')->name('admin-shop.fine-edit');
+
     Route::get('order', 'AdminShop\OrdersController@index')->name('admin-shop.order');
     Route::get('order/refresh', 'AdminShop\OrdersController@refresh')->name('admin-shop.refresh-order');
 
@@ -39,13 +47,15 @@ Route::prefix('admin-shop')->group(function(){
     Route::post('add-product', 'AdminShop\ProductsController@addCreate')->name('admin-shop.add-product');
 
     Route::get('edit-product/{id}', 'AdminShop\ProductsController@editIndex')->name('admin-shop.edit-product');
-    Route::post('edit-product', 'AdminShop\ProductsController@editIndex')->name('admin-shop.edit-product');
+    Route::post('edit-product', 'AdminShop\ProductsController@editCreate')->name('admin-shop.post-product');
 });
 
 Route::get('product/stock/{id}','ProductsController@stok')->name('user.product-stock');
 
 Route::prefix('user')->group(function(){
     Route::get('/', 'UserController@index')->name('user');
+
+    Route::get('edit','UserController@edit')->name('user.edit');
     Route::post('edit','UserController@editProfile')->name('user.edit-profile');
 
     Route::post("add-address","UserController@address")->name("user.address");
@@ -63,6 +73,8 @@ Route::prefix('user')->group(function(){
     Route::get('/order', 'OrdersController@method')->name('user.order-method');
     Route::post('/order', 'OrdersController@store')->name('user.order');
 
+    Route::get('order-list', 'OrdersController@list')->name('user.order-list');
+    Route::get('order/refresh','OrdersController@refresh')->name('user.refresh-order');
 });
 
 

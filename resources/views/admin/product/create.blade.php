@@ -42,21 +42,20 @@ _________________________________________________________ -->
                         </ul>
                     </div>
 
-                    {{--<hr>--}}
+                    <hr>
 
-                    {{--<div class="panel-body">--}}
-
-                    {{--<ul class="nav nav-pills nav-stacked">--}}
-                    {{--<li>--}}
-                    {{--<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">--}}
-                    {{--<i class="fa fa-sign-out"></i> Logout--}}
-                    {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                    {{--@csrf--}}
-                    {{--</form>--}}
-                    {{--</ul>--}}
-                    {{--</div>--}}
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </ul>
+                    </div>
 
                 </div>
                 <!-- /.col-md-3 -->
@@ -181,7 +180,7 @@ _________________________________________________________ -->
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-sm-11">
-                                        <input class="btn btn-success" type="submit" name="submit" value="Create">
+                                        <input class="btn btn-success" type="submit" name="submit">
                                         <a class="btn btn-danger" href="{{ route('admin-shop.product') }}">Cancel</a>
                                     </div>
                                 </div>

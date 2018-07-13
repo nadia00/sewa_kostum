@@ -18,9 +18,9 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->integer('user_id')->unsigned();
             $table->integer('type_id')->unsigned();
+            $table->string('country');
             $table->string('city');
             $table->string('district');
-            $table->string('country');
             $table->longText('description');
             $table->string('image');
             $table->string('phone');

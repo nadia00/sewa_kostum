@@ -26,7 +26,7 @@ class CreateProductcategoriesReferencesTable extends Migration
      */
     public function down()
     {
-        Schema::table('product_images', function (Blueprint $table) {
+        Schema::table('product_categories', function (Blueprint $table) {
             $table->dropForeign(['product_id']);
             $table->dropForeign(['category_id']);
         });

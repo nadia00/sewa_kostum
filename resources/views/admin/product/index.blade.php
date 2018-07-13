@@ -94,7 +94,7 @@ _________________________________________________________ -->
                                     <div class="text">
                                         <h3><a href="{{ route('product-detail', ['id'=>$val->id]) }}}">{{$val->name}}</a></h3>
                                         <p class="buttons">
-                                            <a href="{{ route('admin-shop.edit-product', ['id'=>$val->id]) }}" class="btn btn-default"><i class="fa fa-edit"></i> Update</a>
+                                            <a href="{{ route('admin-shop.edit-product',['id'=>$val->id]) }}" class="btn btn-default"><i class="fa fa-edit"></i> Update</a>
                                             <a href="{{route('delete-product',[$val->id])}}" class="btn btn-primary"><i class="fa fa-eraser"></i> Delete</a>
                                         </p>
                                     </div>

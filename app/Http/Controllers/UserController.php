@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,11 @@ class UserController extends Controller
         return view('profil')->with('data', $data);
     }
 
+    public function edit(){
+        $user = User::all()->where('id','=',Auth::user()->id)->first();
+        return view('profil-edit')
+            ->with('data', $user);
+    }
     public function editProfile(Request $request){
         $this->validate($request, ['avatar'=>'image']);
 

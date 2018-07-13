@@ -53,4 +53,13 @@ class ShopsController extends Controller
         $count = $data->products->count();
         return view('admin/shop/profil')->with('data', $data)->with('count',$count);
     }
+
+    public function edit(){
+        $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
+        return view('admin/shop/profil-edit')->with('data', $shop);
+    }
+
+    public function editProfile(){
+
+    }
 }

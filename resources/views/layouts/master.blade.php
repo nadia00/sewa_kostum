@@ -50,7 +50,7 @@
     {{--<script src="{{asset('public/multiple/fastselect.js')}}"></script>--}}
     <script src="{{asset('public/multiple/fastselect.standalone.min.js')}}"></script>
 
-    <link rel="stylesheet" href="css/rating.css">
+    <link rel="stylesheet" href="{{asset('public/css/rating.css')}}">
 
     <style>
         .fstElement{

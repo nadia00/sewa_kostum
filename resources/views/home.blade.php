@@ -54,7 +54,12 @@
                 @if(sizeof($product) != 0)
                     <div class="container">
                         <div class="product-slider">
+                            <?php $i=1 ?>
                             @foreach($product as $val)
+                                <?php
+                                    if($i==10)
+                                        break;
+                                ?>
                                 <div class="item">
                                     <div class="product">
                                         <div class="flip-container" style="height: 250px;">
@@ -91,6 +96,7 @@
                                     </div>
                                     <!-- /.product -->
                                 </div>
+                                <?php $i++ ?>
                             @endforeach
 
                         </div>

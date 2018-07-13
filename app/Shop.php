@@ -10,13 +10,13 @@ class Shop extends Model
     const STATUS_APPROVED = 1;
     const STATUS_BANNED = 2;
     protected $fillable = [
-        'id',
+//        'id',
         'name',
         'user_id',
         'type_id',
+        'country',
         'city',
         'district',
-        'country',
         'description',
         'image',
         'phone',
@@ -26,12 +26,6 @@ class Shop extends Model
     public function products()
     {
         return $this->hasMany('App\Product');
-    }
-
-
-    public function type()
-    {
-        return $this->belongsTo('App\Type');
     }
 
     public function shopImages()
@@ -47,6 +41,11 @@ class Shop extends Model
     public function cartStorage()
     {
         return $this->hasMany('App\CartStorage');
+    }
+
+    public function fineShop()
+    {
+        return $this->hasMany('App\FineShop');
     }
     
     public static function getStatuses()

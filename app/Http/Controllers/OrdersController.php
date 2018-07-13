@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Auth;
 class OrdersController extends Controller
 {
     const STATUS_NEW = 0;
-    const STATUS_CONFIRM = 1;
-    const STATUS_SENDING = 2;
-    const STATUS_RENTED = 3;
-    const STATUS_RETURN = 4;
-    const STATUS_DONE = 5;
+    const STATUS_CANCEL = 1;
+    const STATUS_CONFIRM = 2;
+    const STATUS_SENDING = 3;
+    const STATUS_RENTED = 4;
+    const STATUS_RETURN = 5;
+    const STATUS_DONE = 6;
 
     public function __construct()
     {
@@ -38,33 +39,46 @@ class OrdersController extends Controller
     public function store(Request $request){
         $temp = 0;
         $user = Auth::user()->id;
-        $cart = Cart::content()->groupBy('options.id_shop');
+        $cart = Cart::getContent()->groupBy('options.id_shop');
 
         foreach ($cart as $data) {
             foreach ($data as $val) {
-                if ($temp != $val->options->id_shop) {
+//                dd($val);
+                if ($temp != $val->attributes->id_shop) {
                     $order = Order::create([
                         'user_id' => $user,
                         'addresses_id' => $request->addresses_id,
                         'first_date' => $request->first_date,
-                        'last_date' => $request->last_date,
-                        'shop_id' => $val->options->id_shop,
+                        'shop_id' => $val->attributes->id_shop,
                         'status' => self::STATUS_NEW
                     ]);
-                    $temp = $val->options->id_shop;
+                    $temp = $val->attributes->id_shop;
                 }
 //                dd($val);
                 OrderProduct::create([
                     'order_id' => $order->id,
-                    'product_size_id' => $val->options->size,
+                    'product_size_id' => $val->attributes->size,
                     'price' => $val->price,
-                    'quantity' => $val->qty,
+                    'quantity' => $val->quantity,
                 ]);
 
             }
         }
-        Cart::destroy();
+        Cart::clear();
         return redirect()->route('home');
     }
 
+    public function list(){
+        $user = Auth::user()->id;
+        $orders = Order::all()->where("user_id",'=',$user);
+        return view("order/history")->with('orders', $orders);
+    }
+
+    public function refresh(Request $request){
+        Order::where("id",'=',$request->order_id)->update([
+            "status"=>1
+        ]);
+
+        return redirect()->back();
+    }
 }

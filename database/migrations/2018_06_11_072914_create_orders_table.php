@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('shop_id')->nullable();
             $table->unsignedInteger('addresses_id')->nullable();
             $table->smallInteger('status');
+            $table->date('first_date');
+            $table->date('date_return')->nullable();
             $table->timestamps();
         });
     }

@@ -15,11 +15,7 @@ class Shoppingcart extends Model
         'product_id',
         'qty',
         'price',
-//        'first_date',
-//        'last_date',
     ];
-
-
 
     public function shops()
     {

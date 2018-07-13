@@ -65,7 +65,7 @@ class ProductsController extends Controller
         $product = Product::create($data);
         foreach ($img_temp as $image)
 
-            ProductImage::create(['product_id'=>$product->id,'image' => $image]);
+        ProductImage::create(['product_id'=>$product->id,'image' => $image]);
         if (sizeof($request->size)>0){
             foreach ($request->size as $size){
                 ProductSize::create([
@@ -92,7 +92,10 @@ class ProductsController extends Controller
         $product = Product::all()->where('id','=',$id)->first();
         $categories = Category::all();
         $sizes = Size::all();
-        return view('admin/product/edit')->with('product',$product)->with('categories',$categories)
+
+        return view('admin/product/edit')
+            ->with('product',$product)
+            ->with('categories',$categories)
             ->with('sizes',$sizes);
     }
 

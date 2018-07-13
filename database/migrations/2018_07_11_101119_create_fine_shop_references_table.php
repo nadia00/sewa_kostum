@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShopsReferencesTable extends Migration
+class CreateFineShopReferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateShopsReferencesTable extends Migration
      */
     public function up()
     {
-        Schema::table('shops', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
+        Schema::create('fine_shop', function (Blueprint $table) {
+            $table->foreign('shop_id')->references('id')->on('shop')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('fine_type')->onDelete('cascade');
         });
     }
 
@@ -26,8 +26,8 @@ class CreateShopsReferencesTable extends Migration
      */
     public function down()
     {
-        Schema::table('shops', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
+        Schema::table('fine_shop', function (Blueprint $table) {
+            $table->dropForeign(['shop_id']);
             $table->dropForeign(['type_id']);
         });
     }
