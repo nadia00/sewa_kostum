@@ -14,4 +14,7 @@ class FineType extends Model
     public function fineShop(){
         return $this->hasMany('App\FineShop','type_id','id');
     }
+    public function fine(){
+        return $this->hasMany('App\Fine','type_id','id');
+    }
 }

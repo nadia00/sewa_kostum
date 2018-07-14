@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminShop;
 
+use App\FineShop;
 use App\Order;
 use App\OrderProduct;
 use App\Shop;
@@ -28,10 +29,17 @@ class OrdersController extends Controller
         $user = Auth::user()->id;
         $shop = Shop::all()->where("user_id",'=',$user)->first();
         $orders = Order::all()->where("shop_id",'=',$shop->id);
-        return view("admin/order/index")->with('orders', $orders);
+        $fine = FineShop::all()->where('shop_id','=',$shop->id);
+        return view("admin/order/index")
+            ->with('orders', $orders)
+            ->with('fine',$fine);
     }
 
     public function refresh(Request $request){
+        $fine = new FineController();
+        if($request->status == 5){
+            $fine->insertCount($request);
+        }
         Order::where("id",'=',$request->order_id)->update([
             "status"=>$request->status
         ]);

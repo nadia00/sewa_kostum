@@ -25,13 +25,12 @@ _________________________________________________________ -->
                     </div>
 
                     <div class="panel-body">
-
                         <ul class="nav nav-pills nav-stacked">
                             <li>
                                 <a href="{{route('user.order-method')}}"><i class="fa fa-list"></i> Pesanan Saya</a>
                             </li>
                             <li>
-                                <a href="customer-wishlist.html"><i class="fa fa-heart"></i> Wishlist</a>
+                                <a href="{{route('user.order-list')}}"><i class="fa fa-list"></i> Daftar Pesanan</a>
                             </li>
                             <li class="active">
                                 <a href="{{url('/user')}}"><i class="fa fa-user"></i> Profil</a>
@@ -76,7 +75,6 @@ _________________________________________________________ -->
                 <div class="box">
                     <h1>My account</h1>
                     <p class="lead">Change your personal details or your password here.</p>
-                    <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
                     <h3>Personal details</h3>
                     <form action="{{route('user.edit-profile')}}" method="post"  enctype="multipart/form-data">

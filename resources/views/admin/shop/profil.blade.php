@@ -104,10 +104,16 @@ _________________________________________________________ -->
                             <p>Broken</p>
                             <p>Lost</p>
                         </div>
-                        <div class="col-sm-2">
-                            <p> : </p>
-                            <p> : </p>
-                            <p> : </p>
+                        <div class="col-sm-6">
+                            @if(sizeof($fineshop) != 0)
+                                @foreach($fineshop as $fineshop)
+                                <p> : Rp {{$fineshop->price}}</p>
+                                @endforeach
+                            @else
+                                <p> : Data belum dilengkapi</p>
+                                <p> : Data belum dilengkapi</p>
+                                <p> : Data belum dilengkapi</p>
+                            @endif
                         </div>
                     </div>
 
@@ -117,7 +123,7 @@ _________________________________________________________ -->
                     <div class="row comment">
                         <div class="col-sm-9 col-md-10">
                             <h5>{{$data->name}}</h5>
-                            <p class="posted"><i class="fa fa-clock-o"></i> {{$data->created_at}}</p>
+                            <p class="posted"><i class="fa fa-clock-o"></i> <b>Since</b> {{date('d M Y',strtotime($data->created_at))}}</p>
                         </div>
                         <div class="col-sm-3">
                             <p>Jumlah Kostum</p>
@@ -125,9 +131,9 @@ _________________________________________________________ -->
                             <p>Pesanan Ditolak</p>
                         </div>
                         <div class="col-sm-2">
-                            <p> : {{$count}}</p>
-                            <p> : </p>
-                            <p> : </p>
+                            <p> : {{$countproduct}}</p>
+                            <p> : {{$countOrderC}}</p>
+                            <p> : {{$countOrderR}}</p>
                         </div>
                     </div>
 

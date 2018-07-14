@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\AdminShop;
 
 use App\Http\Controllers\Controller;
+use App\Order;
 use App\Role;
 use App\Shop;
 use App\Type;
 use App\User;
+use App\FineShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -50,8 +52,28 @@ class ShopsController extends Controller
 
     public function profile(){
         $data = Shop::all()->where('user_id','=',Auth::user()->id)->first();
-        $count = $data->products->count();
-        return view('admin/shop/profil')->with('data', $data)->with('count',$count);
+        $shop_id = $data->id;
+
+        $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
+        $fineshop = FineShop::all()->where('shop_id','=',$shop->id);
+
+        $orderConfirm = Order::all()
+            ->where('shop_id','=',$shop_id)
+            ->where('status','=','1');
+        $orderReject = Order::all()
+            ->where('shop_id','=',$shop_id)
+            ->where('status','=','0');
+
+        $countProduct = $data->products->count();
+        $countOrderC = $orderConfirm->count();
+        $countOrderR = $orderReject->count();
+
+        return view('admin/shop/profil')
+            ->with('data', $data)
+            ->with('fineshop',$fineshop)
+            ->with('countproduct',$countProduct)
+            ->with('countOrderC',$countOrderC)
+            ->with('countOrderR',$countOrderR);
     }
 
     public function edit(){

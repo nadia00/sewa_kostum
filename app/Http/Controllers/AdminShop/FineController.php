@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminShop;
 
+use App\Fine;
 use App\FineType;
 use App\Shop;
 use App\FineShop;
@@ -20,15 +21,16 @@ class FineController extends Controller
         $user_id = Auth::user()->id;
         $shop = Shop::all()->where('user_id','=',$user_id)->first();
         $fineshop = FineShop::all();
-//        $count = $fineshop->count();
+
+        $count_shop = FineShop::all()->where('shop_id','=',$shop->id)->count();
 
         if(sizeof($fineshop) == 0){
-            return redirect()->route('admin-shop.fine');
+            return redirect()->route('admin-shop.fine-form');
         }else{
-            if($shop->id != $fineshop->shop_id){
+            if($count_shop != 0){
                 return redirect()->route('admin-shop.fine');
             }else{
-                return redirect()->route('admin-shop.fine-edit');
+                return redirect()->route('admin-shop.fine-form');
             }
         }
     }
@@ -44,35 +46,55 @@ class FineController extends Controller
     }
 
     public function insert(Request $request){
-//        dd($request);
-
         if (sizeof($request->type_id)>0) {
-            $i = 0;
             foreach ($request->type_id as $type_id) {
                 FineShop::create([
                    'shop_id'=>$request->shop_id,
-                   'type_id'=>$type_id[$i],
-                   'price'=>$request->price[$i],
+                   'type_id'=>$type_id,
+                   'price'=>$request['price-'.$type_id],
                 ]);
-                $i++;
             }
         }
         return redirect()->route('admin-shop.profile');
     }
 
     public function editIndex(){
-        $user_id = Auth::user()->id;
-        $shop_id = Shop::all()->where('id','=',$user_id);
-        $fineshop = FineShop::all()->where('shop_id','=',$shop_id);
-//        dd($fineshop);
-
+        $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
+        $fineshop = FineShop::all()->where('shop_id','=',$shop->id);
+        $finetype = FineType::all();
         return view('admin/shop/fine')
-            ->with('data',$fineshop)
-            ->with('shop_id',$shop_id);
+            ->with('fineshop',$fineshop)
+            ->with('shop_id',$shop->id)
+            ->with('finetype',$finetype);
     }
 
-    public function edit(){
-
+    public function edit(Request $request){
+        $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
+        foreach ($request->type_id as $type){
+            FineShop::where('shop_id','=',$shop->id)->where('type_id','=',$type)
+                ->update([
+                    'price'=>$request['price-'.$type],
+                ]);
+        }
+        return redirect()->route('admin-shop.profile');
     }
 
+    public function insertCount(Request $request){
+        $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
+        foreach ($request->type_id as $type_id){
+            $total = ((int)$request["sum_product-$type_id"])*((int)$request["price-$type_id"]);
+            $data =  [
+                'shop_id'=>$shop->id,
+                'order_id'=>$request->order_id,
+                'type_id'=>$type_id,
+                'sum_product'=>$request["sum_product-$type_id"],
+                'total'=>$total,
+            ];
+            Fine::create($data);
+        }
+        dd($data);
+        foreach ($request->type_id as $type_id){
+        }
+
+    }
 }

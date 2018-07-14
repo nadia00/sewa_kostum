@@ -115,7 +115,7 @@ _________________________________________________________ -->
                             <div class="col-sm-12">
                                 <table class="col-sm-8">
                                     <tr>
-                                        <td style="width: 100px;">Ukuran</td>
+                                        <td style="width: 100px;">Size</td>
                                         <td colspan="2">
                                             <table class="table">
                                             @foreach($product->productSizes as $val)

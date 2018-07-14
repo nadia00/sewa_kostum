@@ -72,15 +72,14 @@ _________________________________________________________ -->
                     {{--<h3>Personal details</h3>--}}
                     <form action="{{ route('admin-shop.insert-fine') }}" method="post"  enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="shop_id" value="{{$shop_id}}">
                         @foreach($finetype as $data)
-                            <input type="hidden" name="shop_id" value="{{$shop_id}}">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <input type="hidden" name="type_id[]" value="{{$data->id}}">
-                                        {{--{{dd($data->type_id)}}--}}
                                         <label for="firstname">{{$data->name}}</label>
-                                        <input type="number" class="form-control" name="price[]" required autofocus>
+                                        <input type="number" class="form-control" name="price-{{$data->id}}" required autofocus>
                                     </div>
                                 </div>
                             </div>

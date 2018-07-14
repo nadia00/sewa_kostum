@@ -38,6 +38,10 @@ class Shop extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function order(){
+        return $this->hasMany('App\Order');
+    }
+
     public function cartStorage()
     {
         return $this->hasMany('App\CartStorage');
@@ -47,7 +51,10 @@ class Shop extends Model
     {
         return $this->hasMany('App\FineShop');
     }
-    
+    public function fine()
+    {
+        return $this->hasMany('App\Fine');
+    }
     public static function getStatuses()
     {
         return [

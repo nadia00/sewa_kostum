@@ -66,28 +66,25 @@ _________________________________________________________ -->
 
             <div class="col-md-9">
                 <div class="box">
-                    <h1>Fine of My Shop</h1>
+                    <h1>Edit Fine</h1>
                     <p class="lead">Change your fine price.</p>
 
-                    {{--<h3>Personal details</h3>--}}
-                    <form action="" method="post"  enctype="multipart/form-data">
+                    <form action="{{route('admin-shop.fine-edit')}}" method="post"  enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="shop_id" value="{{$shop_id}}">
-                        @foreach($data->fineType as $data)
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <input type="hidden" name="type_id[]" value="{{$data->id}}">
-                                        <label for="firstname">{{$data->name}}</label>
-                                        <input type="text" class="form-control" name="price[]" required autofocus>
-                                    </div>
+                        @foreach($fineshop as $data)
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="hidden" name="type_id[]" value="{{$data->fineType->id}}">
+                                    <label for="firstname">{{$data->finetype->name}}</label>
+                                    <input type="text" class="form-control" name="price-{{$data->fineType->id}}" value="{{$data->price}}" required autofocus>
                                 </div>
                             </div>
+                        </div>
                         @endforeach
-                        <input class="btn btn-success" type="submit" name="submit" value="Create">
-
+                        <input class="btn btn-success" type="submit" name="submit">
                         <a class="btn btn-danger" href="{{ route('home') }}">Cancel</a>
-
                     </form>
                 </div>
             </div>

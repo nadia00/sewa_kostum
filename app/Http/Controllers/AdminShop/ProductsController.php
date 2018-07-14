@@ -63,9 +63,10 @@ class ProductsController extends Controller
             $data['image'] = "upload/default.jpg";
         }
         $product = Product::create($data);
-        foreach ($img_temp as $image)
 
-        ProductImage::create(['product_id'=>$product->id,'image' => $image]);
+        foreach ($img_temp as $image)
+            ProductImage::create(['product_id'=>$product->id,'image' => $image]);
+
         if (sizeof($request->size)>0){
             foreach ($request->size as $size){
                 ProductSize::create([

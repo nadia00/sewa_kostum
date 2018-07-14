@@ -32,9 +32,12 @@ Route::prefix('admin-shop')->group(function(){
     Route::post('edit','UserController@editProfile')->name('admin-shop.edit-profile');
 
     Route::get('cek', 'AdminShop\FineController@cek')->name('admin-shop.cek');
-    Route::get('fine', 'AdminShop\FineController@index')->name('admin-shop.fine');
-    Route::post('fine-add','AdminShop\FineController@insert')->name('admin-shop.insert-fine');
+    Route::get('add-fine', 'AdminShop\FineController@index')->name('admin-shop.fine-form');
+    Route::post('add-fine','AdminShop\FineController@insert')->name('admin-shop.insert-fine');
+    Route::get('fine','AdminShop\FineController@editIndex')->name('admin-shop.fine');
     Route::post('fine','AdminShop\FineController@edit')->name('admin-shop.fine-edit');
+
+    Route::post('count','AdminShop\FineController@insertCount')->name('admin-shop.insert-count');
 
     Route::get('order', 'AdminShop\OrdersController@index')->name('admin-shop.order');
     Route::get('order/refresh', 'AdminShop\OrdersController@refresh')->name('admin-shop.refresh-order');
@@ -88,9 +91,3 @@ Route::prefix('user')->group(function(){
 //    Route::get('/update-kategori', 'AdminController@updateKategori')->name('admin.kategori-edit');
 //    Route::get('/delete-kategori', 'AdminController@deleteKategori')->name('admin.kategori-delete');
 //});
-
-
-//nyobak
-Route::get('/nyobak',function(){
-    return view('nyobak');
-});
