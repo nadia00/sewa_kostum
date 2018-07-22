@@ -87,7 +87,11 @@ class ProductsController extends Controller
         }
         return redirect()->route('admin-shop.product');
     }
-    //
+
+    public function deleteProduct($id_product){
+        Product::where('id','=',$id_product)->delete();
+        return redirect()->back();
+    }
 
     public function editIndex($id){
         $product = Product::all()->where('id','=',$id)->first();
@@ -102,7 +106,6 @@ class ProductsController extends Controller
 
 
     public function editCreate(Request $request){
-        $img_temp = [];
         $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
         $this->validate($request, [
             'name' => 'required|max:255',
@@ -113,43 +116,28 @@ class ProductsController extends Controller
             'description'=>$request->description,
             'shop_id'=>$shop->id
         ];
-        print_r($request["price-".$request->size[0]]);
-        if (sizeof($request->image) > 0){
-            foreach ($request->image as $image){
-                $file = $image->store('product');
-                array_push($img_temp, $file);
 
-            }
-            $data['image'] = $img_temp[0];
-        }else{
-            $data['image'] = "upload/default.jpg";
-        }
-        $product = Product::create($data);
-        foreach ($img_temp as $image)
-            ProductImage::create(['product_id'=>$product->id,'image' => $image]);
-        if (sizeof($request->size)>0){
-            foreach ($request->size as $size){
-                ProductSize::create([
-                    'product_id'=>$product->id,
-                    'size_id'=>$size,
-                    'price'=> $request['price-'.$size],
-                    'quantity'=> $request['stock-'.$size],
-                ]);
-            }
-        }
-        if (sizeof($request->category) > 0){
-            foreach ($request->category as $category){
-                ProductCategory::create([
-                    'product_id'=>$product->id,
-                    'category_id'=>$category,
-                ]);
-            }
-        }
+        Product::where('id','=',$request->product_id)
+            ->update([
+                'name'=>$request->name,
+                'description'=>$request->description,
+            ]);
+        ProductSize::where('product_id','=',$request->product_id)
+            ->where('product_size_id','=',productSize_id)
+            ->where('size_id','=',size_id)
+            ->update([
+                'price'=>$request->price,
+                'quantity'=>$request->quantity,
+            ]);
+
         return redirect()->route('admin-shop.product');
     }
+    public function deleteImage($id){
 
-    public function deleteProduct($id_product){
-        Product::where('id','=',$id_product)->delete();
-        return redirect()->back();
     }
+    public function addImage(){
+
+    }
+
+
 }

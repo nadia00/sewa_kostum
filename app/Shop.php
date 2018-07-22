@@ -10,13 +10,11 @@ class Shop extends Model
     const STATUS_APPROVED = 1;
     const STATUS_BANNED = 2;
     protected $fillable = [
-//        'id',
         'name',
         'user_id',
-        'type_id',
         'country',
         'city',
-        'district',
+        'street',
         'description',
         'image',
         'phone',

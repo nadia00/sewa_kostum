@@ -36,21 +36,29 @@
                                 </span>
                                 @endif
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-8 form-group">
-                                <select class="form-control{{ $errors->has('type_id') ? ' is-invalid' : '' }}" name="type_id" id="type_id-modal" required autofocus>
-                                    @foreach($types as $val)
-                                        <option value="{{$val->id}}">{{$val->name}}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('type_id'))
+                            <div class="col-sm-4 form-group">
+                                <input type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" id="phone" placeholder="phone" required autofocus>
+                                @if ($errors->has('phone'))
                                     <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('type_id') }}</strong>
+                                    <strong>{{ $errors->first('phone') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
+                        {{--<div class="row">--}}
+                            {{--<div class="col-sm-8 form-group">--}}
+                                {{--<select class="form-control{{ $errors->has('type_id') ? ' is-invalid' : '' }}" name="type_id" id="type_id-modal" required autofocus>--}}
+                                    {{--@foreach($types as $val)--}}
+                                        {{--<option value="{{$val->id}}">{{$val->name}}</option>--}}
+                                    {{--@endforeach--}}
+                                {{--</select>--}}
+                                {{--@if ($errors->has('type_id'))--}}
+                                    {{--<span class="invalid-feedback">--}}
+                                    {{--<strong>{{ $errors->first('type_id') }}</strong>--}}
+                                {{--</span>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="row">
                             <div class="col-sm-4 form-group">
                                 <input type="text" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="{{ old('country') }}" id="country-modal" placeholder="country" required autofocus>
@@ -69,10 +77,10 @@
                                 @endif
                             </div>
                             <div class="col-sm-4 form-group">
-                                <input type="text" class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}" name="district" value="{{ old('district') }}" id="district-modal" placeholder="district" required autofocus>
-                                @if ($errors->has('district'))
+                                <input type="text" class="form-control{{ $errors->has('street') ? ' is-invalid' : '' }}" name="street" value="{{ old('street') }}" id="street-modal" placeholder="street" required autofocus>
+                                @if ($errors->has('street'))
                                     <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('district') }}</strong>
+                                    <strong>{{ $errors->first('street') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -105,11 +113,6 @@
 
                     </div>
                 </form>
-                <div class="col-sm-4">
-                    <div class="row">
-                        <img src="https://cdn.pixabay.com/photo/2016/12/20/05/36/store-1919731_960_720.png" style="max-width: 100%">
-                    </div>
-                </div>
             </div>
         </div>
     </div>

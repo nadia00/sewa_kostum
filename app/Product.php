@@ -25,7 +25,7 @@ class Product extends Model
 
     public function productCategories()
     {
-        return $this->hasMany('App\ProductCategory');
+        return $this->hasMany('App\ProductCategory',"id", "product_id");
     }
 
     public function productImages()
@@ -36,5 +36,10 @@ class Product extends Model
     public function productSizes()
     {
         return $this->hasMany('App\ProductSize');
+    }
+
+    public function productReview()
+    {
+        return $this->hasMany('App\ProductReview');
     }
 }

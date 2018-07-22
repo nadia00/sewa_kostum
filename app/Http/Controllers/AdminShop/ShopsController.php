@@ -16,21 +16,20 @@ use Illuminate\Support\Facades\DB;
 class ShopsController extends Controller
 {
     public function create(){
-        $types = Type::all();
         $users = User::select('email')
             ->where('id', Auth::user()->id)->first();
-        return view('admin/shop/create')->with('types',$types)->with('users',$users);
+        return view('admin/shop/create')->with('users',$users);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'type_id' => 'required|numeric',
-            'city' => 'required',
-            'district' => 'required',
             'country' => 'required',
+            'city' => 'required',
+            'street' => 'required',
             'description' => 'required',
+            'phone' => 'required',
             'photo' => 'image'
         ]);
         $user = Auth::user()->id;

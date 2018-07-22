@@ -78,20 +78,20 @@ _________________________________________________________ -->
                                             <br>
                                             {{$val->shop->name}}
 
-                                            @if($val->status == 0)
-                                                <form action="{{route("user.refresh-order")}}">
-                                                    <input type="hidden" name="order_id" value="{{$val->id}}">
-                                                    <button class="form-group btn btn-default" type="submit">Batalkan</button>
-                                                </form>
-                                            @else
-                                                <button class="form-group btn btn-default" type="submit" disabled>Batalkan</button>
-                                            @endif
+                                            {{--@if($val->status == 0)--}}
+                                                {{--<form action="{{route("user.refresh-order")}}">--}}
+                                                    {{--<input type="hidden" name="order_id" value="{{$val->id}}">--}}
+                                                    {{--<button class="form-group btn btn-default" type="submit">Batalkan</button>--}}
+                                                {{--</form>--}}
+                                            {{--@else--}}
+                                                {{--<button class="form-group btn btn-default" type="submit" disabled>Batalkan</button>--}}
+                                            {{--@endif--}}
                                         </td>
                                         <td colspan="3">
                                             <table class="table">
                                                 @foreach($val->orderProducts as $op)
                                                     <tr>
-                                                        <td><img src="{{url('/').Storage::disk('local')->url("app/".$op->product->product->image)}}"></td>
+                                                        <td><img src="{{url('/').Storage::disk('local')->url("app/".$op->product->product->image)}}" style="width: 20%"></td>
                                                         <td>{{$op->product->product->name}}</td>
                                                         <td>{{$op->product->size->name}}</td>
                                                         <td>{{$op->quantity}}</td>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 <?php
-//        dd($product);
+//        dd($review);
 ?>
 @section('content')
 
@@ -74,30 +74,35 @@ _________________________________________________________ -->
                     <div class="col-sm-6">
                         <div class="box">
                             <h1 class="text-center">{{$product->name}}</h1>
+
                             <div class="text-center">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                                <?php $i=0 ?>
+                                @for($i; $i<$review_result; $i++)
+                                    <span class="fa fa-star checked"></span>
+                                @endfor
+                                <?php $i=0 ?>
+                                @for($i; $i<$rest; $i++)
+                                    <span class="fa fa-star"></span>
+                                @endfor
                             </div>
+{{--                            <p class="goToDescription">{{$review_f}}</p>--}}
                             <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
                             </p>
                             @if(empty(sizeof($product->productSizes)))
                                 <p>Tidak tersedia</p>
                             @else
-                            <div class="text-center">
-                                <p>Ukuran tersedia:</p>
-                                <?php $i=true?>
+                                <div class="text-center">
+                                    <p>Ukuran tersedia:</p>
+                                    <?php $i=true?>
                                     @foreach($product->productSizes as $val)
                                         <button style="width: 30%; margin-left: 1%" class="btn btn-default btn-click" size="{{$val->id}}" id="size{{$val->id}}" stock="{{$val->stock($val->id)}}" value="{{$val->price}}" onclick="getPrice(this)">{{$val->size->name}}</button>
                                         @if($i === true)
                                             <?php $temp_price = $val->id;$i=false;?>
                                         @endif
                                     @endforeach
-                            </div>
-                            <p class="price">Rp <span id="add-price"></span></p>
-                            <p class="text-center"><b>Stok :</b> <span id="add-stock"></span></p>
+                                </div>
+                                <p class="price">Rp <span id="add-price"></span></p>
+                                <p class="text-center"><b>Stok :</b> <span id="add-stock"></span></p>
 
                                 <div class="center">
                                     <div class="col-lg-12">
@@ -111,15 +116,6 @@ _________________________________________________________ -->
                                                 <input type="button" id="up" value="+" data-max="5" class="btn btn-default"/>
                                             </div>
                                         </div>
-
-                                        {{--<div class="col-lg-5" style="padding-left: 10px;">--}}
-                                            {{--<label class="form-group">Jumlah :</label>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-lg-5" style="padding-right: 0px;padding-left: 0px;">--}}
-                                            {{--<div class="form-group">--}}
-                                                {{--<input class="form-control" placeholder="jumlah" id="qty" type="number" min="1" value="0" >--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
                                     </div>
                                 </div>
                                 <div id="submit" class="text-center">
@@ -167,12 +163,6 @@ _________________________________________________________ -->
                                     });
                                 });
 
-                                // $(document).ready(function () {
-                                //     $("[type='number']").keypress(function (evt) {
-                                //         evt.preventDefault();
-                                //     });
-                                // });
-
                                 function addToCart(){
                                     var dataarray = [];
                                     $data = {
@@ -194,7 +184,6 @@ _________________________________________________________ -->
                                             getCart()
                                         });
                                 }
-
                             </script>
                         </div>
                     </div>
@@ -202,8 +191,14 @@ _________________________________________________________ -->
 
                 <div class="box" id="details">
                     <h4>Add Review</h4>
-                    <form>
-                        <div>
+                    <div id="sudahreview">
+                        Anda sudah memberikan review. Terima kasih Review yang diberikan.
+                    </div>
+                    <div id="review">
+                        <form role="form" action="{{ route('review.store') }}" method="post">
+                            @csrf
+                            <input value="{{ $product['id'] }}" hidden="hidden" name="product_id">
+                            <div>
                             <span class="star-cb-group">
                               <input type="radio" id="rating-5" name="rating" value="5" />
                               <label for="rating-5">5</label>
@@ -218,8 +213,15 @@ _________________________________________________________ -->
                               <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" />
                               <label for="rating-0">0</label>
                             </span>
-                        </div>
-                    </form>
+                            </div>
+                            @if($status_order == 1)
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            @else
+                                {{--<label>Anda harus Login terlebih dahulu.</label>--}}
+                                <button type="submit" class="btn btn-primary" disabled>Submit Review</button>
+                            @endif
+                        </form>
+                    </div><br>
 
                     <h4>Product details</h4>
                     <p>{{$product->description}}</p>
@@ -254,5 +256,18 @@ _________________________________________________________ -->
         <!-- /.container -->
     </div>
     <!-- /#content -->
+    <script>
+        var sudahreview = document.getElementById("sudahreview");
+        var review = document.getElementById("review");
+        var cek =  $review ;
+        console.log("Cek = "+cek);
+        if (cek == 1) {
+            sudahreview.style.display = "block";
+            review.style.display = "none";
+        } else {
+            sudahreview.style.display = "none";
+            review.style.display = "block";
+        }
+    </script>
 
 @endsection

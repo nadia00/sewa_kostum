@@ -56,10 +56,9 @@
                         <div class="product-slider">
                             <?php $i=1 ?>
                             @foreach($product as $val)
-                                <?php
-                                    if($i==10)
-                                        break;
-                                ?>
+                                @if($i==10)
+                                    @break;
+                                @endif
                                 <div class="item">
                                     <div class="product">
                                         <div class="flip-container" style="height: 250px;">
@@ -77,18 +76,20 @@
                                             </div>
                                         </div>
                                         <a href="{{ url('detail', [$val->id]) }}" class="invisible">
-{{--                                            <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">--}}
                                         </a>
 
                                         <div class="text">
                                             <h3><a href="{{ route('product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
 
-                                            <div class="text-center" style="margin-top: -10%;">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
+                                            <div class="text-center">
+                                                <?php $j=0 ?>
+                                                @for($j; $j<$review_result; $j++)
+                                                    <span class="fa fa-star checked"></span>
+                                                @endfor
+                                                <?php $j=0 ?>
+                                                @for($j; $j<$rest; $j++)
+                                                    <span class="fa fa-star"></span>
+                                                @endfor
                                             </div>
 
                                         </div>
@@ -96,7 +97,7 @@
                                     </div>
                                     <!-- /.product -->
                                 </div>
-                                <?php $i++ ?>
+                            <?php $i++ ?>
                             @endforeach
 
                         </div>

@@ -91,7 +91,7 @@ _________________________________________________________ -->
                     </div>
 
 
-
+                    @role('user-seller')
                     <h3>My Shop</h3>
                     <div class="row comment">
                         <div class="col-sm-3 col-md-2 text-center-xs">
@@ -106,6 +106,7 @@ _________________________________________________________ -->
                             <p><i class="fa fa-phone"></i> {{$data->shop->phone}}</p>
                         </div>
                     </div>
+                    @endrole
                     <!-- /.comment -->
 
                 </div>

@@ -7,22 +7,8 @@ use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class CartController extends Controller{
-
-    function dateRange( $first, $last, $step = '+1 day', $format = 'Y/m/d' ) {
-        $dates = array();
-        $current = strtotime( $first );
-        $last = strtotime( $last );
-
-        while( $current <= $last ) {
-
-            $dates[] = date( $format, $current );
-            $current = strtotime( $step, $current );
-        }
-        return $dates;
-    }
-
-
+class CartController extends Controller
+{
     public function store(Request $request){
 
         $data = array(
@@ -40,8 +26,6 @@ class CartController extends Controller{
         );
         Cart::add($data);
     }
-
-
 
     public function delete($itemId){
         Cart::remove($itemId);
@@ -76,7 +60,6 @@ class CartController extends Controller{
                         <th class='text-center'>Total</th>
                         <th class=\"text-right\"></th>
                     </tr>";
-//            dd($carts);
             foreach ($carts as $cart){
                 $data.= "
                     <tr>

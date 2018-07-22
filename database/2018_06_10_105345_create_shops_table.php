@@ -20,7 +20,7 @@ class CreateShopsTable extends Migration
             $table->integer('type_id')->unsigned();
             $table->string('country');
             $table->string('city');
-            $table->string('district');
+            $table->string('street');
             $table->longText('description');
             $table->string('image');
             $table->string('phone');

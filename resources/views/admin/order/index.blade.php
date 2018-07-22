@@ -86,11 +86,11 @@ _________________________________________________________ -->
                                                 <input type="hidden" name="order_id" value="{{$val->id}}">
                                                 <select id="status" class="form-control" name="status">
                                                     <option value="{{0}}" @if(0==$val->status)selected @endif>Pesanan Baru</option>
-                                                    <option value="{{1}}" @if(1==$val->status)selected @endif>Batalkan</option>
-                                                    <option value="{{2}}" @if(2==$val->status)selected @endif>Pesanan Di Terima</option>
-                                                    <option value="{{3}}" @if(3==$val->status)selected @endif>Pengiriman</option>
-                                                    <option value="{{4}}" @if(4==$val->status)selected @endif>Disewakan</option>
-                                                    <option value="{{5}}" @if(5==$val->status)selected @endif>Telah Kembali</option>
+                                                    {{--<option value="{{1}}" @if(1==$val->status)selected @endif>Batalkan</option>--}}
+                                                    {{--<option value="{{2}}" @if(2==$val->status)selected @endif>Pesanan Di Terima</option>--}}
+                                                    {{--<option value="{{3}}" @if(3==$val->status)selected @endif>Pengiriman</option>--}}
+                                                    <option value="{{1}}" @if(1==$val->status)selected @endif>Disewakan</option>
+                                                    <option value="{{2}}" @if(2==$val->status)selected @endif>Telah Kembali</option>
                                                 </select>
                                                 <input id="update-{{$val->id}}" class="form-control" type="button" value="update">
                                             </form>
@@ -149,7 +149,7 @@ _________________________________________________________ -->
                                             <script>
                                                 $("#update-{{$val->id}}").click(function () {
                                                     val = $('#form-{{$val->id}} #status').val();
-                                                    if (val == 5){
+                                                    if (val == 2){
                                                         $('#fine-modal').modal('show');
                                                     }else {
                                                         $("#form-{{$val->id}}").submit();

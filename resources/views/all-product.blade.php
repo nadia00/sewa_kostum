@@ -21,7 +21,7 @@
                     <div class="box info-bar">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 products-showing">
-                                Showing <strong>12</strong> of <strong>25</strong> products
+                                Showing <strong><span id="add-view"></span> </strong> of <strong>{{$count}}</strong> products
                             </div>
 
                             <div class="col-sm-12 col-md-8  products-number-sort">
@@ -30,7 +30,7 @@
                                         <div class="col-md-6 col-sm-6">
                                             <div class="products-number">
                                                 <strong>Show</strong>
-                                                <?php $arr = array('6','12','24','All') ?>
+                                                <?php $arr = array('8','12','24',$count) ?>
                                                 @for($i=0; $i< sizeof($arr); $i++)
                                                     <a href="#" id="filter-{{$i}}" class=" btn btn-default btn-sm">{{ $arr[$i] }}</a>
                                                 @endfor
@@ -115,6 +115,7 @@
 @section('custom_js')
 
     <script>
+
         var host = window.location.hostname;
         var path = window.location.pathname;
         var element = $(".products-number a");
@@ -165,8 +166,7 @@
                             htmlProduct += '<div class="text">';
                                 htmlProduct += '<h3><a href="'+route_detail+'">'+item.name+'</a></h3>';
                                 htmlProduct += '<p class="buttons">';
-                                    htmlProduct += '<a href="detail.html" class="btn btn-default"><i class="fa fa-heart-o"></i> Wishlist</a>';
-                                    htmlProduct += '<a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>';
+                                    htmlProduct += '<a href="'+route_detail+'" class="btn btn-default">View Detail</a>';
                                 htmlProduct += '</p>';
                             htmlProduct += '</div>';
                             htmlProduct += '</div>';

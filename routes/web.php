@@ -31,29 +31,33 @@ Route::prefix('admin-shop')->group(function(){
     Route::get('edit','UserController@edit')->name('admin-shop.edit');
     Route::post('edit','UserController@editProfile')->name('admin-shop.edit-profile');
 
-    Route::get('cek', 'AdminShop\FineController@cek')->name('admin-shop.cek');
-    Route::get('add-fine', 'AdminShop\FineController@index')->name('admin-shop.fine-form');
-    Route::post('add-fine','AdminShop\FineController@insert')->name('admin-shop.insert-fine');
-    Route::get('fine','AdminShop\FineController@editIndex')->name('admin-shop.fine');
-    Route::post('fine','AdminShop\FineController@edit')->name('admin-shop.fine-edit');
-
     Route::post('count','AdminShop\FineController@insertCount')->name('admin-shop.insert-count');
 
-    Route::get('order', 'AdminShop\OrdersController@index')->name('admin-shop.order');
-    Route::get('order/refresh', 'AdminShop\OrdersController@refresh')->name('admin-shop.refresh-order');
-
     Route::get('product', 'AdminShop\ProductsController@index')->name('admin-shop.product');
-
-    Route::get('delete-product/{id}', 'AdminShop\ProductsController@deleteProduct')->name('delete-product');
 
     Route::get('add-product', 'AdminShop\ProductsController@addIndex')->name('admin-shop.add-product');
     Route::post('add-product', 'AdminShop\ProductsController@addCreate')->name('admin-shop.add-product');
 
     Route::get('edit-product/{id}', 'AdminShop\ProductsController@editIndex')->name('admin-shop.edit-product');
     Route::post('edit-product', 'AdminShop\ProductsController@editCreate')->name('admin-shop.post-product');
+    Route::post('delete-image', 'AdminShop\ProductsController@deleteImage')->name('admin-shop.del-image');
+    Route::post('add-image','AdminShop\ProductsController@addImage')->name('admin-shop.add.image');
+
+
+    Route::get('delete-product/{id}', 'AdminShop\ProductsController@deleteProduct')->name('delete-product');
+
+    Route::get('order', 'AdminShop\OrdersController@index')->name('admin-shop.order');
+    Route::get('order/refresh', 'AdminShop\OrdersController@refresh')->name('admin-shop.refresh-order');
+
+    Route::get('cek', 'AdminShop\FineController@cek')->name('admin-shop.cek');
+    Route::get('add-fine', 'AdminShop\FineController@index')->name('admin-shop.fine-form');
+    Route::post('add-fine','AdminShop\FineController@insert')->name('admin-shop.insert-fine');
+    Route::get('fine','AdminShop\FineController@editIndex')->name('admin-shop.fine');
+    Route::post('fine','AdminShop\FineController@edit')->name('admin-shop.fine-edit');
+
 });
 
-Route::get('product/stock/{id}','ProductsController@stok')->name('user.product-stock');
+//Route::get('product/stock/{id}','ProductsController@stok')->name('user.product-stock');
 
 Route::prefix('user')->group(function(){
     Route::get('/', 'UserController@index')->name('user');
@@ -78,7 +82,11 @@ Route::prefix('user')->group(function(){
 
     Route::get('order-list', 'OrdersController@list')->name('user.order-list');
     Route::get('order/refresh','OrdersController@refresh')->name('user.refresh-order');
+
+    Route::get('payment', 'PaymentController@index')->name('user.payment');
 });
+
+Route::post('storereview', 'ProductReviewController@store')->name('review.store');
 
 
 

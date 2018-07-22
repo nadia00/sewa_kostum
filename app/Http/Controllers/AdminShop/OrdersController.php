@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Auth;
 class OrdersController extends Controller
 {
     const STATUS_NEW = 0;
-    const STATUS_CANCEL = 1;
-    const STATUS_CONFIRM = 2;
-    const STATUS_SENDING = 3;
-    const STATUS_RENTED = 4;
-    const STATUS_RETURN = 5;
-    const STATUS_DONE = 6;
+//    const STATUS_CONFIRM = 2;
+//    const STATUS_SENDING = 1;
+    const STATUS_RENTED = 1;
+    const STATUS_RETURN = 2;
+    const STATUS_DONE = 3;
+    const STATUS_CANCEL = 4;
 
     public function __construct()
     {
@@ -37,12 +37,14 @@ class OrdersController extends Controller
 
     public function refresh(Request $request){
         $fine = new FineController();
-        if($request->status == 5){
+        if($request->status == 2){
             $fine->insertCount($request);
         }
         Order::where("id",'=',$request->order_id)->update([
             "status"=>$request->status
         ]);
+
+
 
         return redirect()->back();
     }

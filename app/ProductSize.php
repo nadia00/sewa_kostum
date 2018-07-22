@@ -24,7 +24,7 @@ class ProductSize extends Model
 
     public function size()
     {
-        return $this->belongsTo('App\Size');
+        return $this->belongsTo('App\Size', 'size_id', 'id');
     }
 
     public function cartStorage()

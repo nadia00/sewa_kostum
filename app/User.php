@@ -118,4 +118,10 @@ class User extends Authenticatable
         return $this->hasMany('App\CartStorage');
     }
 
+    public function productReview()
+    {
+        return $this->hasMany('App\ProductReview');
+    }
+
+
 }
