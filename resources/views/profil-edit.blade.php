@@ -91,7 +91,8 @@ _________________________________________________________ -->
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->avatar)}}" alt="{{ $data->first_name }}" name="avatar">
+                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->avatar)}}" alt="{{ $data->first_name }}" name="avatar" class="img-responsive img-thumbnail" style="height: 100px; width: 100px; margin: auto;">
+                                <input type="file" name="avatar" class="form-control">
                             </div>
                         </div>
                         <!-- /.row -->

@@ -133,13 +133,15 @@ _________________________________________________________ -->
                             <p class="posted"><i class="fa fa-clock-o"></i> <b>Since</b> {{date('d M Y',strtotime($data->created_at))}}</p>
                         </div>
                         <div class="col-sm-3">
-                            <p>Jumlah Kostum</p>
-                            <p>Pesanan Diterima</p>
-                            <p>Pesanan Ditolak</p>
+                            <p>Total Products</p>
+                            <p>Order Success</p>
+                            <p>Order on Process</p>
+                            <p>Order Failed</p>
                         </div>
                         <div class="col-sm-2">
                             <p> : {{$countproduct}}</p>
                             <p> : {{$countOrderC}}</p>
+                            <p> : {{$countOrderP}}</p>
                             <p> : {{$countOrderR}}</p>
                         </div>
                     </div>

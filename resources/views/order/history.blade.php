@@ -182,27 +182,22 @@ _________________________________________________________ -->
                                             <tr>
                                                 <td>
                                                     {{date('d M Y',strtotime($return->created_at))}}<br>
-                                                    {{$return->shop->name}}<br>
+                                                    {{$return->shop->name}}<br><br>
                                                     <?php
-                                                    $denda = $return->getFine($return->id);
-                                                    $deposit = $return->getDeposit($return->id);
-                                                    $sisa = $return->getDeposit($return->id) - $return->getFine($return->id);
+                                                        $denda = (int)$return->getFine($return->id);
+                                                        $deposit = (int)$return->getDeposit($return->id);
+                                                        $sisa = (int)($return->getDeposit($return->id) - $return->getFine($return->id));
                                                     ?>
                                                     Denda : {{$denda}}<br>
                                                     Deposit : {{$deposit}}<br>
-                                                    <?php ?>
                                                     Sisa : {{ $sisa }}
+                                                    <?php $fine = (int)($sisa - 2 * $sisa); ?>
+                                                    {{--{{dd($sisa)}}--}}
                                                     @if($sisa <= 0)
-                                                        <form action="{{route('admin-shop.done')}}" method="post" enctype="multipart/form-data">@csrf
+                                                        <form action="{{route('user.pay-fine')}}" method="post" enctype="multipart/form-data">@csrf
                                                             <input type="hidden" name="order_id" value="{{$return->id}}">
-                                                            {{--<input type="hidden" name="status" value="5">--}}
+                                                            <input type="hidden" name="fine" value="{{$fine}}">
                                                             <button class="btn btn-default">Bayar</button>
-                                                        </form>
-                                                    @else
-                                                        <form action="{{route('admin-shop.kembali')}}" method="post" enctype="multipart/form-data">@csrf
-                                                            <input type="hidden" name="order_id" value="{{$return->id}}">
-                                                            <input type="hidden" name="kembali" value="{{$sisa}}">
-                                                            {{--<button type="submit">Kembalikan</button>--}}
                                                         </form>
                                                     @endif
                                                 </td>

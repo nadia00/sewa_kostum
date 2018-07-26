@@ -8,6 +8,7 @@ use App\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class ReturnController extends Controller
 {
@@ -43,6 +44,7 @@ class ReturnController extends Controller
             "gross_amount" => $price
         );
 
+//        dd($price);
         $body = array(
             "transaction_details" => $transaction
         );

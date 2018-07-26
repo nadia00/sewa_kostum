@@ -58,13 +58,17 @@ class ShopsController extends Controller
 
         $orderConfirm = Order::all()
             ->where('shop_id','=',$shop_id)
-            ->where('status','=','1');
+            ->where('status','=','5');
+        $orderProcess = Order::all()
+            ->where('shop_id','=',$shop_id)
+            ->whereIn('status',[1,2,3,4]);
         $orderReject = Order::all()
             ->where('shop_id','=',$shop_id)
-            ->where('status','=','0');
+            ->where('status','=','6');
 
         $countProduct = $data->products->count();
         $countOrderC = $orderConfirm->count();
+        $countOrderP = $orderProcess->count();
         $countOrderR = $orderReject->count();
 
         return view('admin/shop/profil')
@@ -72,12 +76,38 @@ class ShopsController extends Controller
             ->with('fineshop',$fineshop)
             ->with('countproduct',$countProduct)
             ->with('countOrderC',$countOrderC)
+            ->with('countOrderP',$countOrderP)
             ->with('countOrderR',$countOrderR);
     }
 
     public function edit(){
         $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
         return view('admin/shop/profil-edit')->with('data', $shop);
+    }
+
+    public function editProfile(Request $request){
+        $this->validate($request, ['pic'=>'image']);
+
+        $file = $request->file('pic');
+        if (!empty($file)) {
+            $data['image'] = $file->store('shop');
+        } else {
+//            $data['image'] = asset('public/upload/default.jpg');
+            $data['image'] = asset('public/page/img/shop.png');
+        }
+
+        Shop::where('id','=',$request->shop_id)
+            ->update([
+                'name'=>$request->name,
+                'country'=>$request->country,
+                'city'=>$request->city,
+                'street'=>$request->street,
+                'description'=>$request->description,
+                'image'=>$data['image'],
+                'phone'=>$request->phone,
+            ]);
+
+        return redirect()->route('admin-shop.profile');
     }
 
     public function editDeposit(Request $request){

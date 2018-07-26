@@ -45,7 +45,8 @@ class UserController extends Controller
         if (!empty($file)) {
             $data['image'] = $file->store('user');
         } else {
-            $data['image'] = asset('public/upload/default.jpg');
+//            $data['image'] = asset('public/upload/default.jpg');
+            $data['image'] = asset('public/page/img/shop.png');
         }
 
         User::where('id','=',Auth::user()->id)
@@ -54,7 +55,7 @@ class UserController extends Controller
                     'last_name'=>$request->last_name,
                     'phone_number'=>$request->phone_number,
                     'date_of_birth'=>$request->date_of_birth,
-                    'avatar'=>$request->avatar,
+                    'avatar'=>$data['image'],
                 ]);
         return redirect()->route('home');
     }

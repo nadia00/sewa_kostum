@@ -28,8 +28,8 @@ Route::get('detail/{id}', 'ProductsController@detail')->name('product-detail');
 Route::prefix('admin-shop')->group(function(){
     Route::get('profile', 'AdminShop\ShopsController@profile')->name('admin-shop.profile');
 
-    Route::get('edit','UserController@edit')->name('admin-shop.edit');
-    Route::post('edit','UserController@editProfile')->name('admin-shop.edit-profile');
+    Route::get('edit','AdminShop\ShopsController@edit')->name('admin-shop.edit');
+    Route::post('edit','AdminShop\ShopsController@editProfile')->name('admin-shop.edit-profile');
 
     Route::post('count','AdminShop\FineController@insertCount')->name('admin-shop.insert-count');
 
@@ -85,6 +85,8 @@ Route::prefix('user')->group(function(){
     Route::get('order/refresh','OrdersController@refresh')->name('user.refresh-order');
 
     Route::get('payment', 'PaymentController@index')->name('user.payment');
+
+    Route::post('pay/fine', 'ReturnController@payFine')->name('user.pay-fine');
 });
 
 Route::post('storereview', 'ProductReviewController@store')->name('review.store');

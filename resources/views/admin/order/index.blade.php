@@ -266,20 +266,14 @@ _________________________________________________________ -->
                                                 {{date('d M Y',strtotime($return->created_at))}}<br>
                                                 {{$return->user->first_name}}<br><br>
                                                 <?php
-                                                    $denda = $return->getFine($return->id);
-                                                    $deposit = $return->getDeposit($return->id);
-                                                    $sisa = $return->getDeposit($return->id) - $return->getFine($return->id);
+                                                    $denda = (int)$return->getFine($return->id);
+                                                    $deposit = (int)$return->getDeposit($return->id);
+                                                    $sisa = (int)($return->getDeposit($return->id) - $return->getFine($return->id));
                                                 ?>
                                                 Denda : {{$denda}}<br>
                                                 Deposit : {{$deposit}}<br>
                                                 Sisa : {{ $sisa }}
-                                                @if($sisa <= 0)
-                                                    <form action="{{route('admin-shop.done')}}" method="post">@csrf
-                                                        <input type="hidden" name="order_id" value="{{$return->id}}">
-                                                        <input type="hidden" name="status" value="5">
-                                                        <button class="btn btn-default">Selesai</button>
-                                                    </form>
-                                                @else
+                                                @if($sisa > 0)
                                                     <form action="{{route('admin-shop.kembali')}}" method="post">@csrf
                                                         <input type="hidden" name="order_id" value="{{$return->id}}">
                                                         <input type="hidden" name="kembali" value="{{$sisa}}">
