@@ -18,6 +18,7 @@ class CreateCartStorageTable extends Migration
             $table->unsignedInteger('shop_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('product_id');
+            $table->unsignedInteger('size_id');
             $table->integer('qty');
             $table->bigInteger('price');
             $table->timestamp();

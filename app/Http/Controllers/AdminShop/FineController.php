@@ -23,7 +23,7 @@ class FineController extends Controller
         $fineshop = FineShop::all();
 
         $count_shop = FineShop::all()->where('shop_id','=',$shop->id)->count();
-
+        dd($fineshop);
         if(sizeof($fineshop) == 0){
             return redirect()->route('admin-shop.fine-form');
         }else{
@@ -64,12 +64,16 @@ class FineController extends Controller
         $finetype = FineType::all();
         return view('admin/shop/fine')
             ->with('fineshop',$fineshop)
-            ->with('shop_id',$shop->id)
+            ->with('shop',$shop)
             ->with('finetype',$finetype);
     }
 
     public function edit(Request $request){
         $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
+        Shop::where('id','=',$request->shop_id)
+            ->update([
+               'deposit'=>$request->deposit,
+            ]);
         foreach ($request->type_id as $type){
             FineShop::where('shop_id','=',$shop->id)->where('type_id','=',$type)
                 ->update([
@@ -80,6 +84,7 @@ class FineController extends Controller
     }
 
     public function insertCount(Request $request){
+//        dd($request->all());
         $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
         foreach ($request->type_id as $type_id){
             $total = ((int)$request["sum_product-$type_id"])*((int)$request["price-$type_id"]);
@@ -91,9 +96,6 @@ class FineController extends Controller
                 'total'=>$total,
             ];
             Fine::create($data);
-        }
-        dd($data);
-        foreach ($request->type_id as $type_id){
         }
 
     }

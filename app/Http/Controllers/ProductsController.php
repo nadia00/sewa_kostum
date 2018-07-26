@@ -37,6 +37,8 @@ class ProductsController extends Controller
         $categories = Category::all();
         $product = Product::all()->where('id','=',$id)->first();
 
+//        dd($product);
+
         $avg_review = DB::table('product_reviews')
             ->select(DB::raw('AVG(review_value) as average'))
             ->where('product_id', $id)
@@ -79,6 +81,7 @@ class ProductsController extends Controller
             $status_order = 0;
             $review = 0;
         }
+
         return view('product/detail')
             ->with('product',$product)
             ->with('categories',$categories)

@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                     <div id="main-slider">
                         <div class="item">
-                            <img src="{{asset('public/page/img/main-slider1.jpg')}}" alt="" class="img-responsive">
+                            <img src="{{asset('public/page/img/Home.png')}}" alt="" class="img-responsive">
                         </div>
                     </div>
                     <!-- /#main-slider -->
@@ -46,7 +46,7 @@
                 <div class="box">
                     <div class="container">
                         <div class="col-md-12">
-                            <h2>Product</h2>
+                            <h2>Latest Product</h2>
                         </div>
                     </div>
                 </div>
@@ -54,9 +54,9 @@
                 @if(sizeof($product) != 0)
                     <div class="container">
                         <div class="product-slider">
-                            <?php $i=1 ?>
+                            <?php $i=0 ?>
                             @foreach($product as $val)
-                                @if($i==10)
+                                @if($i==9)
                                     @break;
                                 @endif
                                 <div class="item">
@@ -65,12 +65,12 @@
                                             <div class="flipper">
                                                 <div class="front" style="height: 250px;padding: 10px;">
                                                     <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
-                                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                        <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>
                                                 </div>
                                                 <div class="back" style="height: 250px;padding: 10px;">
                                                     <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
-                                                        <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                        <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>
                                                 </div>
                                             </div>
@@ -83,11 +83,11 @@
 
                                             <div class="text-center">
                                                 <?php $j=0 ?>
-                                                @for($j; $j<$review_result; $j++)
+                                                @for($j; $j<$reviews[$i]['review']; $j++)
                                                     <span class="fa fa-star checked"></span>
                                                 @endfor
                                                 <?php $j=0 ?>
-                                                @for($j; $j<$rest; $j++)
+                                                @for($j; $j<$reviews[$i]['rest_review']; $j++)
                                                     <span class="fa fa-star"></span>
                                                 @endfor
                                             </div>

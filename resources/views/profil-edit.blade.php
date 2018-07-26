@@ -27,7 +27,7 @@ _________________________________________________________ -->
                     <div class="panel-body">
                         <ul class="nav nav-pills nav-stacked">
                             <li>
-                                <a href="{{route('user.order-method')}}"><i class="fa fa-list"></i> Pesanan Saya</a>
+                                <a href="{{route('user.order-method')}}"><i class="fa fa-shopping-cart"></i> Pesanan Saya</a>
                             </li>
                             <li>
                                 <a href="{{route('user.order-list')}}"><i class="fa fa-list"></i> Daftar Pesanan</a>

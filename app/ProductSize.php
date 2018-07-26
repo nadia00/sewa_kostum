@@ -35,11 +35,11 @@ class ProductSize extends Model
     function stock($id){
         $size = 0;
         $product = ProductSize::where('id','=',$id)->first();
-        $allorder = OrderProduct::all()->where('id','=',$id)->whereIn('order.status',[1,2]);
+        $allorder = OrderProduct::all()->where('product_size_id','=',$id)->whereIn('order.status',[1,2, 0]);
         foreach ($allorder as $val){
             $size += $val->quantity;
         }
-        return $product->quantity-$size;
+        return ((int)$product->quantity - (int)$size);
     }
 
 }

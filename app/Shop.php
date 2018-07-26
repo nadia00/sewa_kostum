@@ -18,6 +18,7 @@ class Shop extends Model
         'description',
         'image',
         'phone',
+        'deposit',
         'status'
     ];
 
@@ -60,5 +61,14 @@ class Shop extends Model
             self::STATUS_APPROVED =>'APPROVED',
             self::STATUS_BANNED => 'BANNED'
         ];
+    }
+    public static function getDeposit($id_shop){
+        $shop = Shop::all()->where('id','=',$id_shop)->first();
+        if($shop->deposit == null){
+            $shop->deposit = 0;
+            return $shop->deposit;
+        }
+        else
+            return $shop->deposit;
     }
 }

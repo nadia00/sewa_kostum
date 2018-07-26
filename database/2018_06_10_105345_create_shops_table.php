@@ -24,6 +24,7 @@ class CreateShopsTable extends Migration
             $table->longText('description');
             $table->string('image');
             $table->string('phone');
+            $table->integer('deposit')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });

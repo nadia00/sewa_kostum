@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+//use App\CartStorage;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 
 use Illuminate\Http\Request;
@@ -10,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 class CartController extends Controller
 {
     public function store(Request $request){
-
         $data = array(
             "id"=>$request->id.$request->size_id,
             "name"=>$request->name,
@@ -25,6 +25,7 @@ class CartController extends Controller
             )
         );
         Cart::add($data);
+
     }
 
     public function delete($itemId){
@@ -44,6 +45,7 @@ class CartController extends Controller
 
     public function show()
     {
+//        $carts = Cart::getContent()->where('attributes.id_shop','2');
         $carts = Cart::getContent();
         if($this->size()<1){
             return "
@@ -81,7 +83,7 @@ class CartController extends Controller
             }
             $data.= "</table>
                     <div class=\"row\">
-                        <div class=\"col-md-6\"><p>*Harga belum termasuk ongkos kirim</p></div>
+                        <div class=\"col-md-6\"><p>*Harga belum termasuk deposit yang harus dibayar</p></div>
                         <div class=\"col-md-6 \">
                             <h3 class=\"border-bottom\">Subtotal:
                             <span class=\"pull-right\">Rp. ".Cart::getSubTotal()."</span></h3>

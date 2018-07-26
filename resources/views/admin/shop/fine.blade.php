@@ -71,7 +71,18 @@ _________________________________________________________ -->
 
                     <form action="{{route('admin-shop.fine-edit')}}" method="post"  enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="shop_id" value="{{$shop_id}}">
+                        <input type="hidden" name="shop_id" value="{{$shop->id}}">
+
+                        <label for="deposit">Deposit</label>
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="deposit" value="{{$shop->deposit}}" required autofocus>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>% dari total harga sewa</label>
+                            </div>
+                        </div>
+
                         @foreach($fineshop as $data)
                         <div class="row">
                             <div class="col-sm-12">

@@ -111,11 +111,11 @@ class ProductsController extends Controller
             'name' => 'required|max:255',
             'description' => 'required'
         ]);
-        $data = [
-            'name'=>$request->name,
-            'description'=>$request->description,
-            'shop_id'=>$shop->id
-        ];
+//        $data = [
+//            'name'=>$request->name,
+//            'description'=>$request->description,
+//            'shop_id'=>$shop->id
+//        ];
 
         Product::where('id','=',$request->product_id)
             ->update([
@@ -129,15 +129,18 @@ class ProductsController extends Controller
                 'price'=>$request->price,
                 'quantity'=>$request->quantity,
             ]);
+//        ProductImage::created([
+//
+//        ]);
+
 
         return redirect()->route('admin-shop.product');
     }
     public function deleteImage($id){
-
+        ProductImage::where('id','=',$id)->delete();
+        return redirect()->back();
     }
-    public function addImage(){
 
-    }
 
 
 }

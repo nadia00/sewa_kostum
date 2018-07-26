@@ -97,14 +97,21 @@ _________________________________________________________ -->
                     </div>
 
                     <hr>
-                    <h3>My Fine <span><a href="{{ route('admin-shop.cek') }}"> <i class="fa fa-edit"></i></a></span></h3>
+                    <h3>Fine and Deposit <span><a href="{{ route('admin-shop.cek') }}"> <i class="fa fa-edit"></i></a></span></h3>
                     <div class="row comment">
                         <div class="col-sm-3">
+                            <p>Deposit</p>
                             <p>Overdue Fine</p>
-                            <p>Broken</p>
-                            <p>Lost</p>
+                            <p>Broken Fine</p>
+                            <p>Lost Fine</p>
                         </div>
                         <div class="col-sm-6">
+                            @if(sizeof($data->deposit) != 0)
+                                <p> : {{$data->deposit}}% Total harga sewa</p>
+                            @else
+                                <p> : Data belum dilengkapi</p>
+                            @endif
+
                             @if(sizeof($fineshop) != 0)
                                 @foreach($fineshop as $fineshop)
                                 <p> : Rp {{$fineshop->price}}</p>

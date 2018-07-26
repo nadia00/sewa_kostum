@@ -19,9 +19,32 @@ class Order extends Model
         'shop_id',
         'addresses_id',
         'status',
+        'deposit',
         'first_date',
         'date_return'
     ];
+
+    public function getFine($order_id){
+        return Fine::all()->where('order_id','=',$order_id)
+            ->sum('total');
+    }
+
+    public function getDeposit($order_id){
+        $orderProduct = OrderProduct::all()->where('order_id',$order_id);
+        $totalbayar = 0;
+        foreach ($orderProduct as $product){
+            $totalbayar += $product->price * $product->quantity;
+        }
+
+        $order = Order::all()->where('id','=',$order_id)->first();
+        $deposit = $order->deposit;
+
+        $totaldeposit = $deposit * $totalbayar / 100;
+
+
+        return $totaldeposit;
+
+    }
 
     public function user()
     {

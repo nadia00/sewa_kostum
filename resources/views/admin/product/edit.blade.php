@@ -69,19 +69,29 @@ _________________________________________________________ -->
                     <p class="lead">Change your product detail.</p>
 
                     <h3>Product details</h3>
+                    <div class="row" style="margin-bottom: 2%">
                     @foreach($product->productImages as $val)
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                             <div class="hovereffect">
                                 <img class="img-responsive" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="">
                                 <div class="overlay">
-                                    <a class="info" href="#">Delete</a>
+                                    <a class="info" href="{{route('admin-shop.del-image',[$val->id])}}">Delete</a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    </div>
                     <form action="" method="post"  enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" class="form-control" name="product_id" value="{{$product->id}}">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="image">Add Image</label>
+                                    <input type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" value="{{ old('image') }}" id="image-modal" placeholder="image" autofocus multiple>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -109,15 +119,15 @@ _________________________________________________________ -->
                                         array_push($size_data, $size->id);
                                     }
                                     ?>
-                                    <select class="multipleSelect" multiple name="category[]">
-                                        @if(isset($categories))
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}" @if(in_array($category->id, $data)) selected @endif>{{$category->name}}</option>
-                                            @endforeach
-                                        @else
-                                            <option>Tidak Ada Kategori</option>
-                                        @endif
-                                    </select>
+                                    {{--<select class="multipleSelect" multiple name="category[]">--}}
+                                        {{--@if(isset($categories))--}}
+                                            {{--@foreach($categories as $category)--}}
+                                                {{--<option value="{{$category->id}}" @if(in_array($category->id, $data)) selected @endif>{{$category->name}}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--@else--}}
+                                            {{--<option>Tidak Ada Kategori</option>--}}
+                                        {{--@endif--}}
+                                    {{--</select>--}}
                                     <script>
                                         $('.multipleSelect').fastselect();
                                     </script>

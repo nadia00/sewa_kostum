@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Redirect;
 class OrdersController extends Controller
 {
     const STATUS_NEW = 0;
-//    const STATUS_CONFIRM = 2;
-//    const STATUS_SENDING = 3;
-    const STATUS_RENTED = 1;
-    const STATUS_RETURN = 2;
-    const STATUS_DONE = 3;
-    const STATUS_CANCEL = 4;
+    const STATUS_CONFIRM = 1;
+    const STATUS_SENDING = 2;
+    const STATUS_RENTED = 3;
+    const STATUS_RETURN = 4;
+    const STATUS_DONE = 5;
+    const STATUS_CANCEL = 6;
 
     public function __construct()
     {
@@ -31,7 +31,8 @@ class OrdersController extends Controller
     public function method(){
         $categories = Category::all();
         $address = Address::all()->where("user_id","=", Auth::user()->id);
-        $cart = Cart::getContent();
+        $cart = Cart::getContent()->groupBy('attributes.id_shop');
+
         return view('order/method')->with("address",$address)
             ->with("categories",$categories)
             ->with("carts",$cart);
@@ -42,34 +43,9 @@ class OrdersController extends Controller
         $order_id = 0;
         $price = 0;
         $user = Auth::user()->id;
-        $cart = Cart::getContent()->groupBy('options.id_shop');
+        $cart = Cart::getContent()->groupBy('attributes.id_shop');
 
-        foreach ($cart as $data) {
-            foreach ($data as $val) {
-//                dd($val);
-                if ($temp != $val->attributes->id_shop) {
-                    $order = Order::create([
-                        'user_id' => $user,
-                        'addresses_id' => $request->addresses_id,
-                        'first_date' => $request->first_date,
-                        'shop_id' => $val->attributes->id_shop,
-                        'status' => self::STATUS_NEW
-                    ]);
-                    $temp = $val->attributes->id_shop;
-                }
-//                dd($val);
-                $order_id = $order->id;
-                $price = $val->price;
-                OrderProduct::create([
-                    'order_id' => $order->id,
-                    'product_size_id' => $val->attributes->size,
-                    'price' => $val->price,
-                    'quantity' => $val->quantity,
-                ]);
-
-            }
-        }
-
+        $price = $request->tot;
         $date = date("ymdHms");
         $transaction = array(
             "order_id" => "Order" . "-" .$order_id.$date,
@@ -110,10 +86,43 @@ class OrdersController extends Controller
         curl_close($curl);
         $json = json_decode($response);
 
+
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
-//            dd($json->redirect_url)   ;
+
+            foreach ($cart as $data) {
+                foreach ($data as $val) {
+                    $shop_deposit = Shop::getDeposit($val->attributes->id_shop);
+                    if ($temp != $val->attributes->id_shop) {
+                        if (empty($shop_deposit)){
+                            $shop_deposit = 0;
+                        }
+                        $order = Order::create([
+                            'user_id' => $user,
+                            'addresses_id' => $request->addresses_id,
+                            'first_date' => $request->first_date,
+                            'shop_id' => $val->attributes->id_shop,
+                            'status' => self::STATUS_NEW,
+                            'deposit'=> $shop_deposit,
+                        ]);
+                        $temp = $val->attributes->id_shop;
+                    }
+                    $order_id = $order->id;
+                    OrderProduct::create([
+                        'order_id' => $order->id,
+                        'product_size_id' => $val->attributes->size,
+                        'price' => $val->price,
+                        'quantity' => $val->quantity,
+                    ]);
+
+//                $sum += $sum * Shop::getDeposit($val->attributes->id_shop) / 100;
+                }
+            }
+
+
+            foreach ($cart as $val)
+                Cart::clear();
 
             return Redirect::to($json->redirect_url);
         }
@@ -123,14 +132,18 @@ class OrdersController extends Controller
     public function list(){
         $user = Auth::user()->id;
         $orders = Order::all()->where("user_id",'=',$user);
-        return view("order/history")->with('orders', $orders);
+
+        $new = $orders->where('status','=','0');
+        $process = $orders->whereIn('status',[2,3,1]);
+        $return = $orders->whereIn('status',4);
+        $done = $orders->where('status','=','5');
+
+        return view("order/history")
+            ->with('orders', $orders)
+            ->with('new',$new)
+            ->with('process',$process)
+            ->with('return',$return)
+            ->with('done',$done);
     }
 
-//    public function refresh(Request $request){
-//        Order::where("id",'=',$request->order_id)->update([
-//            "status"=>1
-//        ]);
-//
-//        return redirect()->back();
-//    }
 }

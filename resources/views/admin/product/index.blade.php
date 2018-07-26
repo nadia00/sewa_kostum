@@ -76,14 +76,14 @@ _________________________________________________________ -->
                                 <div class="product">
                                     <div class="flip-container" style="height: 300px;">
                                         <div class="flipper">
-                                            <div class="front" style="height: 300px;padding: 10px;">
+                                            <div class="front" style="height: 250px;padding: 10px;">
                                                 <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
-                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                                    <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                 </a>
                                             </div>
-                                            <div class="back" style="height: 300px;padding: 10px;">
+                                            <div class="back" style="height: 250px;padding: 10px;">
                                                 <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
-                                                    <img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name }}" class="img-responsive">
+                                                    <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name }}" class="img-responsive">
                                                 </a>
                                             </div>
                                         </div>
@@ -106,24 +106,24 @@ _________________________________________________________ -->
                     </div>
                     <!-- /.products -->
 
-                    <div class="pages">
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a>
-                            </li>
-                            <li class="active"><a href="#">1</a>
-                            </li>
-                            <li><a href="#">2</a>
-                            </li>
-                            <li><a href="#">3</a>
-                            </li>
-                            <li><a href="#">4</a>
-                            </li>
-                            <li><a href="#">5</a>
-                            </li>
-                            <li><a href="#">&raquo;</a>
-                            </li>
-                        </ul>
-                    </div>
+                    {{--<div class="pages">--}}
+                        {{--<ul class="pagination">--}}
+                            {{--<li><a href="#">&laquo;</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="active"><a href="#">1</a>--}}
+                            {{--</li>--}}
+                            {{--<li><a href="#">2</a>--}}
+                            {{--</li>--}}
+                            {{--<li><a href="#">3</a>--}}
+                            {{--</li>--}}
+                            {{--<li><a href="#">4</a>--}}
+                            {{--</li>--}}
+                            {{--<li><a href="#">5</a>--}}
+                            {{--</li>--}}
+                            {{--<li><a href="#">&raquo;</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
 
                 </div>
                 <!-- /.col-md-9 -->

@@ -21,8 +21,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/category/{id}', 'HomeController@productCategory')->name('product.category');
-Route::get('/products/{page?}', 'HomeController@allProduct')->name('product.all');
+Route::get('/category/{id}/{page?}/{show?}', 'HomeController@productCategory')->name('product.category');
+Route::get('/products/{page?}/{show?}', 'HomeController@allProduct')->name('product.all');
 Route::get('detail/{id}', 'ProductsController@detail')->name('product-detail');
 
 Route::prefix('admin-shop')->group(function(){
@@ -40,9 +40,8 @@ Route::prefix('admin-shop')->group(function(){
 
     Route::get('edit-product/{id}', 'AdminShop\ProductsController@editIndex')->name('admin-shop.edit-product');
     Route::post('edit-product', 'AdminShop\ProductsController@editCreate')->name('admin-shop.post-product');
-    Route::post('delete-image', 'AdminShop\ProductsController@deleteImage')->name('admin-shop.del-image');
+    Route::post('delete-image/{id}', 'AdminShop\ProductsController@deleteImage')->name('admin-shop.del-image');
     Route::post('add-image','AdminShop\ProductsController@addImage')->name('admin-shop.add.image');
-
 
     Route::get('delete-product/{id}', 'AdminShop\ProductsController@deleteProduct')->name('delete-product');
 
@@ -55,9 +54,11 @@ Route::prefix('admin-shop')->group(function(){
     Route::get('fine','AdminShop\FineController@editIndex')->name('admin-shop.fine');
     Route::post('fine','AdminShop\FineController@edit')->name('admin-shop.fine-edit');
 
-});
+    Route::get('return/{shop_id}','AdminShop\ReturnController@getDenda')->name('return-show');
 
-//Route::get('product/stock/{id}','ProductsController@stok')->name('user.product-stock');
+    Route::post('done','AdminShop\ReturnController@done')->name('admin-shop.done');
+    Route::post('kembali','AdminShop\ReturnController@kembali')->name('admin-shop.kembali');
+});
 
 Route::prefix('user')->group(function(){
     Route::get('/', 'UserController@index')->name('user');

@@ -179,9 +179,12 @@ _________________________________________________________ -->
                                     // console.log($data);
                                     $.post("{{route('user.cart-store')}}", $data,
                                         function(data, status){
-                                            // console.log(data)
-                                            $("#cart").modal('show');
-                                            getCart()
+                                            console.log(status)
+                                            if (status == 'success'){
+                                                $("#cart").modal('show');
+                                                getCart()
+
+                                            }
                                         });
                                 }
                             </script>

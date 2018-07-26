@@ -27,7 +27,7 @@ _________________________________________________________ -->
                     <div class="panel-body">
                         <ul class="nav nav-pills nav-stacked">
                             <li>
-                                <a href="{{route('user.order-method')}}"><i class="fa fa-list"></i> Pesanan Saya</a>
+                                <a href="{{route('user.order-method')}}"><i class="fa fa-shopping-cart"></i> Pesanan Saya</a>
                             </li>
                             <li>
                                 <a href="{{route('user.order-list')}}"><i class="fa fa-list"></i> Daftar Pesanan</a>
@@ -80,7 +80,11 @@ _________________________________________________________ -->
                     <div class="row comment">
                         <div class="col-sm-3 col-md-2 text-center-xs">
                             <p>
-                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->avatar)}}" class="img-responsive img-thumbnail" alt="{{$data->first_name}}">
+                                @if($data->avatar != null)
+                                    <img src="{{url('/').Storage::disk('local')->url("app/".$data->avatar)}}" class="img-responsive img-thumbnail" alt="{{$data->first_name}}">
+                                @else
+                                    <img src="{{asset('public/page/img/avatar.png')}}" class="img-responsive img-thumbnail" style="height: 100px; margin: auto;">
+                                @endif
                             </p>
                         </div>
                         <div class="col-sm-9 col-md-10">
@@ -96,7 +100,11 @@ _________________________________________________________ -->
                     <div class="row comment">
                         <div class="col-sm-3 col-md-2 text-center-xs">
                             <p>
-                                <img src="{{url('/').Storage::disk('local')->url("app/".$data->shop->image)}}" class="img-responsive img-thumbnail" alt="{{$data->nama_toko}}">
+                                @if($data->shop->image != null)
+                                    <img src="{{url('/').Storage::disk('local')->url("app/".$data->shop->image)}}" class="img-responsive img-thumbnail" alt="{{$data->nama_toko}}"  style="height: 100px; margin: auto;">
+                                @else
+                                    <img src="{{asset('public/page/img/Blusa.png')}}" class="img-responsive img-thumbnail" style="height: 100px; margin: auto;">
+                                @endif
                             </p>
                         </div>
                         <div class="col-sm-9 col-md-10">

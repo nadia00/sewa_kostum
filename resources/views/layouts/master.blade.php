@@ -158,8 +158,8 @@ _________________________________________________________ -->
         <div class="navbar-header">
 
             <a class="navbar-brand home" href="{{url('/')}}" data-animate-hover="bounce">
-                <img style="height: 50px" src="{{asset('public/logo.png')}}" alt="Obaju logo" class="hidden-xs">
-                <img style="height: 50px" src="{{asset('public/logo.png')}}" alt="Obaju logo" class="visible-xs"><span class="sr-only">Obaju - go to homepage</span>
+                <img style="height: 50px" src="{{asset('public/page/img/CoShopper.png')}}" alt="CoShopper" class="hidden-xs">
+                <img style="height: 50px" src="{{asset('public/page/img/CoShopper.png')}}" alt="CoShopper" class="visible-xs"><span class="sr-only">Obaju - go to homepage</span>
             </a>
             <div class="navbar-buttons">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
@@ -220,10 +220,10 @@ _________________________________________________________ -->
                         })
                     },1000)
                 </script>
-                <button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">
-                    <span class="sr-only">Toggle search</span>
-                    <i class="fa fa-search"></i>
-                </button>
+                {{--<button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">--}}
+                    {{--<span class="sr-only">Toggle search</span>--}}
+                    {{--<i class="fa fa-search"></i>--}}
+                {{--</button>--}}
             </div>
 
         </div>

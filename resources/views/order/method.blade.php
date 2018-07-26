@@ -19,6 +19,9 @@
                                         <div class='panel-heading'>No Cart Available</div>
                                     </div>
                                 @else
+                                    <?php  $tot = 0; ?>
+                                    @foreach($carts as $shop)
+                                    <?php $sum = 0; $sub = 0;?>
                                     <table class="table table-striped cart-table">
                                         <tr>
                                             <th></th>
@@ -27,8 +30,7 @@
                                             <th class='text-center'>Quantity</th>
                                             <th class='text-center'>Total</th>
                                         </tr>
-
-                                        @foreach ($carts as $cart)
+                                        @foreach ($shop as $cart)
                                             <tr>
                                                 <td>
                                                     <div class='row text-center'>
@@ -36,7 +38,6 @@
                                                     </div>
                                                 </td>
                                                 <td>
-
                                                     <div class='row text-center'>
                                                         {{ $cart->name }}
                                                     </div>
@@ -45,23 +46,40 @@
                                                 <td class='text-center'> {{ $cart->quantity }}</td>
                                                 <td class='text-center'>Rp {{ number_format($cart->price*$cart->quantity) }}</td>
                                             </tr>
+                                            <?php $sum += (int)($cart->price * $cart->quantity) ;
+                                                    $sub += (int)($cart->price * $cart->quantity);
+                                            ?>
                                         @endforeach
                                     </table>
-                                    <div class="row">
+                                    <div class="row"><div class="col-md-6"></div>
+                                        <div class="col-md-6 ">
+                                            <h5 class="border-bottom">Subtotal:
+                                                <span class="pull-right">Rp {{ $sub }}</span></h5>
+                                            {{--<input type="hidden" name="id_shop" value="{{$cart->attributes->id_shop}}" form="form_order">--}}
+                                        </div>
                                         <div class="col-md-6"></div>
                                         <div class="col-md-6 ">
-                                        <h3 class="border-bottom">Subtotal:
-                                            <span class="pull-right">Rp {{ Cart::getSubTotal() }}</span></h3>
+                                            <h5 class="border-bottom">Deposit:
+                                                <span class="pull-right">{{ \App\Shop::getDeposit($cart->attributes->id_shop) }}%</span></h5>
+                                            {{--<input type="hidden" name="id_shop" value="{{$cart->attributes->id_shop}}" form="form_order">--}}
+                                        </div>
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6 ">
+                                            <h5 class="border-bottom">Total:
+                                            <span class="pull-right">Rp {{$sum += $sum * \App\Shop::getDeposit($cart->attributes->id_shop)/100}}</span></h5>
+                                            <input type="hidden" name="id_shop" value="{{$cart->attributes->id_shop}}" form="form_order">
+                                        </div>
                                     </div>
+                                        <?php $tot += $sum;?>
+                                        {{--<p>{{$tot}}</p>--}}
+                                    @endforeach
+
+                                    <input type="hidden" name="tot" value="{{$tot}}" form="form_order">
                                 @endif
                             </div>
-
-
-
-
-
-                            </div>
                         </div>
+
+
                         <div class="col-sm-4">
                             <div class="container-fluid">
                                 <div class="box text-center">

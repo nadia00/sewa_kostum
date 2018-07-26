@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\ProductCategory;
-use App\ProductReview;
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -18,49 +17,103 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $product = Product::all()->sortByDesc('created_at');
-        $count = $product->count();
+        $products = Product::all()->sortByDesc('created_at');
 
-//        while ($product){
-        for($i=0; $i<$count; $i++){
-            $avg_review = [];
-            $avg_review[$i] = DB::table('product_reviews')
-                ->select(DB::raw('AVG(review_value) as average'))
-                ->where('product_id', $product[$i]->id)
-                ->get();
-//            $result[$i] = $avg_review[$i];
-//            $result_review[$i] = (int)$result[$i];
-//            $rest_of_result[$i] = 5 - $result_review[$i];
+        $avg_review = DB::table('product_reviews')
+            ->select('product_id', DB::raw('AVG(review_value) as average'))
+            ->groupBy('product_id')
+            ->get();
+
+        $reviews = array();
+        foreach ($products as $product){
+            $cek = 0;
+            foreach ($avg_review as $item) {
+                if ($product->id == $item->product_id){
+                    $result = $item->average;
+                    $result_review = (int)$result;
+                    $rest_of_result = 5 - $result_review;
+                    array_push($reviews, [
+                        'product_id' => $product->id,
+                        'review' => $result_review,
+                        'rest_review' => $rest_of_result,
+                    ]);
+                    $cek = 1;
+                    continue;
+                }
+            }
+            if ($cek == 0){
+                $result_review = 0;
+                $rest_of_result = 5 - $result_review;
+                array_push($reviews, [
+                    'product_id' => $product->id,
+                    'review' => $result_review,
+                    'rest_review' => $rest_of_result,
+                ]);
+            }
         }
-
-        dd($avg_review);
-
         return view('home')
-            ->with('product',$product);
-//            ->with('review_result', $result_review)
-//            ->with('rest', $rest_of_result);
+            ->with('product',$products)
+            ->with('reviews', $reviews);
+
     }
 
-    public function productCategory($id_category){
-        $ctg=Category::all()->where('id','=',$id_category)->first();
-        $ctgp = ProductCategory::all()->where('category_id','=',$ctg->id);
-        return view('category')
-            ->with('product',$ctgp)
-            ->with('categories',$ctg);
-    }
-
-    public function allProduct($page = 0){
-        $count = Product::all()->count();
-        if ($page == 0){
-            $product = Product::paginate(8);
-            return view('all-product')
+    public function productCategory($id_category, Request $req, $page = 1, $show = 0){
+        $ctg = Category::all()->where('id','=',$id_category)->first();
+        $productCtg = ProductCategory::where('category_id','=',$ctg->id);
+        $count = $productCtg->count();
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+        {
+            $product = $productCtg->paginate($req->show);
+            return response()->json([
+                "product" => $product,
+                'show' => $req->show,
+                'page'=> $req->page
+            ]);
+        }
+        elseif ($req->show == 0){
+            $product = $productCtg->paginate(8);
+            return view('category')
+                ->with('ctg',$ctg)
                 ->with('product',$product)
                 ->with('count',$count);
         }
         else{
-            $product = Product::paginate($page);
-            return response()->json(["product" => $product]);
+            $product = $productCtg->paginate($req->show);
+            return view('category')
+                ->with('ctg',$ctg)
+                ->with('product',$product)
+                ->with('count',$count);
         }
+    }
 
+
+    public function allProduct(Request $req, $page = 1, $show = 0){
+        $count = Product::all()->count();
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+        {
+            $product = Product::paginate($req->show);
+            return response()->json([
+                "product" => $product,
+                'show' => $req->show,
+                'page'=> $req->page
+            ]);
+        }
+        else{
+//            dd($req);
+        }
+        if ($req->show == 0){
+            $product = Product::paginate(8);
+            return view('all-product')
+                ->with('product',$product)
+                ->with('count',$count);
+//                ->with('reviews', $reviews);
+        }
+        else{
+            $product = Product::paginate($req->show);
+            return view('all-product')
+                ->with('product',$product)
+                ->with('count',$count);
+//                ->with('reviews', $reviews);
+        }
     }
 }

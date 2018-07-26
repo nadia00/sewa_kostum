@@ -80,7 +80,10 @@ class ShopsController extends Controller
         return view('admin/shop/profil-edit')->with('data', $shop);
     }
 
-    public function editProfile(){
-
+    public function editDeposit(Request $request){
+        Shop::where('id','=',$request->shop_id)
+            ->updated([
+                'deposit'=>$request->deposit,
+            ]);
     }
 }
