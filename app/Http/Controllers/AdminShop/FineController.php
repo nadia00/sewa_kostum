@@ -23,7 +23,7 @@ class FineController extends Controller
         $fineshop = FineShop::all();
 
         $count_shop = FineShop::all()->where('shop_id','=',$shop->id)->count();
-        dd($fineshop);
+//        dd($fineshop);
         if(sizeof($fineshop) == 0){
             return redirect()->route('admin-shop.fine-form');
         }else{
