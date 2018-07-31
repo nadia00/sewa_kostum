@@ -92,8 +92,11 @@ Route::prefix('user')->group(function(){
 Route::post('storereview', 'ProductReviewController@store')->name('review.store');
 
 
+//Route::get('nyobak',function (){
+//    return view('nyobak');
+//});
 
-
+Route::get('shop/{id}','ShopController@viewShop')->name('viewshop');
 
 //Route::prefix('/admin')->group(function(){
 //    Route::get('/', 'HomeController@index');

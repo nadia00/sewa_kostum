@@ -40,6 +40,6 @@ class Product extends Model
 
     public function productReview()
     {
-        return $this->hasMany('App\ProductReview');
+        return $this->hasMany('App\ProductReview',"id","product_id");
     }
 }

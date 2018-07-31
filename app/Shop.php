@@ -54,6 +54,9 @@ class Shop extends Model
     {
         return $this->hasMany('App\Fine');
     }
+    public function productReview(){
+        return $this->hasMany('App\ProductReview');
+    }
     public static function getStatuses()
     {
         return [

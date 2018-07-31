@@ -28,16 +28,11 @@ class ProductsController extends Controller
 //            $product = Product::paginate($page);
             return response()->json(["product" => $product]);
         }
-
-//        $products = ProductCategory::all()->where('category_id','=',id);
-//        return view('')->with('products',$products);
     }
 
     function detail($id){
         $categories = Category::all();
         $product = Product::all()->where('id','=',$id)->first();
-
-//        dd($product);
 
         $avg_review = DB::table('product_reviews')
             ->select(DB::raw('AVG(review_value) as average'))

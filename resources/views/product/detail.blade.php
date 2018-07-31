@@ -242,6 +242,7 @@ _________________________________________________________ -->
                     <p><i>Name </i>: {{$product->shop->name}}
                         <br><i>Phone </i>: {{$product->shop->user->phone_number}}
                         <br><i>Location </i>: {{$product->shop->district}}, {{$product->shop->city}} {{$product->shop->country}}
+                        <br><a href="{{route('viewshop',[$product->shop->id])}}">more details..</a>
                     </p>
 
                     @if($product->shop->description != null)

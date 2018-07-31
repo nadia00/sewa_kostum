@@ -137,16 +137,33 @@ _________________________________________________________ -->
                                                     {{date('d M Y',strtotime($process->created_at))}}
                                                     <br>
                                                     {{$process->shop->name}}
-                                                    <br>
-                                                    <?php
-                                                    if($process->status == 1)
-                                                        $name = "confirm";
-                                                    elseif ($process->status == 2)
-                                                        $name = "sending";
-                                                    elseif ($process->status == 3)
-                                                        $name = "rented";
-                                                    ?>
-                                                    {{$name}}
+                                                    <br><br>
+                                                        <?php
+                                                            if($process->status == 1)
+                                                                $name = "confirm";
+                                                            elseif ($process->status == 2)
+                                                                $name = "sending";
+                                                            elseif ($process->status == 3)
+                                                                $name = "rented";
+                                                        ?>
+                                                    {{$name}}<br>
+                                                        <?php
+                                                            $shop = \App\Shop::where('id',$process->shop_id)->first();
+                                                            $overdue = $shop->fineShop->where('type_id',1);
+//                                                            dd($overdue);
+
+                                                            $dateTime = new DateTime(date("Y-m-d",strtotime($process->first_date)));
+                                                            $due_date = $dateTime->modify('+1 day');
+                                                            $date_now = new DateTime();
+                                                            $interval = $due_date->diff($date_now);
+                                                            if ($due_date > $date_now)
+                                                                $denda_terlambat = 0;
+                                                            else{
+                                                                $diff = $interval->d;
+                                                                $denda_terlambat = $diff * $overdue;
+                                                            }
+                                                        ?>
+                                                    <p>Denda : {{$denda_terlambat}}</p>
                                                 </td>
                                                 <td colspan="3">
                                                     <table class="table" style="width: 65%">

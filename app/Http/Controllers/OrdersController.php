@@ -132,6 +132,12 @@ class OrdersController extends Controller
     public function list(){
         $user = Auth::user()->id;
         $orders = Order::all()->where("user_id",'=',$user);
+//        foreach ($orders as $order){
+//            $fine = new FineController();
+//            $fine->overdue($order->id);
+//        }
+//        dd($order->id);
+
 
         $new = $orders->where('status','=','0');
         $process = $orders->whereIn('status',[2,3,1]);
