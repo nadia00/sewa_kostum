@@ -47,7 +47,7 @@ class ShopController extends Controller
             ->get()
             ->count();
 
-        return view('nyobak')
+        return view('info-shop')
             ->with('shop',$shop)
             ->with('countstar',$countstar)
             ->with('star',$star)

@@ -212,7 +212,7 @@ _________________________________________________________ -->
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <ul>
-                                            <li><a href="{{ route('products') }}">All Categories</a></li>
+                                            <li><a href="{{ route('product.all') }}">All Categories</a></li>
                                             @foreach($kategoris as $categories)
                                                 <li>
                                                     <a href="{{url('category',[$categories->id])}}">{{$categories->name}}</a>

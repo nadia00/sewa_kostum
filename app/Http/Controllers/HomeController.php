@@ -73,14 +73,14 @@ class HomeController extends Controller
         }
         elseif ($req->show == 0){
             $product = $productCtg->paginate(8);
-            return view('category')
+            return view('product.category')
                 ->with('ctg',$ctg)
                 ->with('product',$product)
                 ->with('count',$count);
         }
         else{
             $product = $productCtg->paginate($req->show);
-            return view('category')
+            return view('product.category')
                 ->with('ctg',$ctg)
                 ->with('product',$product)
                 ->with('count',$count);
@@ -137,13 +137,13 @@ class HomeController extends Controller
         }
         if ($req->show == 0){
             $product = Product::paginate(8);
-            return view('all-product')
+            return view('product.all-product')
                 ->with('product',$product)
                 ->with('count',$count);
         }
         else{
             $product = Product::paginate($req->show);
-            return view('all-product')
+            return view('product.all-product')
                 ->with('product',$product)
                 ->with('count',$count);
         }
@@ -179,10 +179,5 @@ class HomeController extends Controller
     }
 
 
-    public function products(){
-        $products = Product::all();
-        return view('product.product')
-            ->with('products',$products);
-    }
 
 }
