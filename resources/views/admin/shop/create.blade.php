@@ -16,6 +16,7 @@
                 @endif
                 <form action="{{route('user.create-shop')}}" method="post"  enctype="multipart/form-data">
                     @csrf
+
                     <div class="col-sm-8">
                         <div class="row">
                             <div class="col-sm-8 form-group">
@@ -45,46 +46,69 @@
                                 @endif
                             </div>
                         </div>
-                        {{--<div class="row">--}}
-                            {{--<div class="col-sm-8 form-group">--}}
-                                {{--<select class="form-control{{ $errors->has('type_id') ? ' is-invalid' : '' }}" name="type_id" id="type_id-modal" required autofocus>--}}
-                                    {{--@foreach($types as $val)--}}
-                                        {{--<option value="{{$val->id}}">{{$val->name}}</option>--}}
-                                    {{--@endforeach--}}
-                                {{--</select>--}}
-                                {{--@if ($errors->has('type_id'))--}}
-                                    {{--<span class="invalid-feedback">--}}
-                                    {{--<strong>{{ $errors->first('type_id') }}</strong>--}}
-                                {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+
+
                         <div class="row">
-                            <div class="col-sm-4 form-group">
-                                <input type="text" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="{{ old('country') }}" id="country-modal" placeholder="country" required autofocus>
-                                @if ($errors->has('country'))
-                                    <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('country') }}</strong>
-                                </span>
-                                @endif
+                            <div class="form-group{{ $errors->has('location_address') ? ' has-error' : '' }}">
+                                <label for="location_address" style="margin-left: 12px" class="control-label">Address</label>
+                                <a href="{{ route('location.maps') }}" style="color:white; padding: 5px" class="badge badge-secondary control-label">get Location</a>
+
+                                <div class="col-md-12">
+                                    @if(@$_GET['address'] == null)
+                                        <?php $address = @$locations->location_address ?>
+                                    @else
+                                        <?php $address = $_GET['address'] ?>
+                                    @endif
+
+                                    <input id="location_address" type="text" class="form-control" name="location_address" value="{{ @$address }}"required>
+
+                                    @if ($errors->has('location_address'))
+                                        <span class="help-block">
+                                <strong>{{ $errors->first('location_address') }}</strong>
+                            </span>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="col-sm-4 form-group">
-                                <input type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}" id="city-modal" placeholder="city" required autofocus>
-                                @if ($errors->has('city'))
-                                    <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('city') }}</strong>
-                                </span>
-                                @endif
+                            <div class="form-group{{ $errors->has('location_lat') ? ' has-error' : '' }}">
+                                <div class="col-md-12">
+                                    @if(@$_GET['lat'] == null)
+                                        <?php $lat = @$locations->location_lat ?>
+                                    @else
+                                        <?php $lat = $_GET['lat'] ?>
+                                    @endif
+
+                                    <input id="location_lat" type="text" class="form-control" name="location_lat" placeholder="location_lat" value="{{ @$lat }}"required>
+
+                                    @if ($errors->has('location_lat'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('location_lat') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="col-sm-4 form-group">
-                                <input type="text" class="form-control{{ $errors->has('street') ? ' is-invalid' : '' }}" name="street" value="{{ old('street') }}" id="street-modal" placeholder="street" required autofocus>
-                                @if ($errors->has('street'))
-                                    <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('street') }}</strong>
-                                </span>
-                                @endif
+                            <div class="form-group{{ $errors->has('location_lng') ? ' has-error' : '' }}">
+                                <div class="col-md-12">
+                                    @if(@$_GET['lng'] == null)
+                                        <?php $lng = @$locations->location_lng ?>
+                                    @else
+                                        <?php $lng = $_GET['lng'] ?>
+                                    @endif
+
+                                    <input id="location_lng" type="text" class="form-control" name="location_lng" placeholder="location_lang" value="{{ @$lng }}"required>
+
+                                    @if ($errors->has('location_lng'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('location_lang') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
+
+
+
+
+
                         <div class="row">
                             <div class="form-group col-sm-4">
                                 <input type="file" class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" value="{{ old('photo') }}" id="photo-modal" placeholder="photo" required autofocus>

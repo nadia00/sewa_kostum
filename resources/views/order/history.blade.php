@@ -148,29 +148,45 @@ _________________________________________________________ -->
                                                         ?>
                                                     {{$name}}<br>
                                                         <?php
-                                                            $shop = \App\Shop::where('id',$process->shop_id)->first();
-                                                            $overdue = $shop->fineShop->where('type_id',1);
-//                                                            dd($overdue);
-
-                                                            $dateTime = new DateTime(date("Y-m-d",strtotime($process->first_date)));
-                                                            $due_date = $dateTime->modify('+1 day');
-                                                            $date_now = new DateTime();
-                                                            $interval = $due_date->diff($date_now);
-                                                            if ($due_date > $date_now)
-                                                                $denda_terlambat = 0;
-                                                            else{
-                                                                $diff = $interval->d;
-                                                                $denda_terlambat = $diff * $overdue;
+                                                            if($process->status == 3){
+                                                                $shop_id = $process->shop_id;
+                                                                $overdue = \App\FineShop::where([
+                                                                   ['type_id','=',1],
+                                                                   ['shop_id','=',$shop_id]
+                                                                ])->first();
+                                                                $priceOverdue = $overdue->price;
+                                                                $dateTime = new DateTime(date("Y-m-d",strtotime($process->first_date)));
+                                                                $due_date = $dateTime->modify('+1 day');
+//                                                                dd($due_date);
+                                                                $date_now = new DateTime();
+                                                                $interval = $due_date->diff($date_now);
+//                                                                dd($interval->d);
+                                                                if ($due_date > $date_now)
+                                                                    $denda_terlambat = 0;
+                                                                else{
+//                                                                    var_dump($overdue->price);die();
+                                                                    $denda_terlambat = $interval->d * $priceOverdue * $op->quantity;
+                                                                }
                                                             }
                                                         ?>
+{{--                                                    <p>{{$interval}}</p>--}}
                                                     <p>Denda : {{$denda_terlambat}}</p>
                                                 </td>
                                                 <td colspan="3">
-                                                    <table class="table" style="width: 65%">
+                                                    <table class="table table-bordered table-sm">
+                                                        <tr>
+                                                            <td style="width: 20%">Gambar</td>
+                                                            <td>Nama kostum</td>
+                                                            <td>Tgl Pakai</td>
+                                                            <td>Ukuran</td>
+                                                            <td>Kostum</td>
+                                                            <td>Harga</td>
+                                                        </tr>
                                                         @foreach($process->orderProducts as $op)
                                                             <tr>
-                                                                <td><img src="{{url('/').Storage::disk('local')->url("app/".$op->product->product->image)}}" style="width: 20%"></td>
+                                                                <td><img style="height: 100px; margin: auto;" class="img img-responsive" src="{{url('/').Storage::disk('local')->url("app/".$op->product->product->image)}}" style="width: 20%"></td>
                                                                 <td>{{$op->product->product->name}}</td>
+                                                                <td>{{$process->first_date}}</td>
                                                                 <td>{{$op->product->size->name}}</td>
                                                                 <td>{{$op->quantity}}</td>
                                                                 <td class="text-left">Rp. {{number_format($op->quantity*$op->price)}}</td>

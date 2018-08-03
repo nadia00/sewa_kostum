@@ -1,7 +1,4 @@
 @extends('layouts.master')
-<?php
-//        dd($review);
-?>
 @section('content')
 
     <div id="content">
@@ -10,7 +7,7 @@
             <div class="col-md-12">
                 <ul class="breadcrumb">
                     <li><a href="{{ url('/') }}">Home</a>
-                    <li>Kostum {{$product->name}}</li>
+                    <li>{{$product->name}}</li>
                 </ul>
 
             </div>
@@ -18,38 +15,38 @@
             <div class="col-md-3">
                 <!-- *** MENUS AND FILTERS ***
 _________________________________________________________ -->
-                <div class="panel panel-default sidebar-menu">
+                    <div class="panel panel-default sidebar-menu">
 
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Categories</h3>
-                    </div>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Categories</h3>
+                        </div>
 
-                    <div class="panel-body">
-                        <ul class="nav nav-pills nav-stacked category-menu">
-                            <li>
-                                <a href="#">All Categories </a>
-                            </li>
-                            <li>
-                                <a href="#" id="2" onclick="selectCategori(this)">Adat  </a>
-                            </li>
-                            <li>
-                                <a href="#" id="3" onclick="selectCategori(this)">Tari  </a>
-                            </li>
-                            <li>
-                                <a href="#" id="4" onclick="selectCategori(this)">Juang  </a>
-                            </li>
-                            <li>
-                                <a href="#" id="5" onclick="selectCategori(this)">Absensi  </a>
-                            </li>
-                        </ul>
-                        <script>
-                            function selectCategori(data){
-                                var id = data.getAttribute('id');
-                                console.log(id)
-                            }
-                        </script>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked category-menu">
+                                <li>
+                                    <a href="#">All Categories </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="2" onclick="selectCategori(this)">Adat  </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="3" onclick="selectCategori(this)">Tari  </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="4" onclick="selectCategori(this)">Juang  </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="5" onclick="selectCategori(this)">Absensi  </a>
+                                </li>
+                            </ul>
+                            <script>
+                                function selectCategori(data){
+                                    var id = data.getAttribute('id');
+                                    console.log(id)
+                                }
+                            </script>
+                        </div>
                     </div>
-                </div>
 
             </div>
 
@@ -201,6 +198,7 @@ _________________________________________________________ -->
                         <form role="form" action="{{ route('review.store') }}" method="post">
                             @csrf
                             <input value="{{ $product['id'] }}" hidden="hidden" name="product_id">
+                            <input type="hidden" value="{{$product->shop_id}}" name="shop_id">
                             <div>
                             <span class="star-cb-group">
                               <input type="radio" id="rating-5" name="rating" value="5" />

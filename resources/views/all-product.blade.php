@@ -16,13 +16,96 @@
                     </li>
                     <li>All Categories</li>
                 </ul>
+            </div>
 
-                @if(sizeof($product) != 0)
+            <div class="col-md-3">
+                <!-- *** MENUS AND FILTERS ***
+_________________________________________________________ -->
+
+                <div class="panel panel-default sidebar-menu">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Lokasi</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked category-menu">
+                            <form method="post" action="{{ route('filter') }}">
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Bangkalan
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Banyuwangi
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Blitar
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Bojonegoro
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Bondowoso"> Bondowoso
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Gresik"> Gresik
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Jember"> Jember
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Jombang"> Jombang
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Malang"> Magetan
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Malang"> Malang
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Mojokerto"> Mojokerto
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Ngawi"> Ngawi
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Pasuruan"> Pasuruan
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Probolinggo"> Probolinggo
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="SBY"> Surabaya
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="kota[]" value="Sidoarjo"> Sidoarjo
+                                </li>
+
+                                <br>
+                                <button type="submit" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                            </form>
+                            <script>
+                                function selectCategori(data){
+                                    var id = data.getAttribute('id');
+                                    console.log(id)
+                                }
+                            </script>
+                        </ul>
+                        </form>
+                    </div>
+                </div>
+                <!-- *** MENUS AND FILTERS END *** -->
+            </div>
+
+            @if(sizeof($product) != 0)
+                <div class="col-md-9">
                     <div class="box info-bar">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 products-showing">
                             </div>
-
                             <div class="col-sm-12 col-md-8  products-number-sort">
                                 <div class="row">
                                     <form class="form-inline">
@@ -33,7 +116,7 @@
                                                 @for($i=0; $i< sizeof($arr); $i++)
                                                     <a href="#" id="filter-{{$i}}" class=" btn btn-default btn-sm">{{ $arr[$i] }}</a>
                                                 @endfor
-                                                products
+                                                {{--products--}}
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
@@ -44,10 +127,11 @@
                         </div>
                     </div>
 
+
                     <div class="row products" id="row-product">
                         <?php $i = 0; ?>
                         @foreach($product as $val)
-                            <div class="col-md-3 col-sm-4 product-container" id="product-container">
+                            <div class="col-md-4 col-sm-6 product-container" id="product-container">
                                 <div class="product" id="product">
                                     <div class="flip-container" style="height: 250px;">
                                         <div class="flipper">
@@ -84,7 +168,7 @@
                         @endforeach
                     </div>
                     <!-- /.products -->
-
+                </div>
                     {{ $product->links() }}
 
                 @else
@@ -97,7 +181,7 @@
                     </div>
                 @endif
 
-            </div>
+            {{--</div>--}}
             <!-- /.col-md-9 -->
 
         </div>
@@ -166,7 +250,7 @@
                             var route_detail = '/sewa-kostum/detail/'+item.id;
                             var img_detail = '/sewa-kostum/storage/app/'+item.image;
 
-                            htmlProduct += '<div class="col-md-3 col-sm-4 product-container" id="product-container">';
+                            htmlProduct += '<div class="col-md-4 col-sm-6 product-container" id="product-container">';
                             htmlProduct += '<div class="product" id="product">';
                             htmlProduct += '<div class="flip-container" style="height: 250px;">';
                                 htmlProduct += '<div class="flipper">';

@@ -25,6 +25,11 @@ Route::get('/category/{id}/{page?}/{show?}', 'HomeController@productCategory')->
 Route::get('/products/{page?}/{show?}', 'HomeController@allProduct')->name('product.all');
 Route::get('detail/{id}', 'ProductsController@detail')->name('product-detail');
 
+Route::get('/product-all', 'HomeController@products')->name('products');
+Route::post('/filter', 'HomeController@filter')->name('filter');
+Route::post('/filterCategory/{id}', 'HomeController@filter')->name('filter.category');
+
+
 Route::prefix('admin-shop')->group(function(){
     Route::get('profile', 'AdminShop\ShopsController@profile')->name('admin-shop.profile');
 
@@ -44,6 +49,8 @@ Route::prefix('admin-shop')->group(function(){
     Route::post('add-image','AdminShop\ProductsController@addImage')->name('admin-shop.add.image');
 
     Route::get('delete-product/{id}', 'AdminShop\ProductsController@deleteProduct')->name('delete-product');
+
+    Route::get('rekap','AdminShop\OrdersController@rekap')->name('admin-shop.rekap');
 
     Route::get('order', 'AdminShop\OrdersController@index')->name('admin-shop.order');
     Route::get('order/refresh', 'AdminShop\OrdersController@refresh')->name('admin-shop.refresh-order');
@@ -70,6 +77,9 @@ Route::prefix('user')->group(function(){
 
     Route::get('create-shop', 'AdminShop\ShopsController@create')->name('user.create-shop');
     Route::post('create-shop', 'AdminShop\ShopsController@store')->name('user.create-shop');
+
+    Route::get('/location/maps/{address?}/{lat?}/{lng?}/{url?}', 'AdminShop\LocationController@setMaps')->name('location.maps');
+    Route::post('/location/actionmaps', 'AdminShop\LocationController@setActionMaps')->name('location.actionmaps');
 
     Route::post('/cart/store', 'CartController@store')->name('user.cart-store');
     Route::get('/cart/destroy', 'CartController@destroy')->name('user.cart-clear');

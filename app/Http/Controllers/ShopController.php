@@ -49,7 +49,7 @@ class ShopController extends Controller
 
         return view('nyobak')
             ->with('shop',$shop)
-            ->with('star_all',$countstar)
+            ->with('countstar',$countstar)
             ->with('star',$star)
             ->with('total_value',$total_value)
             ->with('order',$order)

@@ -52,6 +52,31 @@
 
     <link rel="stylesheet" href="{{asset('public/css/rating.css')}}">
 
+
+    {{--Table--}}
+{{--    <link href="{{asset('public/table/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">--}}
+
+    <!-- MetisMenu CSS -->
+    <link href="{{asset('public/table/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="{{asset('public/table/vendor/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{{asset('public/table/vendor/datatables-responsive/dataTables.responsive.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{asset('public/table/dist/css/sb-admin-2.css')}}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{asset('public/table/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    {{--End of Table--}}
+
+
     <style>
         .fstElement{
             width: 100%;
@@ -187,7 +212,7 @@ _________________________________________________________ -->
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <ul>
-                                            <li><a href="{{ route('product.all') }}">All Categories</a></li>
+                                            <li><a href="{{ route('products') }}">All Categories</a></li>
                                             @foreach($kategoris as $categories)
                                                 <li>
                                                     <a href="{{url('category',[$categories->id])}}">{{$categories->name}}</a>
@@ -221,8 +246,8 @@ _________________________________________________________ -->
                     },1000)
                 </script>
                 {{--<button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">--}}
-                    {{--<span class="sr-only">Toggle search</span>--}}
-                    {{--<i class="fa fa-search"></i>--}}
+                {{--<span class="sr-only">Toggle search</span>--}}
+                {{--<i class="fa fa-search"></i>--}}
                 {{--</button>--}}
             </div>
 
@@ -399,15 +424,44 @@ _________________________________________________________ -->
 </div>
 <!-- *** COPYRIGHT END *** -->
 
+{{--Table--}}
+
+<!-- jQuery -->
+{{--<script src="{{asset('public/table/vendor/jquery/jquery.min.js')}}"></script>--}}
+
+<!-- Bootstrap Core JavaScript -->
+{{--<script src="{{asset('public/table/vendor/bootstrap/js/bootstrap.min.js')}}"></script>--}}
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{{asset('public/table/vendor/metisMenu/metisMenu.min.js')}}"></script>
+
+<!-- DataTables JavaScript -->
+<script src="{{asset('public/table/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('public/table/vendor/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('public/table/vendor/datatables-responsive/dataTables.responsive.js')}}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{{asset('public/table/dist/js/sb-admin-2.js')}}"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+</script>
+
+{{--End of Table--}}
+
+
+
+
 <script src="js/rating.js"></script>
-
-@yield('custom_js')
-
-</div>
 <!-- /#all -->
 
 
-
+@yield('custom_js')
 
 
 </body>

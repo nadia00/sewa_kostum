@@ -12,9 +12,12 @@ class Shop extends Model
     protected $fillable = [
         'name',
         'user_id',
-        'country',
-        'city',
-        'street',
+//        'country',
+//        'city',
+//        'street',
+        'location_address',
+        'location_lat',
+        'location_lng',
         'description',
         'image',
         'phone',
@@ -39,6 +42,9 @@ class Shop extends Model
 
     public function order(){
         return $this->hasMany('App\Order');
+    }
+    public function shopLocation(){
+        return $this->hasOne('App\ShopLocation');
     }
 
     public function cartStorage()

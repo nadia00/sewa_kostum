@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use App\Shop;
 use App\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -85,6 +86,39 @@ class HomeController extends Controller
                 ->with('count',$count);
         }
     }
+    public function filterCategory($id_category, Request $request){
+        $ctg = Category::all()->where('id','=',$id_category)->first();
+//        $productCtg = ProductCategory::where('category_id','=',$ctg->id);
+
+        $shopsArr = array();
+        $kotaArr = array();
+        foreach ($request->kota as $kota){
+            $shops = DB::table('shops')
+                ->where('location_address', 'like', '%'.$kota.'%')
+                ->get();
+
+            array_push($kotaArr, $kota);
+
+            foreach ($shops as $shop){
+                array_push($shopsArr, $shop);
+            }
+        }
+        $idShop = array();
+        foreach ($shopsArr as $item){
+            array_push($idShop, $item->id);
+        }
+
+        $products = DB::table('products as p')
+            ->join('product_categories as pc','pc.product_id','=','p.id')
+            ->whereIn('shop_id', $idShop)
+            ->whereIn('category_id',$ctg->id)
+            ->get();
+
+
+        return view('product.product')
+            ->with('products',$products)
+            ->with('kota',$kotaArr);
+    }
 
 
     public function allProduct(Request $req, $page = 1, $show = 0){
@@ -106,14 +140,49 @@ class HomeController extends Controller
             return view('all-product')
                 ->with('product',$product)
                 ->with('count',$count);
-//                ->with('reviews', $reviews);
         }
         else{
             $product = Product::paginate($req->show);
             return view('all-product')
                 ->with('product',$product)
                 ->with('count',$count);
-//                ->with('reviews', $reviews);
         }
     }
+
+    public function filter(Request $request){
+        $shopsArr = array();
+        $kotaArr = array();
+        foreach ($request->kota as $kota){
+            $shops = DB::table('shops')
+                ->where('location_address', 'like', '%'.$kota.'%')
+                ->get();
+
+            array_push($kotaArr, $kota);
+
+            foreach ($shops as $shop){
+                array_push($shopsArr, $shop);
+            }
+        }
+        $idShop = array();
+        foreach ($shopsArr as $item){
+            array_push($idShop, $item->id);
+        }
+
+        $products = DB::table('products')
+            ->whereIn('shop_id', $idShop)
+            ->get();
+
+
+        return view('product.product')
+            ->with('products',$products)
+            ->with('kota',$kotaArr);
+    }
+
+
+    public function products(){
+        $products = Product::all();
+        return view('product.product')
+            ->with('products',$products);
+    }
+
 }

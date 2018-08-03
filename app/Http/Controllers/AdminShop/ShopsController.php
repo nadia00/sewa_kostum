@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class ShopsController extends Controller
 {
+
     public function create(){
         $users = User::select('email')
             ->where('id', Auth::user()->id)->first();
@@ -25,9 +26,11 @@ class ShopsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'country' => 'required',
-            'city' => 'required',
-            'street' => 'required',
+//            'country' => 'required',
+//            'city' => 'required',
+            'location_address' => 'required',
+            'location_lat'=>'required',
+            'location_lng'=>'required',
             'description' => 'required',
             'phone' => 'required',
             'photo' => 'image'
@@ -116,4 +119,7 @@ class ShopsController extends Controller
                 'deposit'=>$request->deposit,
             ]);
     }
+
+
+
 }

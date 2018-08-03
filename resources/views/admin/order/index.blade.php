@@ -31,6 +31,9 @@ _________________________________________________________ -->
                                 <a href="{{route('admin-shop.order')}}}}"><i class="fa fa-th-list"></i> Penyewaan</a>
                             </li>
                             <li>
+                                <a href="{{route('admin-shop.rekap')}}}}"><i class="fa fa-table"></i> Rekap Sewa</a>
+                            </li>
+                            <li>
                                 <a href="{{route('admin-shop.add-product')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
                             </li>
                             <li>
@@ -183,6 +186,7 @@ _________________________________________________________ -->
                                                                                     $datetime1 = new DateTime(date("Y-m-d",strtotime($pro->first_date))) ;
                                                                                     $datetime2 = new DateTime();
                                                                                     $interval = $datetime1->diff($datetime2);
+//                                                                                    dd($datetime2);
                                                                                     if ($datetime1 > $datetime2)
                                                                                         $diff = 0;
                                                                                     else
@@ -222,7 +226,7 @@ _________________________________________________________ -->
                                                     </script>
                                                 </td>
                                                 <td colspan="3">
-                                                    <table class="table table-bordered table-sm" style="width: 65%">
+                                                    <table class="table table-bordered table-sm">
                                                         <tr>
                                                             <td style="width: 20%">Gambar</td>
                                                             <td>Nama kostum</td>

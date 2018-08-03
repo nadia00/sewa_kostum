@@ -47,6 +47,17 @@ class OrdersController extends Controller
             ->with('done',$done);
     }
 
+    public function rekap(){
+        $user = Auth::user()->id;
+        $shop = Shop::all()->where("user_id",'=',$user)->first();
+        $orders = Order::all()->where("shop_id",'=',$shop->id);
+
+
+
+        return view('admin.order.rekap')
+            ->with('orders',$orders);
+    }
+
     public function refresh(Request $request){
         $fine = new FineController();
         if($request->status == 4 && !empty($request->type_id)){

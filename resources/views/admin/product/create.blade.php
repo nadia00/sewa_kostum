@@ -30,6 +30,9 @@ _________________________________________________________ -->
                             <li>
                                 <a href="{{route('admin-shop.order')}}"><i class="fa fa-th-list"></i> Penyewaan</a>
                             </li>
+                            <li>
+                                <a href="{{route('admin-shop.rekap')}}}}"><i class="fa fa-table"></i> Rekap Sewa</a>
+                            </li>
                             <li  class="active">
                                 <a href="{{route('admin-shop.add-product')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
                             </li>
@@ -144,14 +147,14 @@ _________________________________________________________ -->
 
                                 <div class="row">
                                     @foreach($sizes as $size)
-                                        <div class="form-group col-sm-6">
+                                        <div class="form-group col-sm-12">
                                             <input type="checkbox" id="checkbox-{{$size->id}}" name="size[]" value="{{$size->id}}" autocomplete="off" onchange="setData(this)" />
                                             <div class="btn-group">
                                                 <label for="checkbox-{{$size->id}}" class="btn btn-default">
                                                     <span><i class="fa fa-check"></i></span>
                                                     <span> </span>
                                                 </label>
-                                                <label for="checkbox-{{$size->id}}" class="btn btn-default active">
+                                                <label for="checkbox-{{$size->id}}" class="btn btn-default active" style="width: 100px">
                                                     {{$size->name}}
                                                 </label>
                                             </div>
