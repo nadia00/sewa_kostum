@@ -30,24 +30,21 @@
                         <div class="panel-body">
 
                             <ul class="nav nav-pills nav-stacked category-menu">
-                                <form method="post" action="{{ route('filter.category',[$ctg->id]) }}">
+                                <form method="get" action="{{ route('filter.category',[$ctg->id]) }}">
                                     <li>
-                                        <input type="checkbox" name="kota[]" value="Bojonegoro"> Bangkalan
+                                        <input type="checkbox" name="kota[]" value="Bangkalan"> Bangkalan
                                     </li>
                                     <li>
-                                        <input type="checkbox" name="kota[]" value="Bojonegoro"> Banyuwangi
+                                        <input type="checkbox" name="kota[]" value="Banyuwangi"> Banyuwangi
                                     </li>
                                     <li>
-                                        <input type="checkbox" name="kota[]" value="Bojonegoro"> Blitar
+                                        <input type="checkbox" name="kota[]" value="Blitar"> Blitar
                                     </li>
                                     <li>
                                         <input type="checkbox" name="kota[]" value="Bojonegoro"> Bojonegoro
                                     </li>
                                     <li>
                                         <input type="checkbox" name="kota[]" value="Bondowoso"> Bondowoso
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
                                     </li>
                                     <li>
                                         <input type="checkbox" name="kota[]" value="Gresik"> Gresik
@@ -59,29 +56,13 @@
                                         <input type="checkbox" name="kota[]" value="Jombang"> Jombang
                                     </li>
                                     <li>
-                                        <input type="checkbox" name="kota[]" value="Malang"> Magetan
+                                        <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
                                     </li>
                                     <li>
-                                        <input type="checkbox" name="kota[]" value="Malang"> Malang
+                                        <input type="checkbox" name="kota[]" value="Lumajang"> Lumajang
                                     </li>
-                                    <li>
-                                        <input type="checkbox" name="kota[]" value="Mojokerto"> Mojokerto
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="kota[]" value="Ngawi"> Ngawi
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="kota[]" value="Pasuruan"> Pasuruan
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="kota[]" value="Probolinggo"> Probolinggo
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="kota[]" value="SBY"> Surabaya
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="kota[]" value="Sidoarjo"> Sidoarjo
-                                    </li>
+
+                                    <li><a href="#" data-toggle="modal" data-target="#lokasi-modal">Lihat semua lokasi</a></li>
 
                                     <br>
                                     <button type="submit" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
@@ -100,32 +81,10 @@
                 </div>
 
 
+
+
                 @if(sizeof($product) != 0)
                     <div class="col-md-9">
-                        <div class="box info-bar">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4 products-showing">
-                                </div>
-                                <div class="col-sm-12 col-md-8  products-number-sort">
-                                    <div class="row">
-                                        <form class="form-inline">
-                                            <div class="col-md-6 col-sm-6">
-                                                <div class="products-number">
-                                                    <strong>Show</strong>
-                                                    <?php $arr = array('8','12','24',$count) ?>
-                                                    @for($i=0; $i< sizeof($arr); $i++)
-                                                        <a href="#" id="filter-{{$i}}" class=" btn btn-default btn-sm">{{ $arr[$i] }}</a>
-                                                    @endfor
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row products" id="row-product">
                             <?php $i = 0; ?>
                             @foreach($product as $val)

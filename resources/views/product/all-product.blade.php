@@ -31,24 +31,21 @@ _________________________________________________________ -->
                     <div class="panel-body">
 
                         <ul class="nav nav-pills nav-stacked category-menu">
-                            <form method="post" action="{{ route('filter') }}">
+                            <form method="get" action="{{ route('filter') }}">
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Bangkalan
+                                    <input type="checkbox" name="kota[]" value="Bangkalan"> Bangkalan
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Banyuwangi
+                                    <input type="checkbox" name="kota[]" value="Banyuwangi"> Banyuwangi
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Blitar
+                                    <input type="checkbox" name="kota[]" value="Blitar"> Blitar
                                 </li>
                                 <li>
                                     <input type="checkbox" name="kota[]" value="Bojonegoro"> Bojonegoro
                                 </li>
                                 <li>
                                     <input type="checkbox" name="kota[]" value="Bondowoso"> Bondowoso
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
                                 </li>
                                 <li>
                                     <input type="checkbox" name="kota[]" value="Gresik"> Gresik
@@ -60,29 +57,13 @@ _________________________________________________________ -->
                                     <input type="checkbox" name="kota[]" value="Jombang"> Jombang
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Malang"> Magetan
+                                    <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Malang"> Malang
+                                    <input type="checkbox" name="kota[]" value="Lumajang"> Lumajang
                                 </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Mojokerto"> Mojokerto
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Ngawi"> Ngawi
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Pasuruan"> Pasuruan
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Probolinggo"> Probolinggo
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="SBY"> Surabaya
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Sidoarjo"> Sidoarjo
-                                </li>
+
+                                <li><a href="#" data-toggle="modal" data-target="#lokasi-modal">Lihat semua lokasi</a></li>
 
                                 <br>
                                 <button type="submit" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
@@ -95,91 +76,66 @@ _________________________________________________________ -->
                             </script>
                         </ul>
                         </form>
+
                     </div>
                 </div>
                 <!-- *** MENUS AND FILTERS END *** -->
             </div>
 
             @if(sizeof($product) != 0)
-                <div class="col-md-9">
-                    <div class="box info-bar">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-4 products-showing">
-                            </div>
-                            <div class="col-sm-12 col-md-8  products-number-sort">
-                                <div class="row">
-                                    <form class="form-inline">
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="products-number">
-                                                <strong>Show</strong>
-                                                <?php $arr = array('8','12','24',$count) ?>
-                                                @for($i=0; $i< sizeof($arr); $i++)
-                                                    <a href="#" id="filter-{{$i}}" class=" btn btn-default btn-sm">{{ $arr[$i] }}</a>
-                                                @endfor
-                                                {{--products--}}
-                                            </div>
+            <div class="col-md-9">
+                <div class="row products" id="row-product">
+                    <?php $i = 0; ?>
+                    @foreach($product as $val)
+                        <div class="col-md-4 col-sm-6 product-container" id="product-container">
+                            <div class="product" id="product">
+                                <div class="flip-container" style="height: 250px;">
+                                    <div class="flipper">
+                                        <div class="front" style="height: 250px;padding: 10px;">
+                                            <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
+                                                <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                            </a>
                                         </div>
-                                        <div class="col-md-6 col-sm-6">
+                                        <div class="back" style="height: 250px;padding: 10px;">
+                                            <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
+                                                <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
+                                            </a>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
+                                <a href="{{ route('product-detail', ['id'=>$val->id]) }}" class="invisible">
+                                    {{--<img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">--}}
+                                </a>
+                                <div class="text">
+                                    <h3><a href="{{ route('product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
+
+
+                                    <p class="buttons">
+                                        <a href="{{ route('product-detail', ['id'=>$val->id]) }}" class="btn btn-default"> View detail</a>
+                                        {{--<a href="#" class="btn btn-primary" onclick="addToCart()"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}}
+                                    </p>
+                                </div>
+
+                                <!-- /.text -->
                             </div>
+                            <!-- /.product -->
                         </div>
-                    </div>
-
-
-                    <div class="row products" id="row-product">
-                        <?php $i = 0; ?>
-                        @foreach($product as $val)
-                            <div class="col-md-4 col-sm-6 product-container" id="product-container">
-                                <div class="product" id="product">
-                                    <div class="flip-container" style="height: 250px;">
-                                        <div class="flipper">
-                                            <div class="front" style="height: 250px;padding: 10px;">
-                                                <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
-                                                    <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
-                                                </a>
-                                            </div>
-                                            <div class="back" style="height: 250px;padding: 10px;">
-                                                <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
-                                                    <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="{{ route('product-detail', ['id'=>$val->id]) }}" class="invisible">
-                                        {{--<img src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">--}}
-                                    </a>
-                                    <div class="text">
-                                        <h3><a href="{{ route('product-detail', ['id'=>$val->id]) }}">{{$val->name}}</a></h3>
-
-
-                                        <p class="buttons">
-                                            <a href="{{ route('product-detail', ['id'=>$val->id]) }}" class="btn btn-default"> View detail</a>
-                                            {{--<a href="#" class="btn btn-primary" onclick="addToCart()"><i class="fa fa-shopping-cart"></i>Add to cart</a>--}}
-                                        </p>
-                                    </div>
-
-                                    <!-- /.text -->
-                                </div>
-                                <!-- /.product -->
-                            </div>
-                        <?php $i++; ?>
-                        @endforeach
-                    </div>
-                    <!-- /.products -->
+                    <?php $i++; ?>
+                    @endforeach
                 </div>
-                    {{ $product->links() }}
+                <!-- /.products -->
+            </div>
+                {{ $product->links() }}
 
-                @else
-                    <div class="box info-bar">
-                        <div class="row">
-                            <div class="col-sm-12 products-showing text-center">
-                                Tidak ada kostum
-                            </div>
+            @else
+                <div class="box info-bar">
+                    <div class="row">
+                        <div class="col-sm-12 products-showing text-center">
+                            Tidak ada kostum
                         </div>
                     </div>
-                @endif
+                </div>
+            @endif
 
             {{--</div>--}}
             <!-- /.col-md-9 -->
@@ -188,6 +144,140 @@ _________________________________________________________ -->
         <!-- /.container -->
     </div>
     <!-- /#content -->
+
+    <div class="modal fade" id="lokasi-modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="width: 600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Lokasi</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <form method="post" action="{{ route('filter') }}">
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Bangkalan"> Bangkalan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Banyuwangi"> Banyuwangi
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Blitar"> Blitar
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Bojonegoro
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Bondowoso"> Bondowoso
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Gresik"> Gresik
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Jember"> Jember
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Jombang"> Jombang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Lumajang"> Lumajang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Madiun"> Madiun
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Magetan"> Magetan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Malang"> Malang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Mojokerto"> Mojokerto
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Nganjuk"> Nganjuk
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Ngawi"> Ngawi
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Pacitan"> Pacitan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Pamekasan"> Pamekasan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Pasuruan"> Pasuruan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Ponorogo"> Ponorogo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Probolinggo"> Probolinggo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Sampang"> Sampang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Sidoarjo"> Sidoarjo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Situbondo"> Situbondo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Sumenep"> Sumenep
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Trenggalek"> Trenggalek
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Tuban"> Tuban
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Tulungagung"> Tulungagung
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Batu"> Kota Batu
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Blitar"> Kota Blitar
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Kediri"> Kota Kediri
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Madiun"> Kota Madiun
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Malang"> Kota Malang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Mojokerto"> Kota Mojokerto
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Pasuruan"> Kota Pasuruan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Probolinggo"> Kota Probolinggo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Surabaya"> Kota Surabaya
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 

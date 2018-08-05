@@ -28,10 +28,10 @@ _________________________________________________________ -->
 
                         <ul class="nav nav-pills nav-stacked">
                             <li>
-                                <a href="{{route('admin-shop.order')}}}}"><i class="fa fa-th-list"></i> Penyewaan</a>
+                                <a href="{{route('admin-shop.order')}}"><i class="fa fa-th-list"></i> Penyewaan</a>
                             </li>
                             <li  class="active">
-                                <a href="{{route('admin-shop.rekap')}}}}"><i class="fa fa-table"></i> Rekap Sewa</a>
+                                <a href="{{route('admin-shop.rekap')}}"><i class="fa fa-table"></i> Rekap Sewa</a>
                             </li>
                             <li>
                                 <a href="{{route('admin-shop.add-product')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
@@ -76,57 +76,77 @@ _________________________________________________________ -->
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
+                                <div class="row">
+                                    <div id="user" class="form-group col-lg-4 col-sm-4">
+                                        <select id="month" class="form-control">
+                                            <option value="">- Pilih -</option>
+                                            <option value="{{date("m", strtotime('-1 month'))}}">1 Bulan</option>
+                                            <option value="{{date("m",strtotime('-3 month'))}}">3 Bulan</option>
+                                            <option value="{{date("m",strtotime('-6 month'))}}">6 Bulan</option>
+                                        </select>
+                                        {{--{{date("m")}}--}}
+                                    </div>
+                                </div>
                                 @if(sizeof($orders) != 0)
-                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                    <tr>
-                                        <th>Penyewa</th>
-                                        <th>Kostum</th>
-                                        <th>Ukuran</th>
-                                        <th>Jumlah</th>
-                                        <th>Tgl Sewa</th>
-                                        <th>Harga</th>
-                                        <th>Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($orders as $order)
-                                            <?php
-                                                if($order->status == 0)
-                                                    $name = "New";
-                                                elseif ($order->status == 1)
-                                                    $name = "Confirm";
-                                                elseif ($order->status == 2)
-                                                    $name = "Sending";
-                                                elseif ($order->status == 3)
-                                                    $name = "Rented";
-                                                elseif ($order->status == 4)
-                                                    $name = "Return";
-                                                elseif ($order->status == 5)
-                                                    $name = "Done";
-                                            ?>
-                                            <tr class="odd gradeX">
-                                                <td>{{$order->user->first_name}} {{$order->user->last_name}}</td>
-                                                <td colspan="6">
-                                                    <table>
-                                                        <tbody>
-                                                            @foreach($order->orderProducts as $order_detail)
-                                                                <tr>
-                                                                    <td>{{$order_detail->product->product->name}}</td>
-                                                                    <td>{{$order_detail->product->size->name}}</td>
-                                                                    <td class="center">{{$order_detail->quantity}}</td>
-                                                                    <td>{{$order->first_date}}</td>
-                                                                    <td class="center">{{$name}}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
+                                    <table class="table table-bordered" id="table">
+                                        <thead>
+                                        <tr>
+                                            <td>Tanggal Sewa</td>
+                                            <td>Penyewa</td>
+                                            <td>Denda</td>
+                                            <td>Detail</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach( $orders as $order)
+                                            <tr>
+                                                <td>
+                                                    {{date('D,d M Y',strtotime($order->created_at))}}
+                                                </td>
+                                                <td>{{$order->user->first_name}}</td>
+                                                <td  >@if(sizeof($order->fine) != 0 ){{$order->fine->total}}@else - @endif</td>
+                                                <td>
+                                                    @foreach($order->orderProducts as $op)
+                                                        <div class="container-fluid row">
+                                                            <div class="col-lg-3 col-md-4">
+                                                                <div class="row center-block">
+                                                                    <img style="max-width: 100px; max-height: 200px" class="img img-responsive" src="{{url('/').Storage::disk('local')->url("app/".$op->product->product->image)}}">
+                                                                </div>
+                                                                <div class="row text-center">
+                                                                    {{$op->product->product->name}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-4">
+                                                                <div class="row">
+                                                                    Peminjaman :<br>{{$order->first_date}}
+                                                                </div>
+                                                                <div class="row">
+                                                                    Pengembalian :<br>{{$order->date_return}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-4">qty : {{$op->quantity}}</div>
+                                                            <div class="col-lg-2 col-md-4 text-center">
+                                                                @if($order->status == 0)
+                                                                    <div class="label label-info">New</div>
+                                                                @elseif($order->status == 1)
+                                                                    <div class="label label-danger">Confirm</div>
+                                                                @elseif($order->status == 2)
+                                                                    <div class="label label-warning">Sending</div>
+                                                                @elseif($order->status == 3)
+                                                                    <div class="label label-success">Rented</div>
+                                                                @elseif($order->status == 4)
+                                                                    <div class="label label-primary">Return</div>
+                                                                @elseif($order->status == 5)
+                                                                    <div class="label label-default">Done</div>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    </tbody>
-                                </table>
-                                <!-- /.table-responsive -->
+                                        </tbody>
+                                    </table>
                                 @else
                                     <p style="text-align: center">Tidak ada riwayat penyewaan.</p>
                                 @endif
@@ -139,9 +159,29 @@ _________________________________________________________ -->
                 </div>
 
             </div>
-
-
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            table = $("#table").DataTable({
+                ordering:false,
+            });
+            $('#month').change( function() {
+                table.draw();
+            } );
+            $.fn.dataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                    let date = new Date(data[0]);
+                    let month = parseInt( $("#month").val());
+                    let dat = parseInt( date.getMonth() );
+                    console.log("select : "+dat);
+                    console.log("this : "+month);
+                    return (isNaN(month)) ||
+                        dat >= month;
 
+                }
+            );
+
+        });
+    </script>
 @endsection

@@ -51,9 +51,6 @@ class OrdersController extends Controller
         $user = Auth::user()->id;
         $shop = Shop::all()->where("user_id",'=',$user)->first();
         $orders = Order::all()->where("shop_id",'=',$shop->id);
-
-
-
         return view('admin.order.rekap')
             ->with('orders',$orders);
     }

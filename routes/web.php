@@ -26,8 +26,8 @@ Route::get('/products/{page?}/{show?}', 'HomeController@allProduct')->name('prod
 Route::get('detail/{id}', 'ProductsController@detail')->name('product-detail');
 
 //Route::get('/product-all', 'HomeController@products')->name('products');
-Route::post('/filter', 'HomeController@filter')->name('filter');
-Route::post('/filterCategory/{id}', 'HomeController@filter')->name('filter.category');
+Route::get('/filter', 'HomeController@filter')->name('filter');
+Route::get('/filterCategory/{id}', 'HomeController@filterCategory')->name('filter.category');
 
 
 Route::prefix('admin-shop')->group(function(){

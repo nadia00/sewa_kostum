@@ -25,24 +25,21 @@ _________________________________________________________ -->
                     <div class="panel-body">
 
                         <ul class="nav nav-pills nav-stacked category-menu">
-                            <form method="post" action="{{ route('filter') }}">
+                            <form method="get" action="{{ route('filter') }}">
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Bangkalan
+                                    <input type="checkbox" name="kota[]" value="Bangkalan"> Bangkalan
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Banyuwangi
+                                    <input type="checkbox" name="kota[]" value="Banyuwangi"> Banyuwangi
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Blitar
+                                    <input type="checkbox" name="kota[]" value="Blitar"> Blitar
                                 </li>
                                 <li>
                                     <input type="checkbox" name="kota[]" value="Bojonegoro"> Bojonegoro
                                 </li>
                                 <li>
                                     <input type="checkbox" name="kota[]" value="Bondowoso"> Bondowoso
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
                                 </li>
                                 <li>
                                     <input type="checkbox" name="kota[]" value="Gresik"> Gresik
@@ -54,29 +51,13 @@ _________________________________________________________ -->
                                     <input type="checkbox" name="kota[]" value="Jombang"> Jombang
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Malang"> Magetan
+                                    <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="kota[]" value="Malang"> Malang
+                                    <input type="checkbox" name="kota[]" value="Lumajang"> Lumajang
                                 </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Mojokerto"> Mojokerto
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Ngawi"> Ngawi
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Pasuruan"> Pasuruan
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Probolinggo"> Probolinggo
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="SBY"> Surabaya
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="kota[]" value="Sidoarjo"> Sidoarjo
-                                </li>
+
+                                <li><a href="#" data-toggle="modal" data-target="#lokasi-modal">Lihat semua lokasi</a></li>
 
                                 <br>
                                 <button type="submit" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
@@ -130,6 +111,7 @@ _________________________________________________________ -->
                         </div>
                     @endforeach
                 </div>
+                {{ $products->links() }}
             @else
                 <div class="col-md-9">
                     <div class="panel col-lg-12">
@@ -144,10 +126,28 @@ _________________________________________________________ -->
 @endsection
 
 <script>
-        var array  = <?php echo json_encode(@$kota); ?>;
-        array.forEach(function (element) {
-            var list = document.querySelectorAll( 'input[type=checkbox]' );
-            console.log(list);
+    var hash = getUrlVars();
+    var host = window.location.hostname;
+    var path = window.location.pathname;
 
-        });
+    var data  = <?php echo json_encode(@$req); ?>;
+    console.log(data);
+
+    var array  = <?php echo json_encode(@$kota); ?>;
+    array.forEach(function (element) {
+        var list = document.querySelectorAll( 'input[type=checkbox]' );
+        console.log(list);
+
+    });
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?')+1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
 </script>

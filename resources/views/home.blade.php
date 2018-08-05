@@ -57,14 +57,14 @@
                                 @endif
                                 <div class="item">
                                     <div class="product">
-                                        <div class="flip-container" style="height: 250px;">
+                                        <div class="flip-container" style="height: 200px;">
                                             <div class="flipper">
-                                                <div class="front" style="height: 250px;padding: 10px;">
+                                                <div class="front" style="height: 200px;padding: 10px;">
                                                     <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
                                                         <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>
                                                 </div>
-                                                <div class="back" style="height: 250px;padding: 10px;">
+                                                <div class="back" style="height: 200px;padding: 10px;">
                                                     <a href="{{ route('product-detail', ['id'=>$val->id]) }}">
                                                         <img style="height: 100%; margin: 0 auto;" src="{{url('/').Storage::disk('local')->url("app/".$val->image)}}" alt="{{$val->name}}" class="img-responsive">
                                                     </a>

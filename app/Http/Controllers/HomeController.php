@@ -72,7 +72,7 @@ class HomeController extends Controller
             ]);
         }
         elseif ($req->show == 0){
-            $product = $productCtg->paginate(8);
+            $product = $productCtg->paginate(9);
             return view('product.category')
                 ->with('ctg',$ctg)
                 ->with('product',$product)
@@ -88,15 +88,21 @@ class HomeController extends Controller
     }
     public function filterCategory($id_category, Request $request){
         $ctg = Category::all()->where('id','=',$id_category)->first();
-//        $productCtg = ProductCategory::where('category_id','=',$ctg->id);
 
         $shopsArr = array();
         $kotaArr = array();
-        foreach ($request->kota as $kota){
+
+        $data = $request->kota;
+        if(@$request->kota == null){
+            $data = session('kota2');
+        }
+
+        $request->session()->put('kota2', $data);
+
+        foreach ($data as $kota){
             $shops = DB::table('shops')
                 ->where('location_address', 'like', '%'.$kota.'%')
                 ->get();
-
             array_push($kotaArr, $kota);
 
             foreach ($shops as $shop){
@@ -107,22 +113,24 @@ class HomeController extends Controller
         foreach ($shopsArr as $item){
             array_push($idShop, $item->id);
         }
-
+//        dd($shopsArr);
         $products = DB::table('products as p')
             ->join('product_categories as pc','pc.product_id','=','p.id')
+            ->join('categories as c','c.id','=','pc.category_id')
             ->whereIn('shop_id', $idShop)
-            ->whereIn('category_id',$ctg->id)
-            ->get();
-
-
+            ->where('c.id',$id_category)
+            ->paginate(9);
+//        dd($products);
         return view('product.product')
             ->with('products',$products)
+            ->with('req', $request->kota)
             ->with('kota',$kotaArr);
     }
 
 
     public function allProduct(Request $req, $page = 1, $show = 0){
         $count = Product::all()->count();
+
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
         {
             $product = Product::paginate($req->show);
@@ -136,7 +144,7 @@ class HomeController extends Controller
 //            dd($req);
         }
         if ($req->show == 0){
-            $product = Product::paginate(8);
+            $product = Product::paginate(9);
             return view('product.all-product')
                 ->with('product',$product)
                 ->with('count',$count);
@@ -152,7 +160,15 @@ class HomeController extends Controller
     public function filter(Request $request){
         $shopsArr = array();
         $kotaArr = array();
-        foreach ($request->kota as $kota){
+
+        $data = $request->kota;
+        if (@$request->kota == null){
+            $data = session('kota');
+            //dd($data);
+        }
+
+        $request->session()->put('kota', $data);
+        foreach ($data as $kota){
             $shops = DB::table('shops')
                 ->where('location_address', 'like', '%'.$kota.'%')
                 ->get();
@@ -170,11 +186,11 @@ class HomeController extends Controller
 
         $products = DB::table('products')
             ->whereIn('shop_id', $idShop)
-            ->get();
-
-
+            ->paginate(8);
+        dd($products);
         return view('product.product')
             ->with('products',$products)
+            ->with('req', $request->kota)
             ->with('kota',$kotaArr);
     }
 
