@@ -110,8 +110,8 @@ _________________________________________________________ -->
                             <!-- /.product -->
                         </div>
                     @endforeach
+                    <div class="text-center">{{ $products->links() }}</div>
                 </div>
-                {{ $products->links() }}
             @else
                 <div class="col-md-9">
                     <div class="panel col-lg-12">

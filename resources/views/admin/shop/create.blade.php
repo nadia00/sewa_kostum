@@ -49,65 +49,91 @@
 
 
                         <div class="row">
-                            <div class="form-group{{ $errors->has('location_address') ? ' has-error' : '' }}">
-                                <label for="location_address" style="margin-left: 12px" class="control-label">Address</label>
-                                <a href="{{ route('location.maps') }}" style="color:white; padding: 5px" class="badge badge-secondary control-label">get Location</a>
-
-                                <div class="col-md-12">
-                                    @if(@$_GET['address'] == null)
-                                        <?php $address = @$locations->location_address ?>
-                                    @else
-                                        <?php $address = $_GET['address'] ?>
-                                    @endif
-
-                                    <input id="location_address" type="text" class="form-control" name="location_address" value="{{ @$address }}"required>
-
-                                    @if ($errors->has('location_address'))
-                                        <span class="help-block">
-                                <strong>{{ $errors->first('location_address') }}</strong>
-                            </span>
-                                    @endif
-                                </div>
+                            <div class="col-sm-4 form-group">
+                                <input type="text" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="Indonesia" id="country-modal" required autofocus disabled>
+                                @if ($errors->has('country'))
+                                    <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('country') }}</strong>
+                                </span>
+                                @endif
                             </div>
-                            <div class="form-group{{ $errors->has('location_lat') ? ' has-error' : '' }}">
-                                <div class="col-md-12">
-                                    @if(@$_GET['lat'] == null)
-                                        <?php $lat = @$locations->location_lat ?>
-                                    @else
-                                        <?php $lat = $_GET['lat'] ?>
-                                    @endif
-
-                                    <input id="location_lat" type="text" class="form-control" name="location_lat" placeholder="location_lat" value="{{ @$lat }}"required>
-
-                                    @if ($errors->has('location_lat'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('location_lat') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                            <div class="col-sm-4 form-group">
+                                <select name="province" class="form-control">
+                                    <option value="Aceh">Aceh</option>
+                                    <option value="Bali">Bali</option>
+                                    <option value="Banten">Banten</option>
+                                    <option value="Bengkulu">Bengkulu</option>
+                                    <option value="Gorontalo">Gorontalo</option>
+                                    <option value="Jakarta">Jakarta</option>
+                                    <option value="Jambi">Jambi</option>
+                                    <option value="Jawa Barat">Jawa Barat</option>
+                                    <option value="Jawa Tengah">Jawa Tengah</option>
+                                    <option value="Jawa Timur">Jawa Timur</option>
+                                    <option value="Kalimantan Barat">Kalimantan Barat</option>
+                                    <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                                    <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                                    <option value="Kalimantan Timur">Kalimantan Timur</option>
+                                    <option value="Kalimantan Utara">Kalimantan Utara</option>
+                                </select>
                             </div>
-                            <div class="form-group{{ $errors->has('location_lng') ? ' has-error' : '' }}">
-                                <div class="col-md-12">
-                                    @if(@$_GET['lng'] == null)
-                                        <?php $lng = @$locations->location_lng ?>
-                                    @else
-                                        <?php $lng = $_GET['lng'] ?>
-                                    @endif
-
-                                    <input id="location_lng" type="text" class="form-control" name="location_lng" placeholder="location_lang" value="{{ @$lng }}"required>
-
-                                    @if ($errors->has('location_lng'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('location_lang') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                            <div class="col-sm-4 form-group">
+                                <select name="city" class="form-control">
+                                    <option value="Bangkalan">Kab. Bangkalan</option>
+                                    <option value="Banyuwangi">Kab. Banyuwangi</option>
+                                    <option value="Blitar">Kab. Blitar</option>
+                                    <option value="Bojonegoro">Kab. Bojonegoro</option>
+                                    <option value="Bondowoso">Kab. Bondowoso</option>
+                                    <option value="Gresik">Kab. Gresik</option>
+                                    <option value="Jember">Kab. Jember</option>
+                                    <option value="Jombang">Kab. Jombang</option>
+                                    <option value="Kediri">Kab. Kediri</option>
+                                    <option value="Lamongan">Kab. Lamongan</option>
+                                    <option value="Lumajang">Kab. Lumajang</option>
+                                    <option value="Madiun">Kab. Madiun</option>
+                                    <option value="Magetan">Kab. Magetan</option>
+                                    <option value="Malang">Kab. Malang</option>
+                                    <option value="Mojokerto">Kab. Mojokerto</option>
+                                    <option value="Nganjuk">Kab. Nganjuk</option>
+                                    <option value="Ngawi">Kab. Ngawi</option>
+                                    <option value="Pacitan">Kab. Pacitan</option>
+                                    <option value="Pamekasan">Kab. Pamekasan</option>
+                                    <option value="Pasuruan">Kab. Pasuruan</option>
+                                    <option value="Ponorogo">Kab. Ponorogo</option>
+                                    <option value="Probolinggo">Kab. Probolinggo</option>
+                                    <option value="Sampang">Kab. Sampang</option>
+                                    <option value="Sidoarjo">Kab. Sidoarjo</option>
+                                    <option value="Situbondo">Kab. Situbondo</option>
+                                    <option value="Sumenep">Kab. Sumenep</option>
+                                    <option value="Trenggalek">Kab. Trenggalek</option>
+                                    <option value="Tuban">Kab. Tuban</option>
+                                    <option value="Tulungagung">Kab. Tulungagung</option>
+                                    <option value="Kota Batu">Kota Batu</option>
+                                    <option value="Kota Kediri">Kota Kediri</option>
+                                    <option value="Kota Madiun">Kota Madiun</option>
+                                    <option value="Kota Malang">Kota Malang</option>
+                                    <option value="Kota Mojokerto">Kota Mojokerto</option>
+                                    <option value="Kota Pasuruan">Kota Pasuruan</option>
+                                    <option value="Kota Probolinggo">Kota Probolinggo</option>
+                                    <option value="Kota Surabaya">Kota Surabaya</option>
+                                </select>
+                                {{--<input type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}" id="city-modal" placeholder="city" required autofocus>--}}
+                                {{--@if ($errors->has('city'))--}}
+                                    {{--<span class="invalid-feedback">--}}
+                                    {{--<strong>{{ $errors->first('city') }}</strong>--}}
+                                {{--</span>--}}
+                                {{--@endif--}}
                             </div>
                         </div>
-
-
-
-
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <textarea type="text" class="form-control{{ $errors->has('street') ? ' is-invalid' : '' }}" name="street" value="{{ old('district') }}" id="street-modal" placeholder="Street" required autofocus></textarea>
+                                @if ($errors->has('street'))
+                                    <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('street') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="form-group col-sm-4">

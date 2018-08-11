@@ -24,13 +24,16 @@ class ShopsController extends Controller
 
     public function store(Request $request)
     {
+//        dd($request);
         $this->validate($request, [
             'name' => 'required|max:255',
 //            'country' => 'required',
-//            'city' => 'required',
-            'location_address' => 'required',
-            'location_lat'=>'required',
-            'location_lng'=>'required',
+            'province' => 'required',
+            'city' => 'required',
+            'street' => 'required',
+//            'location_address' => 'required',
+//            'location_lat'=>'required',
+//            'location_lng'=>'required',
             'description' => 'required',
             'phone' => 'required',
             'photo' => 'image'

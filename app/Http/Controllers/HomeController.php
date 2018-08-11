@@ -186,8 +186,8 @@ class HomeController extends Controller
 
         $products = DB::table('products')
             ->whereIn('shop_id', $idShop)
-            ->paginate(8);
-        dd($products);
+            ->paginate(9);
+//        dd($products);
         return view('product.product')
             ->with('products',$products)
             ->with('req', $request->kota)

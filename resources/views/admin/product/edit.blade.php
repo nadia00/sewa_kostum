@@ -31,7 +31,7 @@ _________________________________________________________ -->
                                 <a href="{{route('admin-shop.order')}}"><i class="fa fa-th-list"></i> Penyewaan</a>
                             </li>
                             <li>
-                                <a href="{{route('admin-shop.rekap')}}}}"><i class="fa fa-table"></i> Rekap Sewa</a>
+                                <a href="{{route('admin-shop.rekap')}}"><i class="fa fa-table"></i> Rekap Sewa</a>
                             </li>
                             <li>
                                 <a href="{{route('admin-shop.add-product')}}"><i class="fa fa-plus"></i> Tambah Kostum</a>
@@ -73,6 +73,7 @@ _________________________________________________________ -->
 
                     <h3>Product details</h3>
                     <div class="row" style="margin-bottom: 2%">
+                    @if(sizeof($product->productImages) != 0)
                     @foreach($product->productImages as $val)
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                             <div class="hovereffect">
@@ -83,7 +84,11 @@ _________________________________________________________ -->
                             </div>
                         </div>
                     @endforeach
-                    </div>
+                    @else
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                            <h5>Tidak ada gambar.</h5>
+                        </div>
+                    @endif
                     <form action="" method="post"  enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" class="form-control" name="product_id" value="{{$product->id}}">

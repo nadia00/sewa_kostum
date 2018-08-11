@@ -25,7 +25,6 @@ Route::get('/category/{id}/{page?}/{show?}', 'HomeController@productCategory')->
 Route::get('/products/{page?}/{show?}', 'HomeController@allProduct')->name('product.all');
 Route::get('detail/{id}', 'ProductsController@detail')->name('product-detail');
 
-//Route::get('/product-all', 'HomeController@products')->name('products');
 Route::get('/filter', 'HomeController@filter')->name('filter');
 Route::get('/filterCategory/{id}', 'HomeController@filterCategory')->name('filter.category');
 

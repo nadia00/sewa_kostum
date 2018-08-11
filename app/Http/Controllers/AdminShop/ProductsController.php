@@ -13,13 +13,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductsController extends Controller
 {
     public function index(){
         $shops = Shop::all()->where('user_id','=',Auth::user()->id)->first();
-        $product = Product::all()->where('shop_id','=',$shops->id)->sortBy(['desc']);
+        $product = Product::where('shop_id','=',$shops->id)
+            ->paginate(9);
+//            ->sortBy(['desc']);
+//        dd($product);
         $sizes = Size::all();
         return view('admin/product/index')
             ->with('shops',$shops)
@@ -137,6 +141,10 @@ class ProductsController extends Controller
         return redirect()->route('admin-shop.product');
     }
     public function deleteImage($id){
+        $product = DB::table('products as p')
+            ->join('product_images as ip','ip.image','=','p.image')
+            ->delete('p.image');
+
         ProductImage::where('id','=',$id)->delete();
         return redirect()->back();
     }

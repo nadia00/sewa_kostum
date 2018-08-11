@@ -122,10 +122,10 @@ _________________________________________________________ -->
                         </div>
                     <?php $i++; ?>
                     @endforeach
+                    <div class="text-center">{{ $product->links() }}</div>
                 </div>
                 <!-- /.products -->
             </div>
-                {{ $product->links() }}
 
             @else
                 <div class="box info-bar">
