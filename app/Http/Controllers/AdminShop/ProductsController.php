@@ -110,45 +110,60 @@ class ProductsController extends Controller
 
 
     public function editCreate(Request $request){
-        $shop = Shop::all()->where('user_id','=',Auth::user()->id)->first();
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'description' => 'required'
-        ]);
-//        $data = [
-//            'name'=>$request->name,
-//            'description'=>$request->description,
-//            'shop_id'=>$shop->id
-//        ];
+        $img_temp = [];
 
         Product::where('id','=',$request->product_id)
             ->update([
                 'name'=>$request->name,
                 'description'=>$request->description,
             ]);
-        ProductSize::where('product_id','=',$request->product_id)
-            ->where('product_size_id','=',productSize_id)
-            ->where('size_id','=',size_id)
-            ->update([
-                'price'=>$request->price,
-                'quantity'=>$request->quantity,
-            ]);
-//        ProductImage::created([
-//
-//        ]);
+
+        if (sizeof($request->image) > 0){
+            foreach ($request->image as $image){
+                $file = $image->store('product');
+                array_push($img_temp, $file);
+            }
+            $data['image'] = $img_temp[0];
+        }else{
+            $data['image'] = "upload/default.jpg";
+        }
+        foreach ($img_temp as $image)
+            ProductImage::create(['product_id'=>$request->product_id,'image' => $image]);
 
 
-        return redirect()->route('admin-shop.product');
+        return redirect()->back();
     }
-    public function deleteImage($id){
-        $product = DB::table('products as p')
-            ->join('product_images as ip','ip.image','=','p.image')
-            ->delete('p.image');
 
+    public function editSize(Request $request){
+        foreach ($request->update as $update){
+            ProductSize::where('product_id','=',$request->product_id)
+                ->where('id','=',$update['id'])
+                ->where('size_id','=',$update['size_id'])
+                ->update([
+                    'price'=>$update['price'],
+                    'quantity'=>$update['quantity'],
+                ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function deleteSize($id){
+        ProductSize::where('id','=',$id)->delete();
+        return redirect()->back();
+    }
+
+    public function deleteImage($id){
         ProductImage::where('id','=',$id)->delete();
         return redirect()->back();
     }
 
+    public function updatMainImage($id, $image_id){
+        $image = ProductImage::all()->where('id','=',$image_id)->first();
 
-
+        Product::where('id','=',$id)->update([
+            'image'=>$image->image
+        ]);
+        return redirect()->back();
+    }
 }

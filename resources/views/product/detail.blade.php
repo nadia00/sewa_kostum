@@ -191,9 +191,6 @@ _________________________________________________________ -->
 
                 <div class="box" id="details">
                     <h4>Add Review</h4>
-                    <div id="sudahreview">
-                        Anda sudah memberikan review. Terima kasih Review yang diberikan.
-                    </div>
                     <div id="review">
                         <form role="form" action="{{ route('review.store') }}" method="post">
                             @csrf
@@ -201,25 +198,31 @@ _________________________________________________________ -->
                             <input type="hidden" value="{{$product->shop_id}}" name="shop_id">
                             <div>
                             <span class="star-cb-group">
-                              <input type="radio" id="rating-5" name="rating" value="5" />
+                              <input type="radio" id="rating-5" name="rating" value="5" @if($review_result == 5) checked @endif />
                               <label for="rating-5">5</label>
-                              <input type="radio" id="rating-4" name="rating" value="4" checked="checked" />
+                              <input type="radio" id="rating-4" name="rating" value="4" @if($review_result == 4) checked @endif/>
                               <label for="rating-4">4</label>
-                              <input type="radio" id="rating-3" name="rating" value="3" />
+                              <input type="radio" id="rating-3" name="rating" value="3" @if($review_result == 3) checked @endif />
                               <label for="rating-3">3</label>
-                              <input type="radio" id="rating-2" name="rating" value="2" />
+                              <input type="radio" id="rating-2" name="rating" value="2" @if($review_result == 2) checked @endif/>
                               <label for="rating-2">2</label>
-                              <input type="radio" id="rating-1" name="rating" value="1" />
+                              <input type="radio" id="rating-1" name="rating" value="1" @if($review_result == 1) checked @endif />
                               <label for="rating-1">1</label>
-                              <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" />
-                              <label for="rating-0">0</label>
+                              {{--<input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" />--}}
+                              {{--<label for="rating-0">0</label>--}}
                             </span>
                             </div>
                             @if($status_order == 1)
-                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                                @if(empty($review))
+                                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                                @else
+                                    <div id="sudahreview">
+                                        Anda sudah memberikan review. Terima kasih Review yang diberikan.
+                                    </div>
+                                @endif
+
                             @else
-                                {{--<label>Anda harus Login terlebih dahulu.</label>--}}
-                                <button type="submit" class="btn btn-primary" disabled>Submit Review</button>
+                                <label>Anda harus Login terlebih dahulu.</label>
                             @endif
                         </form>
                     </div><br>
