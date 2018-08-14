@@ -71,7 +71,7 @@ _________________________________________________________ -->
                     <h1>My Product</h1>
                     <p class="lead">Change your product detail.</p>
                     <h3>Product details</h3>
-                    <div class="row" style="margin-bottom: 2%">
+                    {{--<div class="row" style="margin-bottom: 2%">--}}
                         @if(sizeof($product->productImages) != 0)
                             @foreach($product->productImages as $val)
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -146,21 +146,18 @@ _________________________________________________________ -->
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 text-center">
-                                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
-                                </div>
+                            <div class="col-sm-12 text-center" style="margin-bottom: 4%;margin-top: -2%">
+                                <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
                             </div>
                         </form>
                         <!-- /.comment -->
 
                         <form action="{{route('admin-shop.edit-size')}}" method="post"  enctype="multipart/form-data">
-                            <div class="container">
+                            <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="col-sm-8">
+                                    <table class="col-sm-7">
                                         <tr>
-                                            <td style="width: 100px;">Size</td>
+                                            <td style="width: 100px; text-align: center;"><h4>Size</h4></td>
                                             <td colspan="2">
                                                 <table class="table">
                                                     <input name="product_id" value="{{$product->id}}" type="hidden">
@@ -172,7 +169,7 @@ _________________________________________________________ -->
                                                             <input type="hidden" name="update[{{$productSize->id}}][id]" value="{{$productSize->id}}">
                                                             <input type="hidden" name="update[{{$productSize->id}}][size_id]" value="{{$productSize->size_id}}">
                                                             <tr>
-                                                                <td colspan="2"><b>{{$productSize->size->name}}</b><a href="{{route('admin-shop.del-size',['id'=>$productSize->id])}}"><i class="fa fa-trash"></i></a></td>
+                                                                <td colspan="2"><b>{{$productSize->size->name}}</b> <a href="{{route('admin-shop.del-size',['id'=>$productSize->id])}}"><i class="fa fa-trash"></i></a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Harga</td>
@@ -188,6 +185,7 @@ _________________________________________________________ -->
                                                             </tr>
                                                         @endforeach
                                                         @if(!empty($size_data))
+                                                            <tr></tr>
                                                             <tr>
                                                                 <td><button type="button" class="btn btn-primary" onclick="addSize()"><i class="fa fa-plus"></i> Add Size</button></td>
                                                             </tr>
@@ -197,10 +195,9 @@ _________________________________________________________ -->
                                             </td>
                                         </tr>
                                     </table>
-                                    <div class="row">
-                                        <div class="col-sm-12 text-center">
-                                            <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
-                                        </div>
+
+                                    <div class="col-sm-8 text-center">
+                                        <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
                                     </div>
                                 </div>
                             </div>
@@ -214,27 +211,27 @@ _________________________________________________________ -->
                                         <h4 class="modal-title" id="Login">Tambah Ukuran</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="post">
+                                        <form action="{{route('admin-shop.add-size')}}" method="post">
                                             @csrf
                                             <div class="form-group">
-                                                <select>
+                                                <select class="form-control" name="size_id">
                                                     @foreach($sizes as $val)
                                                         @if(in_array($val->id,$size_data))<option value="{{$val->id}}">{{$val->name}}</option>@endif
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <input class="hidden" name="product_id" value="{{$product->id}}">
                                             <div class="form-group">
-                                                <input class="form-control" type="number" name="price">
+                                                <input class="form-control" type="number" name="price" placeholder="Price">
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" type="number" name="quantity">
+                                                <input class="form-control" type="number" name="quantity" placeholder="Quantity">
                                             </div>
 
                                             <p class="text-center">
-                                                <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Log in</button>
+                                                <button class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
                                             </p>
                                         </form>
-                                        <p class="text-center text-muted"><a href="{{route('register')}}"><strong>Register now</strong></a>! It is easy and done in 1&nbsp;minute and gives you much more access!</p>
                                     </div>
                                 </div>
                             </div>
@@ -244,7 +241,7 @@ _________________________________________________________ -->
                                 $('#size-modal').modal("show");
                             }
                         </script>
-                    </div>
+                    {{--</div>--}}
                 </div>
             </div>
             <!-- /.container -->

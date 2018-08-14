@@ -45,6 +45,7 @@ Route::prefix('admin-shop')->group(function(){
     Route::get('edit-product/{id}', 'AdminShop\ProductsController@editIndex')->name('admin-shop.edit-product');
     Route::post('edit-product', 'AdminShop\ProductsController@editCreate')->name('admin-shop.post-edit-product');
     Route::post('edit-size', 'AdminShop\ProductsController@editSize')->name('admin-shop.edit-size');
+    Route::post('add-size', 'AdminShop\ProductsController@addSize')->name('admin-shop.add-size');
     Route::get('delete-size/{id}','AdminShop\ProductsController@deleteSize')->name('admin-shop.del-size');
     Route::get('update-main-image/{id}/{image}', 'AdminShop\ProductsController@updatMainImage')->name('admin-shop.set-image');
     Route::get('delete-image/{id}', 'AdminShop\ProductsController@deleteImage')->name('admin-shop.del-image');

@@ -148,6 +148,16 @@ class ProductsController extends Controller
         return redirect()->back();
     }
 
+    public function addSize(Request $request){
+        ProductSize::create([
+            'product_id'=>$request->product_id,
+            'size_id'=>$request->size_id,
+            'price'=>$request->price,
+            'quantity'=>$request->quantity,
+        ]);
+        return redirect()->back();
+    }
+
     public function deleteSize($id){
         ProductSize::where('id','=',$id)->delete();
         return redirect()->back();
