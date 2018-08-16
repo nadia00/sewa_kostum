@@ -155,7 +155,7 @@ _________________________________________________________ -->
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <form method="post" action="{{ route('filter') }}">
+                            <form method="get" action="{{ route('filter') }}" id="form_select">
                                 <div class="col-sm-4">
                                     <input type="checkbox" name="kota[]" value="Bangkalan"> Bangkalan
                                 </div>
@@ -273,11 +273,12 @@ _________________________________________________________ -->
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                    <button type="submit" form="form_select" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
                 </div>
             </div>
         </div>
     </div>
+
 
 @endsection
 

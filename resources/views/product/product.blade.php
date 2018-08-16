@@ -119,9 +119,143 @@ _________________________________________________________ -->
                     </div>
                 </div>
             @endif
-
         </div>
     </div>
+
+    <div class="modal fade" id="lokasi-modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="width: 600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Lokasi</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <form method="get" action="{{ route('filter') }}" id="form_select">
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Bangkalan"> Bangkalan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Banyuwangi"> Banyuwangi
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Blitar"> Blitar
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Bojonegoro"> Bojonegoro
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Bondowoso"> Bondowoso
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Gresik"> Gresik
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Jember"> Jember
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Jombang"> Jombang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Lamongan"> Lamongan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Lumajang"> Lumajang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Madiun"> Madiun
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Magetan"> Magetan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Malang"> Malang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Mojokerto"> Mojokerto
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Nganjuk"> Nganjuk
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Ngawi"> Ngawi
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Pacitan"> Pacitan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Pamekasan"> Pamekasan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Pasuruan"> Pasuruan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Ponorogo"> Ponorogo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Probolinggo"> Probolinggo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Sampang"> Sampang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Sidoarjo"> Sidoarjo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Situbondo"> Situbondo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Sumenep"> Sumenep
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Trenggalek"> Trenggalek
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Tuban"> Tuban
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Tulungagung"> Tulungagung
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Batu"> Kota Batu
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Blitar"> Kota Blitar
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Kediri"> Kota Kediri
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Madiun"> Kota Madiun
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Malang"> Kota Malang
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Mojokerto"> Kota Mojokerto
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Pasuruan"> Kota Pasuruan
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Probolinggo"> Kota Probolinggo
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="kota[]" value="Kota Surabaya"> Kota Surabaya
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" form="form_select" class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 

@@ -99,14 +99,17 @@ Route::prefix('user')->group(function(){
     Route::get('payment', 'PaymentController@index')->name('user.payment');
 
     Route::post('pay/fine', 'ReturnController@payFine')->name('user.pay-fine');
+
+    Route::get('pay-success', function () {
+        return view('success');
+    });
+    Route::get('pay-fail', function () {
+        return view('fail');
+    });
 });
 
 Route::post('storereview', 'ProductReviewController@store')->name('review.store');
 
-
-//Route::get('nyobak',function (){
-//    return view('nyobak');
-//});
 
 Route::get('shop/{id}','ShopController@viewShop')->name('viewshop');
 
